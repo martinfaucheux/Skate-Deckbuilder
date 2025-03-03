@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardsHolder: {fileID: 904309650}
-  cardSpacing: 1
+  cardSpacing: 1.5
   startHandCount: 5
   cardPrefab: {fileID: 8921600270980128828, guid: 88c030f7629ee49b2b6de14c1a04a57d, type: 3}
   cardSize: 0.5
