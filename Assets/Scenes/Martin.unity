@@ -684,7 +684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1583985034}
-  - component: {fileID: 1583985033}
+  - component: {fileID: 1583985035}
   m_Layer: 0
   m_Name: ActionPlayer
   m_TagString: Untagged
@@ -692,20 +692,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1583985033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1583985032}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad6fe603e9a64731bfd46d7fb8be6f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skaterTransform: {fileID: 1005957573}
-  speed: 3
 --- !u!4 &1583985034
 Transform:
   m_ObjectHideFlags: 0
@@ -721,6 +707,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1583985035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583985032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54477048ed7cc450b804690791fd6b91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterTransform: {fileID: 1005957573}
+  OnSequenceComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  baseSpeed: 3
 --- !u!1 &2129748314
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,9 +932,9 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 2129748317}
   - {fileID: 1583985034}
   - {fileID: 603941607}
   - {fileID: 719585111}
   - {fileID: 904309650}
   - {fileID: 1005957573}
-  - {fileID: 2129748317}
