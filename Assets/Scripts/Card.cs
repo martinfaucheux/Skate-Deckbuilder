@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    public ActionContainer actionContainer;
 
     // do stuff when clicked
     void OnMouseDown()
