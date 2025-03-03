@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HandManager : Singleton<HandManager>
 {
@@ -7,18 +9,66 @@ public class HandManager : Singleton<HandManager>
 
     public int startHandCount = 5;
     public GameObject cardPrefab;
-
     [Range(0, 1)]
     public float cardSize = 0.5f;
 
+    public List<Card> cards { get; private set; } = new List<Card>();
+
     void Start()
     {
-        float offset = -(startHandCount - 1) * cardSpacing / 2;
+        // clean existing cards
+        foreach (Transform child in cardsHolder.Cast<Transform>().ToList())
+        {
+            Destroy(child.gameObject);
+        }
+
+        cards = new List<Card>();
         for (int cardIdx = 0; cardIdx < startHandCount; cardIdx++)
         {
-            Vector3 cardPosition = transform.position + new Vector3(offset + cardIdx * cardSpacing, 0, 0);
-            GameObject card = Instantiate(cardPrefab, cardPosition, Quaternion.identity, cardsHolder);
+            GameObject card = Instantiate(cardPrefab, cardsHolder);
             card.transform.localScale = cardSize * Vector3.one;
+            cards.Add(card.GetComponent<Card>());
+        }
+
+        UpdateCardsPosition();
+    }
+
+    public bool MoveCardToHand(Card card)
+    {
+        if (cards.Contains(card) || !BoardManager.i.cards.Contains(card))
+            return false;
+
+        cards.Add(card);
+        card.transform.SetParent(cardsHolder);
+        UpdateCardsPosition();
+        BoardManager.i.RemoveCard(card);
+        return true;
+    }
+
+    public bool TryMoveCardToBoard(Card card)
+    {
+        if (
+            BoardManager.i.cards.Contains(card)
+            || !cards.Contains(card)
+            || !BoardManager.i.CanAddCard()
+        )
+            return false;
+
+        cards.Remove(card);
+        BoardManager.i.PlaceCard(card);
+        UpdateCardsPosition();
+        return true;
+    }
+
+    private void UpdateCardsPosition()
+    {
+        int cardCount = cards.Count;
+        float offset = -(cardCount - 1) * cardSpacing / 2;
+        for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
+        {
+            Card card = cards[cardIdx];
+            Vector3 cardPosition = transform.position + new Vector3(offset + cardIdx * cardSpacing, 0, 0);
+            card.transform.position = cardPosition;
         }
     }
 
