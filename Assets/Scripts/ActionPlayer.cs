@@ -7,7 +7,6 @@ public class ActionPlayer : Singleton<ActionPlayer>
     public Transform skaterTransform;
     public float speed = 3f;
     private bool _isPlaying = false;
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !_isPlaying)
@@ -27,8 +26,14 @@ public class ActionPlayer : Singleton<ActionPlayer>
         List<Vector3> path = new List<Vector3>();
         foreach (Card card in BoardManager.i.cards)
         {
-            path.Add(card.actionContainer.startTransform.position);
-            path.Add(card.actionContainer.endTransform.position);
+            Vector3 _startPosition = card.actionContainer.startTransform.position;
+            _startPosition.z = skaterTransform.position.z;
+            path.Add(_startPosition);
+
+            Vector3 _endPosition = card.actionContainer.endTransform.position;
+            _endPosition.z = skaterTransform.position.z;
+            path.Add(_endPosition);
+
         }
 
         Sequence sequence = DOTween.Sequence();
