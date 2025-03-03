@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTransform: {fileID: 8770485343118203268}
   endTransform: {fileID: 7331290347183133744}
+  qteConfig: {fileID: 11400000, guid: 6ec140b3b70ee40ed839689af9404516, type: 2}
 --- !u!1 &2976133112287437837
 GameObject:
   m_ObjectHideFlags: 0

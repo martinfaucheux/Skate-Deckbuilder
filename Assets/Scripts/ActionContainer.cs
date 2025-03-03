@@ -1,15 +1,7 @@
 using UnityEngine;
 using System;
 
-public class QTEConfig
-{
-    public int clickCount;
-    public KeyCode keyCode;
 
-    public ActionSequenceChallenge GetChallenge() => new ClickActionSequenceChallenge(
-        keyCode, clickCount
-    );
-}
 
 public class ActionContainer : MonoBehaviour
 {

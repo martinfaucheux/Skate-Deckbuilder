@@ -2,9 +2,11 @@ using UnityEngine;
 
 public abstract class ActionSequenceChallenge
 {
-    public abstract void Update();
     public virtual bool IsSuccess() => false;    // Returns true if challenge succeeded
     public virtual bool IsFailed() => false;   // Returns true if challenge failed
+    public virtual void Start() { }
+    public abstract void Update();
+    public abstract void Reset();
 }
 
 public class ClickActionSequenceChallenge : ActionSequenceChallenge
@@ -30,5 +32,5 @@ public class ClickActionSequenceChallenge : ActionSequenceChallenge
 
     public override bool IsSuccess() => _clickCount >= requiredKeyCount;
     public override bool IsFailed() => false;
-
+    public override void Reset() => _clickCount = 0;
 }

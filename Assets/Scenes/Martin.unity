@@ -723,7 +723,7 @@ MonoBehaviour:
   OnSequenceComplete:
     m_PersistentCalls:
       m_Calls: []
-  baseSpeed: 3
+  baseSpeed: 1
 --- !u!1 &2129748314
 GameObject:
   m_ObjectHideFlags: 0
