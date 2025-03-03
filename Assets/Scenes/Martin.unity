@@ -640,6 +640,7 @@ MonoBehaviour:
   actionContainerPrefabs:
   - {fileID: 339876745507128592, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
   - {fileID: 732753596931944098, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
+  - {fileID: 732753596931944098, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
   cardCount: 5
   cardSize: 0.5
 --- !u!1 &1005957572

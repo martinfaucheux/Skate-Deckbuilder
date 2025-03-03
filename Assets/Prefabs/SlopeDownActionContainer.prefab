@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7104986119490513012}
   - component: {fileID: 6506123392268107093}
   m_Layer: 0
-  m_Name: SlopeContainer
+  m_Name: SlopeDownActionContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
