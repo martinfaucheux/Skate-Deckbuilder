@@ -20,8 +20,8 @@ public class PreciseClickSequenceChallenge : ActionSequenceChallenge
 
     public override void Update()
     {
-        if (state != ActionSequenceChallengeState.Running)
-            return;
+        base.Update();
+        if (state != ActionSequenceChallengeState.Running) return;
 
         if (Input.GetKeyDown(keyCode))
         {

@@ -43,6 +43,7 @@ public class BarSequenceChallenge : ActionSequenceChallenge
 
     public override void Update()
     {
+        base.Update();
         if (state != ActionSequenceChallengeState.Running) return;
 
         // move the valid range position center

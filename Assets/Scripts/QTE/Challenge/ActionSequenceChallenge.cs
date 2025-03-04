@@ -18,7 +18,14 @@ public abstract class ActionSequenceChallenge
     public float timeSinceStart => Time.time - _startTime;
 
     // this method holds most of the logic of the challenge
-    public abstract void Update();
+    public virtual void Update()
+    {
+        if (IsForbiddenKeyPressed())
+        {
+            MarkAsFailed();
+            return;
+        }
+    }
 
     public virtual void End()
     {
@@ -61,4 +68,13 @@ public abstract class ActionSequenceChallenge
         _onFail += failedAction;
     }
 
+    private bool IsForbiddenKeyPressed()
+    {
+        foreach (KeyCode forbiddenKey in CardTypeConfiguration.i.GetAllPossibleKeys())
+        {
+            if (keyCode != forbiddenKey && Input.GetKeyDown(forbiddenKey))
+                return true;
+        }
+        return false;
+    }
 }

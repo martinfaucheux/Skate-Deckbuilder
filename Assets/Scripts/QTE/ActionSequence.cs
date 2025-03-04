@@ -38,7 +38,7 @@ public class ActionSequence
             _characterTransform.position, endPosition, deltaTime * speed
         );
 
-        if (challenge != null)
+        if (challenge != null && challenge.state == ActionSequenceChallengeState.Running)
         {
             challenge.Update();
         }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 
@@ -47,6 +49,14 @@ public class CardTypeConfiguration : Singleton<CardTypeConfiguration>
         }
     }
 
-    public static CardType GetRandomType() => (CardType)Random.Range(0, 4);
+    public static CardType GetRandomType() => (CardType)UnityEngine.Random.Range(0, 4);
+
+    public IEnumerable<KeyCode> GetAllPossibleKeys()
+    {
+        foreach (CardType type in Enum.GetValues(typeof(CardType)))
+        {
+            yield return TypeToKey(type);
+        }
+    }
 
 }
