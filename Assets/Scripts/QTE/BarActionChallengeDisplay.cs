@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BarActionChallengeDisplay : ChallengeDisplay
 {
-    private KeepBarSequenceChallenge _challenge;
+    private BarSequenceChallenge _challenge;
     public RectTransform gaugeContainer;
     public RectTransform topRedZone;
     public RectTransform bottomRedZone;
@@ -18,13 +18,18 @@ public class BarActionChallengeDisplay : ChallengeDisplay
         if (_challenge == null)
             return;
 
-        fillSlider.value = _challenge.currentValue;
-
+        UpdatePositions();
     }
 
     public override void AssignChallenge(ActionSequenceChallenge challenge)
     {
-        _challenge = (KeepBarSequenceChallenge)challenge;
+        _challenge = (BarSequenceChallenge)challenge;
+        UpdatePositions();
+
+    }
+
+    private void UpdatePositions()
+    {
 
         float bottomRatio = _challenge.validRange.x;
         bottomRedZone.sizeDelta = new Vector2(
@@ -40,4 +45,5 @@ public class BarActionChallengeDisplay : ChallengeDisplay
 
         fillSlider.value = _challenge.currentValue;
     }
+
 }

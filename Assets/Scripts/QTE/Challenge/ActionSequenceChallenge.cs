@@ -11,8 +11,10 @@ public abstract class ActionSequenceChallenge
     public ActionSequenceChallengeState state { get; private set; } = ActionSequenceChallengeState.NotStarted;
     public KeyCode keyCode { get; protected set; }
 
-    // hook used by manager to grant reward
+    // hook used by manager to grant reward or display so feedback
     private event Action _onSuccess;
+    private event Action _onFail;
+    protected float _startTime;
 
     // this method holds most of the logic of the challenge
     public abstract void Update();
@@ -27,10 +29,15 @@ public abstract class ActionSequenceChallenge
     {
         state = ActionSequenceChallengeState.NotStarted;
         _onSuccess = null;
+        _onFail = null;
         ResetValues();
     }
 
-    public void Start() => state = ActionSequenceChallengeState.Running;
+    public void Start()
+    {
+        state = ActionSequenceChallengeState.Running;
+        _startTime = Time.time;
+    }
 
     // abstract to remind to implement it for all challenges
     // reset all internal values 
@@ -44,8 +51,13 @@ public abstract class ActionSequenceChallenge
     protected void MarkAsFailed()
     {
         state = ActionSequenceChallengeState.Failed;
+        _onFail?.Invoke();
     }
 
-    public void RegisterOnSuccess(Action action) => _onSuccess += action;
+    public void RegisterOnEvents(Action succeededAction, Action failedAction)
+    {
+        _onSuccess += succeededAction;
+        _onFail += failedAction;
+    }
 
 }

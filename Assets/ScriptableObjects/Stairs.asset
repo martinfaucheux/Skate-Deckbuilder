@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Stairs
   m_EditorClassIdentifier: Assembly-CSharp::BarQTEConfig
   keyCode: 273
-  validRange: {x: 0.2, y: 0.8}
   onClickMove: 0
   clickedVelocity: 0.7
   noClickedVelocity: 0.5
+  validAmplitude: 0.6
+  rangeMovementAmplitude: 0.3
+  baseMovementPeriod: 2

@@ -25,7 +25,7 @@ public class ActionSequence
     {
         state = ActionSequenceState.Running;
         challenge?.Reset();
-        challenge?.RegisterOnSuccess(OnWinChallenge);
+        challenge?.RegisterOnEvents(OnWinChallenge, OnFailChallenge);
         challenge?.Start();
         _characterTransform.position = startPosition;
     }
@@ -52,7 +52,15 @@ public class ActionSequence
 
     private void OnWinChallenge()
     {
+        // TODO: use this hook to display some feedback
         Debug.Log("Challenge succeeded");
+    }
+
+
+    private void OnFailChallenge()
+    {
+        // TODO: use this hook to display some feedback
+        Debug.Log("Challenge failed");
     }
 
     public void Interrupt()
