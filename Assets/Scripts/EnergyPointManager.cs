@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnergyPointManager : Singleton<StylePointManager>
+public class EnergyPointManager : Singleton<EnergyPointManager>
 {
     public int currentPoints { get; private set; } = 0;
     public int initValue = 0;

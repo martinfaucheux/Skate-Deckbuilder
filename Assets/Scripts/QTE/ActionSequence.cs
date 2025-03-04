@@ -10,7 +10,6 @@ public class ActionSequence
     public ActionSequenceState state = ActionSequenceState.Idle;
     public float speed = 3f;
     private Transform _characterTransform;
-    private bool _isChallengeSuccessAcknowledged = false;
 
     public ActionSequence(Vector3 start, Vector3 end, float speed, Transform characterTransform, ActionSequenceChallenge challenge = null)
     {
@@ -25,6 +24,8 @@ public class ActionSequence
     public void Start()
     {
         state = ActionSequenceState.Running;
+        challenge?.Reset();
+        challenge?.RegisterOnSuccess(OnWinChallenge);
         challenge?.Start();
         _characterTransform.position = startPosition;
     }
@@ -40,26 +41,23 @@ public class ActionSequence
         if (challenge != null)
         {
             challenge.Update();
-            if (challenge.IsFailed())
-            {
-                Interrupt();
-                return;
-            }
-            else if (!_isChallengeSuccessAcknowledged && challenge.IsSuccess())
-            {
-                Debug.Log("Challenge Success");
-                _isChallengeSuccessAcknowledged = true;
-            }
         }
 
         if (Vector3.Distance(_characterTransform.position, endPosition) < 0.01f)
         {
+            challenge?.End();
             state = ActionSequenceState.Completed;
         }
     }
 
+    private void OnWinChallenge()
+    {
+        Debug.Log("Challenge succeeded");
+    }
+
     public void Interrupt()
     {
+        // NOTE: not useful yet
         state = ActionSequenceState.Interrupted;
     }
 }
