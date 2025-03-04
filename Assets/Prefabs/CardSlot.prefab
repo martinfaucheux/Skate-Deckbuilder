@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982748577012290588}
-  - component: {fileID: 975293479637823634}
   - component: {fileID: 5536576863299216915}
+  - component: {fileID: 975293479637823634}
   m_Layer: 0
   m_Name: CardSlot
   m_TagString: Untagged
@@ -34,23 +34,6 @@ Transform:
   - {fileID: 1278522040568759158}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975293479637823634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3222409781046935739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eda38d3eb0a766a4b911f841283aceb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: 0
-  isDragging: 0
-  isHovering: 0
-  currentContainer: {fileID: 0}
-  _card: {fileID: 6452766219612386677}
 --- !u!61 &5536576863299216915
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -97,6 +80,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3, y: 6}
   m_EdgeRadius: 0
+--- !u!114 &975293479637823634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3222409781046935739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eda38d3eb0a766a4b911f841283aceb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 0
+  isDragging: 0
+  isHovering: 0
+  currentContainer: {fileID: 0}
+  _card: {fileID: 6452766219612386677}
 --- !u!1001 &2861200596744563798
 PrefabInstance:
   m_ObjectHideFlags: 0

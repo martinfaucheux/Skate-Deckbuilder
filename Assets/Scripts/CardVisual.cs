@@ -1,12 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Rendering;
 
 public class CardVisual : MonoBehaviour
 {
     public SpriteRenderer cardSpriteRenderer;
     public SpriteRenderer maskSpriteRenderer;
     public SpriteRenderer backgroundSpriteRenderer;
+    public SortingGroup sortingGroup;
 
     private void Awake()
     {
@@ -66,6 +67,8 @@ public class CardVisual : MonoBehaviour
         if (!target || !target.currentSlot) {
             return;
         }
+
+        sortingGroup.sortingOrder = target.currentSlot.isDragging ? 100 : target.currentSlot.index;
 
         // Position
         transform.position = Vector3.Lerp(transform.position, target.transform.position, 25 * Time.deltaTime);

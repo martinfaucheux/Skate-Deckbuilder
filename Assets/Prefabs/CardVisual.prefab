@@ -327,6 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8643472927920468900}
   - component: {fileID: 4373647605534182272}
+  - component: {fileID: 1772632922548562717}
   m_Layer: 0
   m_Name: CardVisual
   m_TagString: Untagged
@@ -367,3 +368,16 @@ MonoBehaviour:
   cardSpriteRenderer: {fileID: 5744364018753077206}
   maskSpriteRenderer: {fileID: 5609164980967128512}
   backgroundSpriteRenderer: {fileID: 7247023806166872338}
+  sortingGroup: {fileID: 1772632922548562717}
+--- !u!210 &1772632922548562717
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5475495905711245235}
+  m_Enabled: 1
+  m_SortingLayerID: 319269389
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
