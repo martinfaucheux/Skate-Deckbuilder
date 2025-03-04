@@ -1,94 +1,72 @@
 using System.Linq;
 using UnityEngine;
 using System;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class BoardManager : Singleton<BoardManager>
 {
-    public int cardCount = 5;
-    public GameObject cardHolderPrefab;
-    public float cardSpacing = 1.5f;
-    public Card[] cards;
-    public Transform[] cardHolders;
+    public SlotContainer slotContainer;
+    public List<CardSlot> cardSlots;
 
     protected override void Awake()
     {
         base.Awake();
-        cards = new Card[cardCount];
-        cardHolders = new Transform[cardCount];
     }
 
     void Start()
     {
-        foreach (Transform child in transform.Cast<Transform>().ToList())
-        {
-            Destroy(child.gameObject);
-        }
-
-        float offset = -(cardCount - 1) * cardSpacing / 2;
-        for (int cardHolderIdx = 0; cardHolderIdx < cardCount; cardHolderIdx++)
-        {
-            Vector3 position = transform.position + new Vector3(offset + cardHolderIdx * cardSpacing, 0, 0);
-            GameObject cardHolder = Instantiate(cardHolderPrefab, position, Quaternion.identity, transform);
-            cardHolders[cardHolderIdx] = cardHolder.transform;
-        }
+        
     }
 
-    public bool PlaceCard(Card card)
+    private void OnEnable()
     {
-        int cardIdx = GetCardIdx();
-        if (cardIdx < 0)
-        {
-            return false;
-        }
+        slotContainer.onCardSlotsChanged += OnCardSlotsChanged;
+    }
 
-        cards[cardIdx] = card;
-        card.transform.SetParent(cardHolders[cardIdx]);
-        Vector3 position = card.transform.parent.position;
-        card.transform.position = position;
+    private void OnDisable()
+    {
+        slotContainer.onCardSlotsChanged -= OnCardSlotsChanged;
+    }
+
+    private void OnCardSlotsChanged(List<CardSlot> cardSlots)
+    {
+        this.cardSlots = cardSlots;
         UpdateCardsYAxis();
-        return true;
     }
 
     private void UpdateCardsYAxis()
     {
-        for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
+        foreach (var cardSlot in cardSlots.Where((cardSlot) => !cardSlot.isEmpty)) {
+            cardSlot.card.actionContainer.startTransform.localPosition = new Vector3(-1.5f, cardSlot.card.cardDefinition.groundStartY, 0);
+            cardSlot.card.actionContainer.endTransform.localPosition = new Vector3(1.5f, cardSlot.card.cardDefinition.groundEndY, 0);
+        }
+
+        for (int cardIdx = 0; cardIdx < cardSlots.Count; cardIdx++)
         {
-            if (cards[cardIdx] != null)
+            if (cardSlots[cardIdx] != null)
             {
-                Vector3 position = cardHolders[cardIdx].position;
-                position.y = GetCardY(cards[cardIdx], cardIdx > 0 ? cards[cardIdx - 1] : null);
-                cards[cardIdx].transform.position = position;
+                if (!cardSlots[cardIdx].isEmpty) {
+                    Vector3 pos = cardSlots[cardIdx].transform.position;
+                    pos.y = GetCardY(cardSlots[cardIdx].card, cardIdx > 0 ? cardSlots[cardIdx - 1].card : null);
+                    cardSlots[cardIdx].transform.position = pos;
+                }
+                else {
+                    cardSlots[cardIdx].transform.position = new Vector3(cardSlots[cardIdx].transform.position.x, slotContainer.transform.position.y, cardSlots[cardIdx].transform.position.z);
+                }
+            }
+        }
+
+        // Hack to re-put relative to parent (could'nt find a better way)
+        for (int cardIdx = 0; cardIdx < cardSlots.Count; cardIdx++) {
+            if (!cardSlots[cardIdx].isEmpty) {
+                Vector3 pos = cardSlots[cardIdx].transform.position;
+                pos.y += slotContainer.transform.position.y;
+                cardSlots[cardIdx].transform.position = pos;
             }
         }
     }
 
-    public bool RemoveCard(Card card)
-    {
-        int cardIdx = Array.IndexOf(cards, card);
-        if (cardIdx < 0)
-            return false;
-
-        cards[cardIdx] = null;
-        UpdateCardsYAxis();
-        return true;
-    }
-
-    private int GetCardIdx()
-    {
-        for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
-        {
-            if (cards[cardIdx] == null)
-            {
-                return cardIdx;
-            }
-        }
-        return -1;
-    }
-
-    public bool CanAddCard() => cards.Any(card => card == null);
-
+    public bool CanAddCard() => slotContainer.CanAddCard();
 
     private float GetCardY(Card card, Card previousCard)
     {
@@ -101,7 +79,5 @@ public class BoardManager : Singleton<BoardManager>
 
         Vector3 previousPosition = previousCard.actionContainer.endTransform.position;
         return (previousPosition - localOffset).y;
-
     }
-
 }

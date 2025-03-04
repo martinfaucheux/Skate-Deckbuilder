@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class ActionPlayer : Singleton<ActionPlayer>
 {
@@ -24,7 +25,7 @@ public class ActionPlayer : Singleton<ActionPlayer>
         }
 
         List<Vector3> path = new List<Vector3>();
-        foreach (Card card in BoardManager.i.cards)
+        foreach (Card card in BoardManager.i.cardSlots.Select((v) => v.card))
         {
             Vector3 _startPosition = card.actionContainer.startTransform.position;
             _startPosition.z = skaterTransform.position.z;
@@ -33,7 +34,6 @@ public class ActionPlayer : Singleton<ActionPlayer>
             Vector3 _endPosition = card.actionContainer.endTransform.position;
             _endPosition.z = skaterTransform.position.z;
             path.Add(_endPosition);
-
         }
 
         Sequence sequence = DOTween.Sequence();

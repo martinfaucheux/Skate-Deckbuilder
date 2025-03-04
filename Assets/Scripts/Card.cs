@@ -8,38 +8,36 @@ public class Card : MonoBehaviour
     public bool randomColor;
     public SpriteRenderer[] renderers;
 
-    // do stuff when clicked
-    void OnMouseDown()
-    {
-        if (IsInHand())
-        {
-            HandManager.i.TryMoveCardToBoard(this);
-        }
-        else if (IsOnBoard())
-        {
-            HandManager.i.MoveCardToHand(this);
+    public CardDefinition _cardDefinition;
+    public CardDefinition cardDefinition {
+        get { return _cardDefinition; }
+        set {
+            _cardDefinition = value;
+
+            if (_cardDefinition == null && cardVisual != null) {
+                Destroy(cardVisual.gameObject);
+                cardVisual = null;
+                return;
+            }
+
+            if (cardVisual == null) {
+                CreateVisual();
+            }
+
+            cardVisual.Set(this);
         }
     }
 
-    void Start()
+#region Visual
+    public CardVisual cardVisualPrefab;
+    public CardVisual cardVisual;
+    public CardSlot currentSlot;
+
+    public void CreateVisual()
     {
-        Color _color = color;
-        if (randomColor)
-        {
-            _color = new Color(Random.value, Random.value, Random.value);
-        }
-        foreach (SpriteRenderer spriteRenderer in renderers)
-            spriteRenderer.color = _color;
-
+        cardVisual = Instantiate(cardVisualPrefab, transform.position, Quaternion.identity);
+        cardVisual.transform.SetParent(GameObject.Find("CardVisuals").transform);
+        cardVisual.transform.localPosition = Vector3.zero;
     }
-
-    public bool IsInHand() => HandManager.i.cards.Contains(this);
-    public bool IsOnBoard() => BoardManager.i.cards.Contains(this);
-
-    public void AssignActionContainer(ActionContainer actionContainer)
-    {
-        this.actionContainer = actionContainer;
-        actionContainer.transform.SetParent(transform);
-        actionContainer.transform.localPosition = Vector3.zero;
-    }
+#endregion
 }
