@@ -1,7 +1,4 @@
 using UnityEngine;
-using System;
-
-
 
 public class ActionContainer : MonoBehaviour
 {
@@ -9,11 +6,18 @@ public class ActionContainer : MonoBehaviour
     public Transform endTransform;
     public QTEConfig qteConfig;
     public ChallengeDisplay challengeDisplay;
+    public CardType cardType;
+
+    void Awake()
+    {
+        // here so we are sure it is always defined
+        cardType = CardTypeConfiguration.GetRandomType();
+    }
 
     public ActionSequenceChallenge CreateChallenge()
     {
         ActionSequenceChallenge challenge = (
-            qteConfig != null ? qteConfig.GetChallenge() : null
+            qteConfig != null ? qteConfig.GetChallenge(CardTypeConfiguration.i.TypeToKey(cardType)) : null
         );
 
         if (challenge != null && challengeDisplay != null)

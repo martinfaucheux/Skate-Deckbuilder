@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac31b0e458c1e4df582ae77f8ff27ba9, type: 3}
   m_Name: SlopeDown
   m_EditorClassIdentifier: 
-  keyCode: 0
-  tolerance: 0.1
+  keyCode: 273
+  tolerance: 0.2

@@ -2,9 +2,7 @@ using UnityEngine;
 
 public abstract class QTEConfig : ScriptableObject
 {
-    public KeyCode keyCode;
-
-    public abstract ActionSequenceChallenge GetChallenge();
+    public abstract ActionSequenceChallenge GetChallenge(KeyCode keyCode);
 }
 
 

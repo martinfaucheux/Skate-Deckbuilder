@@ -27,7 +27,7 @@ public class BarQTEConfig : QTEConfig
     [Range(0, 10)]
     public float baseMovementPeriod = 2f;
 
-    public override ActionSequenceChallenge GetChallenge() => new BarSequenceChallenge(
+    public override ActionSequenceChallenge GetChallenge(KeyCode keyCode) => new BarSequenceChallenge(
         keyCode, onClickMove, clickedVelocity, noClickedVelocity, validAmplitude, rangeMovementAmplitude, baseMovementPeriod
     );
 }

@@ -18,4 +18,4 @@ MonoBehaviour:
   noClickedVelocity: 0.5
   validAmplitude: 0.6
   rangeMovementAmplitude: 0.3
-  baseMovementPeriod: 5
+  baseMovementPeriod: 4
