@@ -4,8 +4,6 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public ActionContainer actionContainer;
-    public Color color;
-    public bool randomColor;
     public SpriteRenderer[] renderers;
 
     public CardDefinition _cardDefinition;
@@ -26,6 +24,22 @@ public class Card : MonoBehaviour
 
             cardVisual.Set(this);
         }
+    }
+
+    public void AssignActionContainer(ActionContainer actionContainer)
+    {
+        this.actionContainer = actionContainer;
+        actionContainer.transform.SetParent(transform);
+        actionContainer.transform.localPosition = Vector3.zero;
+
+        if (CardTypeConfiguration.i != null)
+            SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
+    }
+
+    private void SetColor(Color color)
+    {
+        foreach (SpriteRenderer spriteRenderer in renderers)
+            spriteRenderer.color = color;
     }
 
 #region Visual

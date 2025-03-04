@@ -16,12 +16,12 @@ public class CardGenerator : MonoBehaviour
         for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
         {
             GameObject cardGameObject = Instantiate(cardPrefab);
-            cardGameObject.transform.localScale = cardSize * Vector3.one;
             Card card = cardGameObject.GetComponent<Card>();
             cards.Add(card);
 
             ActionContainer actionContainer = InstantiateRandomActionContainer();
-            // card.AssignActionContainer(actionContainer);
+            card.AssignActionContainer(actionContainer);
+            cardGameObject.transform.localScale = cardSize * Vector3.one;
         }
         // HandManager.i.AddManyCards(cards);
     }

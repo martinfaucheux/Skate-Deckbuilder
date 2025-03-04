@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.8867924, g: 0.7654859, b: 0.7654859, a: 1}
+  m_Color: {r: 0.8862745, g: 0.49803922, b: 0.49803922, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,6 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTransform: {fileID: 4487446697789901106}
   endTransform: {fileID: 1439019243534658292}
+  qteConfig: {fileID: 0}
+  challengeDisplay: {fileID: 0}
 --- !u!1 &2670687749105819141
 GameObject:
   m_ObjectHideFlags: 0
