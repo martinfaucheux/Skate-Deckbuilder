@@ -21,9 +21,9 @@ public class CardGenerator : MonoBehaviour
             cards.Add(card);
 
             ActionContainer actionContainer = InstantiateRandomActionContainer();
-            card.AssignActionContainer(actionContainer);
+            // card.AssignActionContainer(actionContainer);
         }
-        HandManager.i.AddManyCards(cards);
+        // HandManager.i.AddManyCards(cards);
     }
 
     public ActionContainer InstantiateRandomActionContainer()
