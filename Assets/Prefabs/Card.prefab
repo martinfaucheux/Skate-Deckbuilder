@@ -262,6 +262,7 @@ MonoBehaviour:
   qteConfig: {fileID: 0}
   challengeDisplay: {fileID: 0}
   cardType: 0
+  arrowSpriteRenderer: {fileID: 0}
 --- !u!1 &3848831321178783840
 GameObject:
   m_ObjectHideFlags: 0
