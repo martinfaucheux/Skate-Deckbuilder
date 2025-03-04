@@ -638,9 +638,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardPrefab: {fileID: 8921600270980128828, guid: 88c030f7629ee49b2b6de14c1a04a57d, type: 3}
   actionContainerPrefabs:
-  - {fileID: 339876745507128592, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
-  - {fileID: 732753596931944098, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
-  - {fileID: 732753596931944098, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
   - {fileID: 339876745507128592, guid: 73cce14422ce84571b6e6e2e66f84c5e, type: 3}
   cardCount: 5
   cardSize: 0.5

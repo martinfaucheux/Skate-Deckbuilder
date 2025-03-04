@@ -49,3 +49,16 @@ public class BarQTEConfig : QTEConfig
     );
 }
 
+[CreateAssetMenu(fileName = "PreciseClickQTEConfig", menuName = "ScriptableObject / QTEConfig / PreciseClickQTEConfig")]
+public class PreciseClickQTEConfig : QTEConfig
+{
+    public float tolerance = 0.1f;
+
+    public override ActionSequenceChallenge GetChallenge()
+    {
+        return new PreciseClickSequenceChallenge(
+        keyCode, tolerance, SequenceManager.i.baseSpeed
+    );
+    }
+}
+

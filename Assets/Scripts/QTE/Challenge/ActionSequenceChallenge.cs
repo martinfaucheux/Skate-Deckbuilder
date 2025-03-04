@@ -15,6 +15,7 @@ public abstract class ActionSequenceChallenge
     private event Action _onSuccess;
     private event Action _onFail;
     protected float _startTime;
+    public float timeSinceStart => Time.time - _startTime;
 
     // this method holds most of the logic of the challenge
     public abstract void Update();
