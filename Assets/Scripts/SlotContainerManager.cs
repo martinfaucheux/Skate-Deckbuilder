@@ -35,8 +35,19 @@ public class SlotContainerManager : Singleton<SlotContainerManager>
 
     public void EnableAllSortingGroup(bool enable)
     {
-        foreach (var CardVisuals in GetComponentsInChildren<CardVisual>()) {
-            CardVisuals.sortingGroup.enabled = enable;
+        foreach (var cardVisuals in GetComponentsInChildren<CardVisual>()) {
+            cardVisuals.sortingGroup.enabled = enable;
+        }
+    }
+
+    public void ShowActionContainer(bool show)
+    {
+        foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None)) {
+            if (show) {
+                card.ShowAction();
+            } else {
+                card.HideAction();
+            }
         }
     }
 }

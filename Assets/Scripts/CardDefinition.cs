@@ -6,4 +6,6 @@ public class CardDefinition : ScriptableObject
     public Sprite sprite;
     public float groundStartY;
     public float groundEndY;
+
+    public ActionContainer actionContainerPrefab;
 }
