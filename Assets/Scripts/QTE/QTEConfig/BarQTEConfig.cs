@@ -1,22 +1,5 @@
 using UnityEngine;
 
-public abstract class QTEConfig : ScriptableObject
-{
-    public KeyCode keyCode;
-
-    public abstract ActionSequenceChallenge GetChallenge();
-}
-
-[CreateAssetMenu(fileName = "ClickQTEConfig", menuName = "ScriptableObject / QTEConfig / ClickQTEConfig")]
-public class ClickQTEConfig : QTEConfig
-{
-    public int clickCount;
-
-    public override ActionSequenceChallenge GetChallenge() => new ClickActionSequenceChallenge(
-        keyCode, clickCount
-    );
-}
-
 [CreateAssetMenu(fileName = "BarQTEConfig", menuName = "ScriptableObject / QTEConfig / BarQTEConfig")]
 public class BarQTEConfig : QTEConfig
 {
@@ -48,17 +31,3 @@ public class BarQTEConfig : QTEConfig
         keyCode, onClickMove, clickedVelocity, noClickedVelocity, validAmplitude, rangeMovementAmplitude, baseMovementPeriod
     );
 }
-
-[CreateAssetMenu(fileName = "PreciseClickQTEConfig", menuName = "ScriptableObject / QTEConfig / PreciseClickQTEConfig")]
-public class PreciseClickQTEConfig : QTEConfig
-{
-    public float tolerance = 0.1f;
-
-    public override ActionSequenceChallenge GetChallenge()
-    {
-        return new PreciseClickSequenceChallenge(
-        keyCode, tolerance, SequenceManager.i.baseSpeed
-    );
-    }
-}
-

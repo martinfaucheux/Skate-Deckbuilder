@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTransform: {fileID: 4487446697789901106}
   endTransform: {fileID: 1439019243534658292}
-  qteConfig: {fileID: 11400000, guid: 6ec140b3b70ee40ed839689af9404516, type: 2}
+  qteConfig: {fileID: 11400000, guid: 1f7c4c4850797489cb7cb433b3a36e91, type: 2}
   challengeDisplay: {fileID: 9202203902745494334}
 --- !u!331 &9119399601307535745
 SpriteMask:
