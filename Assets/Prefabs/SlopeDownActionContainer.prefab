@@ -603,8 +603,8 @@ MonoBehaviour:
   goImage: {fileID: 6134079879931482756}
   waitColor: {r: 0.2, g: 0.19215687, b: 0.22745098, a: 1}
   goColor: {r: 0.4251958, g: 0.8584906, b: 0.4489546, a: 1}
-  successColor: {r: 0.9811321, g: 0.54147387, b: 0.8371709, a: 1}
-  failColor: {r: 0.8490566, g: 0.26206723, b: 0.244304, a: 1}
+  successColor: {r: 0.5411765, g: 0.92510086, b: 0.98039216, a: 1}
+  failColor: {r: 0.8862745, g: 0.49803922, b: 0.49803922, a: 1}
 --- !u!1 &8226047297692816071
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,12 +24,14 @@ public class PreciseClickActionChallengeDisplay : ChallengeDisplay
         {
             goImage.color = successColor;
             _doUpdate = false;
+            return;
         }
 
         if (_challenge.state == ActionSequenceChallengeState.Failed)
         {
             goImage.color = failColor;
             _doUpdate = false;
+            return;
         }
 
         goImage.color = _challenge.IsInTimeWindow() ? goColor : waitColor;
