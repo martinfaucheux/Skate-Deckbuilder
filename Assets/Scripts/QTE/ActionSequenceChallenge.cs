@@ -13,8 +13,8 @@ public class ClickActionSequenceChallenge : ActionSequenceChallenge
 {
 
     public KeyCode keyCode;
-    public int requiredKeyCount;
-    private int _clickCount;
+    public int requiredKeyCount { get; private set; }
+    public int clickCount { get; private set; }
 
     public ClickActionSequenceChallenge(KeyCode keyCode, int requiredKeyCount)
     {
@@ -26,11 +26,11 @@ public class ClickActionSequenceChallenge : ActionSequenceChallenge
     {
         if (Input.GetKeyDown(keyCode))
         {
-            _clickCount++;
+            clickCount++;
         }
     }
 
-    public override bool IsSuccess() => _clickCount >= requiredKeyCount;
+    public override bool IsSuccess() => clickCount >= requiredKeyCount;
     public override bool IsFailed() => false;
-    public override void Reset() => _clickCount = 0;
+    public override void Reset() => clickCount = 0;
 }

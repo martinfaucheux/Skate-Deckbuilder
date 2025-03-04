@@ -77,7 +77,7 @@ public class SequenceManager : Singleton<SequenceManager>
                 endPos,
                 baseSpeed,
                 characterTransform,
-                actionContainer.GetChallenge()
+                actionContainer.CreateChallenge()
             ));
 
             if (containerIdx < containerCount - 1)
