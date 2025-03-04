@@ -15,3 +15,4 @@ MonoBehaviour:
   sprite: {fileID: 6682738439518977790, guid: 8a1f73146f6f2244f8a046a0fd0ac3ac, type: 3}
   groundStartY: -0.4
   groundEndY: -0.4
+  actionContainerPrefab: {fileID: 2642712769175286877, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
