@@ -30,6 +30,8 @@ public class SlotContainer : MonoBehaviour
             cardSlot.SetSlotContext(i, cardSlots.Count);
             i++;
         }
+
+        AddEmptySlotsIfNeeded();
     }
 
     private void Update()
@@ -37,10 +39,13 @@ public class SlotContainer : MonoBehaviour
         CheckSwap();
     }
 
-    public CardSlot AddCard(CardDefinition card)
+    public CardSlot AddEmptySlot(int index = -1)
     {
         CardSlot slot = Instantiate(slotPrefab, transform);
-        slot.card.cardDefinition = card;
+        if (index != -1) {
+            slot.transform.SetSiblingIndex(index);
+        }
+        slot.card = null;
 
         UpdateSlots();
 
@@ -55,6 +60,7 @@ public class SlotContainer : MonoBehaviour
         foreach (var module in modules) {
             CardSlot slot = Instantiate(slotPrefab, transform);
             slot.card.cardDefinition = module;
+            slot.card = slot._card;
             slotsRet.Add(slot);
         }
 
@@ -67,6 +73,20 @@ public class SlotContainer : MonoBehaviour
     {
         foreach (CardSlot child in gameObject.GetComponentsInChildren<CardSlot>()) {
             Destroy(child.gameObject);
+        }
+
+        UpdateSlots();
+    }
+
+    public void AddEmptySlotsIfNeeded()
+    {
+        if (cardCountMax == -1 || cardSlots.Count == cardCountMax) {
+            return;
+        }
+
+        // Add empty slots
+        while (cardSlots.Count < cardCountMax) {
+            cardSlots.Add(AddEmptySlot());
         }
 
         UpdateSlots();
@@ -96,6 +116,10 @@ public class SlotContainer : MonoBehaviour
 
         for (int i = 0; i < cardSlots.Count; i++)
         {
+            if (cardSlots[i] == null) {
+                continue;
+            }
+
             if (selectedSlot.transform.position.x > cardSlots[i].transform.position.x)
             {
                 if (selectedSlot.transform.GetSiblingIndex() < cardSlots[i].transform.GetSiblingIndex())
@@ -140,6 +164,9 @@ public class SlotContainer : MonoBehaviour
         if (selectedSlot == null || !other.CanAddCard())
             return;
 
+        if (cardCountMax != -1)
+            AddEmptySlot(selectedSlot.index);
+
         other.AddSlot(selectedSlot, true);
         EndDrag(selectedSlot);
         UpdateSlots();
@@ -157,6 +184,16 @@ public class SlotContainer : MonoBehaviour
         if (forceCardBigHeight)
             slot.card.cardVisual.SetHeight(CardVisual.Height.Big);
 
+        // Destroy empty slot if needed
+        if (cardCountMax == cardSlots.Count) {
+            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x) {
+                Destroy(cardSlots.Find((cardSlot) => cardSlot.isEmpty).gameObject);
+            }
+            else {
+                Destroy(cardSlots.FindLast((cardSlot) => cardSlot.isEmpty).gameObject);
+            }
+        }
+
         UpdateSlots();
     }
 
@@ -168,7 +205,7 @@ public class SlotContainer : MonoBehaviour
 
     public bool CanAddCard()
     {
-        return cardCountMax == -1 || cardSlots.Count < cardCountMax;
+        return cardCountMax == -1 || cardSlots.Where((cardSlot) => !cardSlot.isEmpty).ToList().Count < cardCountMax;
     }
 #endregion
 }

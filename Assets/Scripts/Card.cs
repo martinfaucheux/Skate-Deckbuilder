@@ -14,9 +14,17 @@ public class Card : MonoBehaviour
         set {
             _cardDefinition = value;
 
-            if (cardVisual != null) {
-                cardVisual.Set(this);
+            if (_cardDefinition == null && cardVisual != null) {
+                Destroy(cardVisual.gameObject);
+                cardVisual = null;
+                return;
             }
+
+            if (cardVisual == null) {
+                CreateVisual();
+            }
+
+            cardVisual.Set(this);
         }
     }
 
@@ -24,11 +32,6 @@ public class Card : MonoBehaviour
     public CardVisual cardVisualPrefab;
     public CardVisual cardVisual;
     public CardSlot currentSlot;
-
-    private void Awake()
-    {
-        CreateVisual();
-    }
 
     public void CreateVisual()
     {

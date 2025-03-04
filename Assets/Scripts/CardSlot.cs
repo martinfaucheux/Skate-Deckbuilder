@@ -2,11 +2,20 @@ using System.Linq;
 using UnityEngine;
 
 public class CardSlot : MonoBehaviour
-{
-    [HideInInspector] public int index = 0;
-    [HideInInspector] public bool isDragging = false;
-    [HideInInspector] public bool isHovering = false;
-    public SlotContainer currentContainer;
+{   
+    [Header("References")]
+    public SpriteRenderer emptySpriteRenderer;
+
+    private bool _isEmpty = true;
+    public bool isEmpty {
+        get { return _isEmpty; }
+        set {
+            _isEmpty = value;
+
+            card?.gameObject?.SetActive(!_isEmpty);
+            emptySpriteRenderer.gameObject.SetActive(_isEmpty);
+        }
+    }
 
     public Card _card;
     public Card card {
@@ -22,9 +31,20 @@ public class CardSlot : MonoBehaviour
                 card.actionContainer.endTransform.localPosition = new Vector3(1.5f, card.cardDefinition.groundEndY, 0);
 
                 card.currentSlot = this;
+
+                isEmpty = false;
+            }
+            else {
+                isEmpty = true;
             }
         }
     }
+
+    [Header("Runtime")]
+    public int index = 0;
+    public bool isDragging = false;
+    public bool isHovering = false;
+    public SlotContainer currentContainer;
 
     private void Awake() {
         currentContainer = GetComponentInParent<SlotContainer>();
@@ -45,11 +65,19 @@ public class CardSlot : MonoBehaviour
 
     #region DragAndHover
     public void OnMouseDown() {
+        if (isEmpty) {
+            return;
+        }
+
         GetComponentInParent<SlotContainer>().BeginDrag(this);
         isDragging = true;
     }
 
     public void OnMouseDrag() {
+        if (isEmpty) {
+            return;
+        }
+
         transform.position = GetMouseWorldPosition();
 
         SlotContainer hoveredSlotContainer = FindObjectsByType<SlotContainer>(FindObjectsSortMode.None).ToList().Find((slotContainer) => slotContainer.isHovering);
@@ -59,12 +87,20 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseUp() {
+        if (isEmpty) {
+            return;
+        }
+
         GetComponentInParent<SlotContainer>().EndDrag(this);
         isDragging = false;
     }
 
     public void OnMouseOver()
     {
+        if (isEmpty) {
+            return;
+        }
+
         isHovering = true;
 
         if (currentContainer.forceCardBigHeight)
@@ -75,6 +111,10 @@ public class CardSlot : MonoBehaviour
 
     public void OnMouseExit()
     {
+        if (isEmpty) {
+            return;
+        }
+
         isHovering = false;
 
         if (currentContainer.forceCardBigHeight)

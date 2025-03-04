@@ -32,4 +32,11 @@ public class SlotContainerManager : Singleton<SlotContainerManager>
             slotContainer.isHovering = slotContainer == closestSlotContainer;
         }
     }
+
+    public void EnableAllSortingGroup(bool enable)
+    {
+        foreach (var CardVisuals in GetComponentsInChildren<CardVisual>()) {
+            CardVisuals.sortingGroup.enabled = enable;
+        }
+    }
 }

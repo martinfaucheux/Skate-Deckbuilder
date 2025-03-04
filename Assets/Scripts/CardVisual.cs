@@ -71,13 +71,13 @@ public class CardVisual : MonoBehaviour
         sortingGroup.sortingOrder = target.currentSlot.isDragging ? 100 : target.currentSlot.index;
 
         // Position
-        transform.position = Vector3.Lerp(transform.position, target.transform.position, 25 * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, target.transform.position, 15 * Time.deltaTime);
 
         // Rotation
         Vector3 movement = transform.position - target.transform.position;
-        movementDelta = Vector3.Lerp(movementDelta, movement, 25 * Time.deltaTime);
+        movementDelta = Vector3.Lerp(movementDelta, movement, 10 * Time.deltaTime);
         Vector3 movementRotation = (target.currentSlot.isDragging ? movementDelta : movement) * 50;
-        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 50 * Time.deltaTime);
+        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 30 * Time.deltaTime);
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -60, 60));
 
         // Scale
@@ -96,7 +96,7 @@ public class CardVisual : MonoBehaviour
         // float sine = Mathf.Sin(Time.time + savedIndex) * (target.currentSlot.isHovering ? .2f : 1);
         // float cosine = Mathf.Cos(Time.time + savedIndex) * (target.currentSlot.isHovering ? .2f : 1);
 
-        // Vector3 offset = (transform.position - Input.mousePosition) / 100;
+        // Vector3 offset = transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // float tiltX = target.currentSlot.isHovering ? ((offset.y) * manualTiltAmount) : 0;
         // float tiltY = target.currentSlot.isHovering ? ((offset.x * -1) * manualTiltAmount) : 0;
         // float tiltZ = target.currentSlot.isDragging ? transform.eulerAngles.z : 0;
