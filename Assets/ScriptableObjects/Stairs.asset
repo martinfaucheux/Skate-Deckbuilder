@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 670fb2d17737c4f20817849936e67e9d, type: 3}
   m_Name: Stairs
-  m_EditorClassIdentifier: Assembly-CSharp::BarQTEConfig
-  keyCode: 273
+  m_EditorClassIdentifier: 
   onClickMove: 0
   clickedVelocity: 0.7
   noClickedVelocity: 0.5

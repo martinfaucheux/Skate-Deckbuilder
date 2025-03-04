@@ -109,6 +109,9 @@ MonoBehaviour:
   endTransform: {fileID: 1439019243534658292}
   qteConfig: {fileID: 11400000, guid: 1f7c4c4850797489cb7cb433b3a36e91, type: 2}
   challengeDisplay: {fileID: 9202203902745494334}
+  cardType: 0
+  energyCost: 0
+  energyGain: 2
 --- !u!331 &9119399601307535745
 SpriteMask:
   m_ObjectHideFlags: 0

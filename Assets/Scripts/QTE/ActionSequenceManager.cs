@@ -7,11 +7,12 @@ public class SequenceManager : Singleton<SequenceManager>
 {
     public Transform characterTransform;
     private Queue<ActionSequence> _sequences = new Queue<ActionSequence>();
-    public UnityEvent OnSequenceComplete;
     public float baseSpeed = 3f;
-    private bool _isPlaying = false;
+    public bool isPlaying { get; private set; } = false;
     private ActionSequence _currentSequence;
     private float _characterZ;
+    [Tooltip("Event invoked when the player doesn't have enough energy to play the next sequence.")]
+    public UnityEvent onInsufficientEnergy;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class SequenceManager : Singleton<SequenceManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_isPlaying)
+        if (Input.GetKeyDown(KeyCode.Space) && !isPlaying)
         {
             if (BoardManager.i.CanAddCard())
             {
@@ -32,7 +33,7 @@ public class SequenceManager : Singleton<SequenceManager>
             }
         }
 
-        if (_isPlaying)
+        if (isPlaying)
             UpdateSequence();
     }
 
@@ -43,13 +44,24 @@ public class SequenceManager : Singleton<SequenceManager>
             // try get and start the next sequence
             if (_sequences.Count > 0)
             {
-                _currentSequence = _sequences.Dequeue();
+                ActionSequence nextSequence = _sequences.Dequeue();
+                int energyPoints = EnergyPointManager.i.currentPoints;
+                if ((nextSequence.challenge != null && energyPoints == 0) || energyPoints < nextSequence.energyCost)
+                {
+                    isPlaying = false;
+                    Debug.Log("Energy has run out");
+                    onInsufficientEnergy?.Invoke();
+                    return;
+                }
+
+                EnergyPointManager.i.Add(-nextSequence.energyCost);
+                _currentSequence = nextSequence;
                 _currentSequence.Start();
             }
             else
             {
-                _isPlaying = false;
-                OnSequenceComplete?.Invoke();
+                // all sequences have been played
+                isPlaying = false;
             }
         }
 
@@ -77,6 +89,8 @@ public class SequenceManager : Singleton<SequenceManager>
                 endPos,
                 baseSpeed,
                 characterTransform,
+                actionContainer.energyCost,
+                actionContainer.energyGain,
                 actionContainer.CreateChallenge()
             ));
 
@@ -90,6 +104,8 @@ public class SequenceManager : Singleton<SequenceManager>
                     nextStartPos,
                     baseSpeed,
                     characterTransform,
+                    0,
+                    0,
                     null
                 ));
             }
@@ -100,6 +116,6 @@ public class SequenceManager : Singleton<SequenceManager>
     {
         _sequences = new Queue<ActionSequence>();
         AddSequences(BoardManager.i.cards.Select(card => card.actionContainer).ToList());
-        _isPlaying = true;
+        isPlaying = true;
     }
 }

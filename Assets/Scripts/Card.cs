@@ -1,10 +1,13 @@
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class Card : MonoBehaviour
 {
     public ActionContainer actionContainer;
     public SpriteRenderer[] renderers;
+    public TextMeshProUGUI energyCostText;
+    public TextMeshProUGUI energyRewardText;
 
     // do stuff when clicked
     void OnMouseDown()
@@ -30,6 +33,21 @@ public class Card : MonoBehaviour
 
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
+
+        int cost = actionContainer.energyCost;
+        int reward = actionContainer.energyGain;
+        if (cost > 0)
+        {
+            energyCostText.text = $"-{cost}";
+        }
+        else
+        {
+            if (reward > 0)
+                energyRewardText.text = $"+{reward}";
+            else
+                energyRewardText.text = "";
+        }
+        energyRewardText.text = "";
     }
 
     private void SetColor(Color color)

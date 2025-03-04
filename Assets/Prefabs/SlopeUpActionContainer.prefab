@@ -107,6 +107,9 @@ MonoBehaviour:
   endTransform: {fileID: 1439019243534658292}
   qteConfig: {fileID: 0}
   challengeDisplay: {fileID: 0}
+  cardType: 0
+  energyCost: 2
+  energyGain: 0
 --- !u!1 &2670687749105819141
 GameObject:
   m_ObjectHideFlags: 0

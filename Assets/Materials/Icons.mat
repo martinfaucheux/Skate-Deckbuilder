@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ArrowIcon
+  m_Name: Icons
   m_Shader: {fileID: -6465566751694194690, guid: adda0efbadebc4989a3d376d3e0204c0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,7 +61,7 @@ Material:
     - _range: 0.1
     m_Colors:
     - _originalColor1: {r: 0, g: 0, b: 0, a: 1}
-    - _originalColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _originalColor2: {r: 1, g: 0.7529412, b: 0.03529412, a: 1}
     - _originalColor3: {r: 1, g: 1, b: 1, a: 1}
     - _targetColor1: {r: 1, g: 1, b: 1, a: 1}
     - _targetColor2: {r: 1, g: 1, b: 1, a: 1}

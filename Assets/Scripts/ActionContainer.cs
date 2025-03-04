@@ -8,6 +8,11 @@ public class ActionContainer : MonoBehaviour
     public ChallengeDisplay challengeDisplay;
     public CardType cardType;
 
+    [Tooltip("If the player doesn't have enough energy when entering the sequence, they will lose the round.")]
+    public int energyCost = 0;
+    [Tooltip("If the player completes the sequence, they will gain this much energy.")]
+    public int energyGain = 0;
+
     void Awake()
     {
         // here so we are sure it is always defined
