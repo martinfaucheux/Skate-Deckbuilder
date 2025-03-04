@@ -87,7 +87,7 @@ public class Card : MonoBehaviour
     {
         cardVisual = Instantiate(cardVisualPrefab, transform.position, Quaternion.identity);
         cardVisual.transform.SetParent(GameObject.Find("CardVisuals").transform);
-        renderers = new List<SpriteRenderer>(){ cardVisual.cardSpriteRenderer, cardVisual.backgroundSpriteRenderer }.ToArray();
+        renderers = new List<SpriteRenderer>(){ cardVisual.cardSpriteRenderer }.ToArray();
     }
 #endregion
 }
