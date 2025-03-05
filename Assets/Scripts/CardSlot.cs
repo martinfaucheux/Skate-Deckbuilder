@@ -63,7 +63,14 @@ public class CardSlot : MonoBehaviour
         }
     }
 
-    #region DragAndHover
+    private void OnDestroy()
+    {
+        if (card?.cardVisual?.gameObject) {
+            Destroy(card.cardVisual.gameObject);
+        }
+    }
+
+#region DragAndHover
     public void OnMouseDown() {
         if (isEmpty) {
             return;

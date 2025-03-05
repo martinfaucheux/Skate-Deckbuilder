@@ -119,6 +119,12 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(1, () => {
             NextHand();
+
+            BoardManager.i.slotContainer.RemoveAllCards();
+            CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
+                BoardManager.i.slotContainer.cardCountMax = runDefinition.rounds[roundIndex].cardCountOnBoard;
+                BoardManager.i.slotContainer.AddEmptySlotsIfNeeded();
+            });
         });
     }
 #endregion

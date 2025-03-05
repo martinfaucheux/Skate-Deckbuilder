@@ -79,8 +79,7 @@ public class SlotContainer : MonoBehaviour
         foreach (CardSlot child in gameObject.GetComponentsInChildren<CardSlot>()) {
             Destroy(child.gameObject);
         }
-
-        UpdateSlots();
+        cardSlots = new();
     }
 
     public void AddEmptySlotsIfNeeded()
