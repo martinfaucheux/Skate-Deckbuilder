@@ -63,8 +63,8 @@ Material:
     - _originalColor1: {r: 0.32156864, g: 0.7882353, b: 0.9529412, a: 1}
     - _originalColor2: {r: 0.7647059, g: 0.7647059, b: 0.81960785, a: 1}
     - _originalColor3: {r: 0.3764706, g: 0.38039216, b: 0.4392157, a: 1}
-    - _targetColor1: {r: 0.32156864, g: 0.7882353, b: 0.9529412, a: 1}
+    - _targetColor1: {r: 0.26477396, g: 0.6603774, b: 0.3029054, a: 1}
     - _targetColor2: {r: 0.7647059, g: 0.7647059, b: 0.81960785, a: 1}
-    - _targetColor3: {r: 0.3764706, g: 0.38039216, b: 0.4392157, a: 1}
+    - _targetColor3: {r: 0.3042453, g: 0.4056604, b: 0.31244045, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

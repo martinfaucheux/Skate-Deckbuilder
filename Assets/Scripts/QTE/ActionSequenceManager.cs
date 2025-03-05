@@ -10,6 +10,7 @@ public class SequenceManager : Singleton<SequenceManager>
     public UnityEvent OnSequenceStart;
     public UnityEvent OnSequenceComplete;
     public float baseSpeed = 3f;
+    public float actionBaseDuration = 2f;
     public bool isPlaying { get; private set; } = false;
     private ActionSequence _currentSequence;
     private float _characterZ;
@@ -69,7 +70,7 @@ public class SequenceManager : Singleton<SequenceManager>
 
         if (_currentSequence != null && _currentSequence.state == ActionSequenceState.Running)
         {
-            _currentSequence.Update(Time.deltaTime);
+            _currentSequence.Update();
         }
     }
 
@@ -91,10 +92,11 @@ public class SequenceManager : Singleton<SequenceManager>
             _sequences.Enqueue(new ActionSequence(
                 startPos,
                 endPos,
-                baseSpeed,
                 characterTransform,
+                actionBaseDuration,
                 cardDef.energyCost,
                 cardDef.energyGain,
+                actionContainer.GetPositionFunction,
                 actionContainer.CreateChallenge()
             ));
 
@@ -106,11 +108,8 @@ public class SequenceManager : Singleton<SequenceManager>
                 _sequences.Enqueue(new ActionSequence(
                     endPos,
                     nextStartPos,
-                    baseSpeed,
                     characterTransform,
-                    0,
-                    0,
-                    null
+                    0
                 ));
             }
         }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5566155711760332528}
   - component: {fileID: 6934922897224094920}
-  - component: {fileID: -1019320478429835021}
   m_Layer: 0
   m_Name: StairsSpline
   m_TagString: Untagged
@@ -213,18 +212,3 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
---- !u!114 &-1019320478429835021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1269828968977175722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107328f41bd044edcb58cdfe0268ad27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionOffset: {x: 0, y: 0, z: 0}
-  scaler: 1
-  splineContainer: {fileID: 7822988647910525004, guid: 877fa178c3b0948129a9eed74f9919f0, type: 3}
