@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TMPro;
 
 public class CardVisual : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CardVisual : MonoBehaviour
     public Transform infoTop;
     public Transform infoBottom;
     public SortingGroup sortingGroup;
+    public TextMeshPro energyCostText;
 
     private void Awake()
     {
@@ -25,15 +27,17 @@ public class CardVisual : MonoBehaviour
     private Height height = Height.Big;
     public void SetHeight(Height height, bool instant = false)
     {
-        if (this.height == height) {
+        if (this.height == height)
+        {
             return;
         }
 
         this.height = height;
 
-        if (instant) {
+        if (instant)
+        {
             infoTop.transform.localPosition = new Vector3(infoTop.transform.localPosition.x, ((height == Height.Small ? 4 : 9) / 2) - 0.85f);
-            infoBottom.transform.localPosition = new Vector3(infoBottom.transform.localPosition.x, - (((height == Height.Small ? 4 : 9) / 2) - 0.85f));
+            infoBottom.transform.localPosition = new Vector3(infoBottom.transform.localPosition.x, -(((height == Height.Small ? 4 : 9) / 2) - 0.85f));
             cardSpriteRenderer.size = new Vector2(cardSpriteRenderer.size.x, height == Height.Small ? 4 : 9);
             maskSpriteRenderer.size = new Vector2(maskSpriteRenderer.size.x, height == Height.Small ? 4 : 9);
             return;
@@ -41,9 +45,10 @@ public class CardVisual : MonoBehaviour
 
         float val = cardSpriteRenderer.size.y;
         DOTween.Kill(gameObject);
-        DOTween.To(() => val, x => val = x, height == Height.Small ? 4 : 9, 0.2f).SetEase(Ease.InOutSine).OnUpdate(() => {
+        DOTween.To(() => val, x => val = x, height == Height.Small ? 4 : 9, 0.2f).SetEase(Ease.InOutSine).OnUpdate(() =>
+        {
             infoTop.transform.localPosition = new Vector3(infoTop.transform.localPosition.x, (val / 2) - 0.85f);
-            infoBottom.transform.localPosition = new Vector3(infoBottom.transform.localPosition.x, - ((val / 2) - 0.85f));
+            infoBottom.transform.localPosition = new Vector3(infoBottom.transform.localPosition.x, -((val / 2) - 0.85f));
             cardSpriteRenderer.size = new Vector2(cardSpriteRenderer.size.x, val);
             maskSpriteRenderer.size = new Vector2(maskSpriteRenderer.size.x, val);
         });
@@ -52,9 +57,33 @@ public class CardVisual : MonoBehaviour
     public void Set(Card card)
     {
         target = card;
-        if (backgroundSpriteRenderer) {
+        if (backgroundSpriteRenderer)
+        {
             transform.SetParent(GameObject.Find("CardVisuals").transform, false);
             backgroundSpriteRenderer.sprite = card.cardDefinition.sprite;
+        }
+        SetCostText();
+
+    }
+
+    private void SetCostText()
+    {
+        int cost = target.cardDefinition.energyCost;
+        int gain = target.cardDefinition.energyGain;
+        if (cost > 0)
+        {
+            energyCostText.text = $"-{cost}";
+        }
+        else
+        {
+            if (gain > 0)
+            {
+                energyCostText.text = $"+{gain}";
+            }
+            else
+            {
+                energyCostText.text = "";
+            }
         }
     }
 
@@ -69,8 +98,10 @@ public class CardVisual : MonoBehaviour
     // private float manualTiltAmount = 10;
     // private float tiltSpeed = 15;
 
-    private void Update() {
-        if (!target || !target.currentSlot) {
+    private void Update()
+    {
+        if (!target || !target.currentSlot)
+        {
             return;
         }
 
@@ -116,7 +147,8 @@ public class CardVisual : MonoBehaviour
 
     public void AddInfoTop(Transform transform)
     {
-        foreach (Transform child in infoTop) {
+        foreach (Transform child in infoTop)
+        {
             Destroy(child.gameObject);
         }
 
@@ -126,7 +158,8 @@ public class CardVisual : MonoBehaviour
 
     public void AddInfoBottom(Transform transform)
     {
-        foreach (Transform child in infoBottom) {
+        foreach (Transform child in infoBottom)
+        {
             Destroy(child.gameObject);
         }
 

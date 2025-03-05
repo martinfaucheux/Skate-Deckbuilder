@@ -1,15 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using TMPro;
 
 public class Card : MonoBehaviour
 {
     public ActionContainer actionContainer;
     public SpriteRenderer[] renderers;
-    public TextMeshProUGUI energyCostText;
-    public TextMeshProUGUI energyRewardText;
-
     public CardDefinition _cardDefinition;
     public CardDefinition cardDefinition
     {
@@ -54,8 +49,6 @@ public class Card : MonoBehaviour
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
-        UpdateCostText();
-
         HideQTE();
 
         // TODO: ugly code
@@ -63,25 +56,6 @@ public class Card : MonoBehaviour
         cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 
-    private void UpdateCostText()
-    {
-        if (energyCostText == null || energyRewardText == null)
-            return;
-        int cost = cardDefinition.energyCost;
-        int gain = cardDefinition.energyGain;
-        if (cost > 0)
-        {
-            energyCostText.text = $"-{cost}";
-        }
-        else
-        {
-            if (gain > 0)
-                energyRewardText.text = $"+{gain}";
-            else
-                energyRewardText.text = "";
-        }
-        energyRewardText.text = "";
-    }
 
     public void ShowQTE()
     {
