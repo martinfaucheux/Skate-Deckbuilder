@@ -73,12 +73,14 @@ public class SequenceManager : Singleton<SequenceManager>
         }
     }
 
-    public void AddSequences(List<ActionContainer> actionContainers)
+    public void AddSequences(List<Card> cards)
     {
-        int containerCount = actionContainers.Count();
-        for (int containerIdx = 0; containerIdx < containerCount; containerIdx++)
+        int cardCount = cards.Count();
+        for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
         {
-            ActionContainer actionContainer = actionContainers[containerIdx];
+            Card card = cards[cardIdx];
+            ActionContainer actionContainer = card.actionContainer;
+            CardDefinition cardDef = card.cardDefinition;
             Vector3 startPos = actionContainer.startTransform.position;
             startPos.z = _characterZ;
 
@@ -91,14 +93,14 @@ public class SequenceManager : Singleton<SequenceManager>
                 endPos,
                 baseSpeed,
                 characterTransform,
-                actionContainer.energyCost,
-                actionContainer.energyGain,
+                cardDef.energyCost,
+                cardDef.energyGain,
                 actionContainer.CreateChallenge()
             ));
 
-            if (containerIdx < containerCount - 1)
+            if (cardIdx < cardCount - 1)
             {
-                Vector3 nextStartPos = actionContainers[containerIdx + 1].startTransform.position;
+                Vector3 nextStartPos = cards[cardIdx + 1].actionContainer.startTransform.position;
                 nextStartPos.z = _characterZ;
 
                 _sequences.Enqueue(new ActionSequence(
@@ -117,7 +119,7 @@ public class SequenceManager : Singleton<SequenceManager>
     public void Play()
     {
         _sequences = new Queue<ActionSequence>();
-        AddSequences(BoardManager.i.cardSlots.Select(cardSlot => cardSlot.card.actionContainer).ToList());
+        AddSequences(BoardManager.i.cardSlots.Select(cardSlot => cardSlot.card).ToList());
         isPlaying = true;
 
         OnSequenceStart?.Invoke();

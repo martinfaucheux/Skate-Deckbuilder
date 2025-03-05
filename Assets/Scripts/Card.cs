@@ -54,25 +54,33 @@ public class Card : MonoBehaviour
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
-        int cost = actionContainer.energyCost;
-        int reward = actionContainer.energyGain;
+        UpdateCostText();
+
+        HideQTE();
+
+        // TODO: ugly code
+        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
+    }
+
+    private void UpdateCostText()
+    {
+        if (energyCostText == null || energyRewardText == null)
+            return;
+        int cost = cardDefinition.energyCost;
+        int gain = cardDefinition.energyGain;
         if (cost > 0)
         {
             energyCostText.text = $"-{cost}";
         }
         else
         {
-            if (reward > 0)
-                energyRewardText.text = $"+{reward}";
+            if (gain > 0)
+                energyRewardText.text = $"+{gain}";
             else
                 energyRewardText.text = "";
         }
         energyRewardText.text = "";
-        HideQTE();
-
-        // TODO: ugly code
-        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
-        cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 
     public void ShowQTE()

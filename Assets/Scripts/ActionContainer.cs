@@ -11,11 +11,6 @@ public class ActionContainer : MonoBehaviour
     public Transform arrowSpriteTransform;
     public List<GameObject> QTERenderers;
 
-    [Tooltip("If the player doesn't have enough energy when entering the sequence, they will lose the round.")]
-    public int energyCost = 0;
-    [Tooltip("If the player completes the sequence, they will gain this much energy.")]
-    public int energyGain = 0;
-
     void Awake()
     {
         // here so we are sure it is always defined
@@ -66,11 +61,14 @@ public class ActionContainer : MonoBehaviour
 
     public void ShowQTERenderer()
     {
-        foreach (var go in QTERenderers) {
-            if (go.TryGetComponent(out SpriteRenderer sr)) {
+        foreach (var go in QTERenderers)
+        {
+            if (go.TryGetComponent(out SpriteRenderer sr))
+            {
                 sr.enabled = true;
             }
-            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup))
+            {
                 canvasGroup.alpha = 1;
             }
         }
@@ -78,11 +76,14 @@ public class ActionContainer : MonoBehaviour
 
     public void HideQTERenderer()
     {
-        foreach (var go in QTERenderers) {
-            if (go.TryGetComponent(out SpriteRenderer sr)) {
+        foreach (var go in QTERenderers)
+        {
+            if (go.TryGetComponent(out SpriteRenderer sr))
+            {
                 sr.enabled = false;
             }
-            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup))
+            {
                 canvasGroup.alpha = 0;
             }
         }
