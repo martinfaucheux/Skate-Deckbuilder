@@ -47,29 +47,21 @@ public class Card : MonoBehaviour
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
-        HideAction();
+        HideQTE();
+
+        // TODO: ugly code
+        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 
-    public void ShowAction()
+    public void ShowQTE()
     {
-        foreach (var canvasGroup in actionContainer.GetComponentsInChildren<CanvasGroup>(true)) {
-            canvasGroup.alpha = 1;
-        }
-
-        foreach (var sr in actionContainer.GetComponentsInChildren<SpriteRenderer>(true)) {
-            sr.gameObject.SetActive(true);
-        }
+        actionContainer.ShowQTERenderer();
     }
 
-    public void HideAction()
+    public void HideQTE()
     {
-        foreach (var canvasGroup in actionContainer.GetComponentsInChildren<CanvasGroup>(true)) {
-            canvasGroup.alpha = 0;
-        }
-
-        foreach (var sr in actionContainer.GetComponentsInChildren<SpriteRenderer>(true)) {
-            sr.gameObject.SetActive(false);
-        }
+        actionContainer.HideQTERenderer();
     }
 
     private void SetColor(Color color)

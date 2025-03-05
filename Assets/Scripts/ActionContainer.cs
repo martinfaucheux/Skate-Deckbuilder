@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ActionContainer : MonoBehaviour
@@ -7,7 +8,8 @@ public class ActionContainer : MonoBehaviour
     public QTEConfig qteConfig;
     public ChallengeDisplay challengeDisplay;
     public CardType cardType;
-    public SpriteRenderer arrowSpriteRenderer;
+    public Transform arrowSpriteTransform;
+    public List<GameObject> QTERenderers;
 
     void Awake()
     {
@@ -24,17 +26,16 @@ public class ActionContainer : MonoBehaviour
         if (challenge != null && challengeDisplay != null)
         {
             challengeDisplay.AssignChallenge(challenge);
-            SetArrowSprite(challenge);
+            SetArrowSprite(challenge.keyCode);
         }
 
         return challenge;
     }
 
-    public void SetArrowSprite(ActionSequenceChallenge challenge)
+    public void SetArrowSprite(KeyCode key)
     {
         float angle = 0;
 
-        KeyCode key = challenge.keyCode;
         if (key == KeyCode.RightArrow)
         {
             angle = 0;
@@ -52,6 +53,33 @@ public class ActionContainer : MonoBehaviour
             angle = 270;
         }
 
-        arrowSpriteRenderer.transform.localRotation = Quaternion.Euler(0, 0, angle);
+        foreach (Transform child in arrowSpriteTransform)
+        {
+            child.localRotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+
+    public void ShowQTERenderer()
+    {
+        foreach (var go in QTERenderers) {
+            if (go.TryGetComponent(out SpriteRenderer sr)) {
+                sr.enabled = true;
+            }
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+                canvasGroup.alpha = 1;
+            }
+        }
+    }
+
+    public void HideQTERenderer()
+    {
+        foreach (var go in QTERenderers) {
+            if (go.TryGetComponent(out SpriteRenderer sr)) {
+                sr.enabled = false;
+            }
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+                canvasGroup.alpha = 0;
+            }
+        }
     }
 }
