@@ -54,6 +54,7 @@ public class Card : MonoBehaviour
         // TODO: ugly code
         actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
         cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
+        actionContainer.SetCard(this);
     }
 
 

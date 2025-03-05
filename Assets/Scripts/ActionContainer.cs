@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Splines;
+using UnityEngine.UIElements;
 
 public class ActionContainer : MonoBehaviour
 {
@@ -10,11 +13,36 @@ public class ActionContainer : MonoBehaviour
     public CardType cardType;
     public Transform arrowSpriteTransform;
     public List<GameObject> QTERenderers;
+    public Card card { get; private set; }
+
+    private SplineContainer _spline;
 
     void Awake()
     {
-        // here so we are sure it is always defined
+        // TODO: not the best place to randomize the card type
+        // this should be done at the card generation and stored in the card object somehow.
         cardType = CardTypeConfiguration.GetRandomType();
+    }
+
+
+    public void SetCard(Card card)
+    {
+        this.card = card;
+
+        // create and attach spline component
+        GameObject splinePrefab = card.cardDefinition.splinePrefab;
+        if (_spline == null && splinePrefab != null)
+        {
+            GameObject splineGameObject = Instantiate(
+                splinePrefab,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
+            SplineHelper splineHelper = splineGameObject.GetComponent<SplineHelper>();
+            splineHelper.Initialize();
+            _spline = splineHelper.splineContainer;
+        }
     }
 
     public ActionSequenceChallenge CreateChallenge()

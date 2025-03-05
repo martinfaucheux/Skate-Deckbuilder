@@ -6,6 +6,7 @@ public class CardDefinition : ScriptableObject
     public Sprite sprite;
     public float groundStartY;
     public float groundEndY;
+    public GameObject splinePrefab;
 
     public ActionContainer actionContainerPrefab;
     [Tooltip("If the player doesn't have enough energy when entering the sequence, they will lose the round.")]
