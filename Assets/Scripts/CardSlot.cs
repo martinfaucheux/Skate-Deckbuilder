@@ -92,6 +92,8 @@ public class CardSlot : MonoBehaviour
         if (hoveredSlotContainer != null && hoveredSlotContainer.name != currentContainer.name) {
             currentContainer.SwapSlotContainer(hoveredSlotContainer);
         }
+
+        GenericTooltip.Instance.Hide();
     }
 
     public void OnMouseUp() {

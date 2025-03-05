@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 
@@ -110,6 +111,10 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
             BoardManager.i.slotContainer.RemoveAllCards();
             CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
                 BoardManager.i.slotContainer.cardCountMax = runDefinition.rounds[roundIndex].cardCountOnBoard;
+                if (HasRelic("Board Wheel")) {
+                    BoardManager.i.slotContainer.cardCountMax++;
+                }
+
                 BoardManager.i.slotContainer.AddEmptySlotsIfNeeded();
             });
         });
@@ -121,6 +126,10 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     public SlotContainer handSlotContainer;
     public void DrawHand() {
         int cardAmountToDraw = runDefinition.rounds[roundIndex].cardCountOnBoard + 2;
+        if (HasRelic("Hand Wheel")) {
+            cardAmountToDraw++;
+        }
+
         handSlotContainer.AddCards(GetRandomCardsFromInventory(cardAmountToDraw));
         
         HandManager.i.Show();
@@ -134,6 +143,25 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
         }
 
         return cardDefinitions;
+    }
+#endregion
+
+#region Items
+    public Transform relicUIList;
+    public RelicUI relicUIPrefab;
+    private List<RelicDefinition> relics = new List<RelicDefinition>();
+
+    public void AddRelic(RelicDefinition relicDefinition)
+    {
+        relics.Add(relicDefinition);
+
+        RelicUI relicUI = Instantiate(relicUIPrefab, relicUIList);
+        relicUI.relicDefinition = relicDefinition;
+    }
+
+    public bool HasRelic(string name)
+    {
+        return relics.Any((relic) => relic.name.ToLower().Trim() == name.ToLower().Trim());
     }
 #endregion
 }

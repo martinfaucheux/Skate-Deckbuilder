@@ -22,6 +22,15 @@ namespace CoduckStudio
             return config;
         }
 
+        public static GenericTooltip.Config GetRelicConfig(RelicDefinition relicDefinition)
+        {
+            GenericTooltip.Config config = new GenericTooltip.Config(relicDefinition.name, Color.black, Color.white);
+
+            config.descriptions.Add(new GenericTooltip.ConfigDescription(relicDefinition.description, Color.black));
+
+            return config;
+        }
+
         public static string GetStatColor(int baseStat, int actualStat, Color defaultColor)
         {
             if (baseStat == -1) {
