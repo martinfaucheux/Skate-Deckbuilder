@@ -1,7 +1,7 @@
 
 using System;
 using UnityEngine;
-public enum CharacterState { Grounded, Airborn, Riding }
+public enum CharacterState { Grounded, Airborn, Sliding }
 public class PathData
 {
     public Vector3 position;
