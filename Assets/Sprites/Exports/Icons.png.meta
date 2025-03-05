@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 6ae3a233d231ba64b957bb5c66c696f0
+guid: 4ae0b562ce758e14286d56b4cbba96a7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5803318427084083935
-    second: Card-red_0
+      213: 1161201145128540330
+    second: Icons_0
+  - first:
+      213: 2130535880278150251
+    second: Icons_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Card-red_0
+      name: Icons_0
       rect:
         serializedVersion: 2
-        x: 15
-        y: 22
-        width: 271
-        height: 856
+        x: 18
+        y: 1
+        width: 65
+        height: 94
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fd253d4bc57898050800000000000000
-      internalID: 5803318427084083935
+      spriteID: aa8d9280a4a6d1010800000000000000
+      internalID: 1161201145128540330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Icons_1
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 1
+        width: 93
+        height: 95
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6c0435581f219d10800000000000000
+      internalID: 2130535880278150251
       vertices: []
       indices: 
       edges: []
@@ -138,7 +163,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Card-red_0: 5803318427084083935
+      Icons_0: 1161201145128540330
+      Icons_1: 2130535880278150251
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,6 +12,7 @@ public class ActionSequence
     private Transform _characterTransform;
     public int energyCost { get; private set; }
     public int energyGain { get; private set; }
+    public int scoreGain { get; private set; }
 
     public ActionSequence(
         Vector3 start,
@@ -20,6 +21,7 @@ public class ActionSequence
         Transform characterTransform,
         int energyCost = 0,
         int energyGain = 0,
+        int scoreGain = 0,
         ActionSequenceChallenge challenge = null
     )
     {
@@ -30,6 +32,7 @@ public class ActionSequence
         _characterTransform = characterTransform;
         this.energyCost = energyCost;
         this.energyGain = energyGain;
+        this.scoreGain = scoreGain;
         state = ActionSequenceState.Idle;
     }
 
@@ -61,6 +64,8 @@ public class ActionSequence
             state = ActionSequenceState.Completed;
             if (energyGain > 0)
                 EnergyPointManager.i.Add(energyGain);
+            if (scoreGain > 0)
+                RunManager.Instance.score += scoreGain;
         }
     }
 

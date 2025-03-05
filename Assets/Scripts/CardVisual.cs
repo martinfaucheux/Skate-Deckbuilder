@@ -12,6 +12,7 @@ public class CardVisual : MonoBehaviour
     public Transform infoBottom;
     public SortingGroup sortingGroup;
     public TextMeshPro energyCostText;
+    public TextMeshPro scoreCostText;
 
     private void Awake()
     {
@@ -62,28 +63,33 @@ public class CardVisual : MonoBehaviour
             transform.SetParent(GameObject.Find("CardVisuals").transform, false);
             backgroundSpriteRenderer.sprite = card.cardDefinition.sprite;
         }
-        SetCostText();
 
+        SetCostText();
+        SetScoreText();
     }
 
     private void SetCostText()
     {
         int cost = target.cardDefinition.energyCost;
-        int gain = target.cardDefinition.energyGain;
-        if (cost > 0)
-        {
-            energyCostText.text = $"-{cost}";
+        if (cost > 0) {
+            energyCostText.text = $"-{cost} <sprite=0>";
         }
-        else
-        {
-            if (gain > 0)
-            {
-                energyCostText.text = $"+{gain}";
-            }
-            else
-            {
-                energyCostText.text = "";
-            }
+        else {
+            energyCostText.text = $"0 <sprite=0>";
+        }
+    }
+
+    private void SetScoreText()
+    {
+        int gain = target.cardDefinition.energyGain;
+
+        scoreCostText.text = "";
+        if (target.cardDefinition.score > 0) {
+            scoreCostText.text = $"+{target.cardDefinition.score} <sprite=1>";
+        }
+        if (gain > 0) {
+            string space = target.cardDefinition.score > 0 ? " " : "";
+            scoreCostText.text += $"{space}+{gain} <sprite=0>";
         }
     }
 

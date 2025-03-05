@@ -84,6 +84,7 @@ public class SequenceManager : Singleton<SequenceManager>
                 characterTransform,
                 cardDef.energyCost,
                 cardDef.energyGain,
+                cardDef.score,
                 actionContainer.CreateChallenge()
             ));
 
@@ -97,6 +98,7 @@ public class SequenceManager : Singleton<SequenceManager>
                     nextStartPos,
                     baseSpeed,
                     characterTransform,
+                    0,
                     0,
                     0,
                     null
