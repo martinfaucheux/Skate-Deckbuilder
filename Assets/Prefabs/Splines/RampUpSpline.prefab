@@ -94,53 +94,93 @@ MonoBehaviour:
       Rotation:
         value:
           x: -0.6157476
-          y: 0.34764203
-          z: -0.34764096
+          y: 0.347642
+          z: -0.347641
           w: 0.6157481
     - Position:
         x: 1.007
         y: 0.89400005
         z: 0
       TangentIn:
-        x: 0
-        y: 0
-        z: 0
+        x: -0
+        y: -0
+        z: -0.3427556
       TangentOut:
         x: 0
         y: 0
-        z: 0
+        z: 0.21885467
       Rotation:
         value:
-          x: -0.59998983
-          y: 0.37418205
-          z: -0.37418205
-          w: 0.59998983
+          x: 0.6865177
+          y: -0.16939124
+          z: 0.16939141
+          w: -0.6865177
+    - Position:
+        x: 1.1890001
+        y: 1.4059999
+        z: 0
+      TangentIn:
+        x: 0.000000029802322
+        y: 0.0000000037252903
+        z: -0.111533925
+      TangentOut:
+        x: -0.000000026077032
+        y: 0.0000000037252903
+        z: 0.046955787
+      Rotation:
+        value:
+          x: 0.496438
+          y: -0.5035368
+          z: 0.5035368
+          w: -0.496438
+    - Position:
+        x: 1.3290005
+        y: 1.005
+        z: 0
+      TangentIn:
+        x: -0.000000029802322
+        y: -0.0000000037252903
+        z: -0.07429274
+      TangentOut:
+        x: 0
+        y: 0.000000007450581
+        z: 0.11757537
+      Rotation:
+        value:
+          x: 0.18650515
+          y: -0.6820673
+          z: 0.6820673
+          w: -0.18650515
     - Position:
         x: 1.5
         y: 0.887
         z: 0
       TangentIn:
-        x: -0
-        y: -0
-        z: -0.049304973
+        x: 0
+        y: 0
+        z: 0
       TangentOut:
         x: 0
         y: 0
-        z: 0.049304973
+        z: 0
       Rotation:
         value:
-          x: 0.49643826
-          y: -0.5035366
-          z: 0.5035371
-          w: -0.49643767
+          x: -0.40902784
+          y: 0.57679826
+          z: -0.5767982
+          w: 0.40902802
     m_MetaData:
     - Mode: 2
       Tension: 0.5
     - Mode: 0
       Tension: 0.5
-    - Mode: 1
-      Tension: 0.5
     - Mode: 0
+      Tension: 0.5
+    - Mode: 4
+      Tension: 0.5
+    - Mode: 4
+      Tension: 0.5
+    - Mode: 1
       Tension: 0.5
     m_Closed: 0
     m_IntData:
@@ -166,4 +206,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   splineContainer: {fileID: 6320739235146498336}
-  characterStates: 000000000000000000000000
+  characterStates: 0000000000000000010000000100000000000000
