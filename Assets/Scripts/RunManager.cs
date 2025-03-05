@@ -86,19 +86,6 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
         isRunOver = true;
     }
 
-    // TODO: do button instead of key
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !SequenceManager.i.isPlaying && !isRunOver) {
-            if (BoardManager.i.CanAddCard()) {
-                Debug.LogWarning("cannot play if not all cards are placed");
-            }
-            else {
-                PlayHand();
-            }
-        }
-    }
-
     public void PlayHand()
     {
         SlotContainerManager.i.ShowActionContainer(true);
