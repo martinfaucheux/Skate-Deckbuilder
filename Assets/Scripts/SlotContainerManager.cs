@@ -44,9 +44,9 @@ public class SlotContainerManager : Singleton<SlotContainerManager>
     {
         foreach (var card in FindObjectsByType<Card>(FindObjectsSortMode.None)) {
             if (show) {
-                card.ShowAction();
+                card.ShowQTE();
             } else {
-                card.HideAction();
+                card.HideQTE();
             }
         }
     }

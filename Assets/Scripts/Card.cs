@@ -1,29 +1,30 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
 public class Card : MonoBehaviour
 {
     public ActionContainer actionContainer;
     public SpriteRenderer[] renderers;
-
     public CardDefinition _cardDefinition;
-    public CardDefinition cardDefinition {
+    public CardDefinition cardDefinition
+    {
         get { return _cardDefinition; }
-        set {
+        set
+        {
             _cardDefinition = value;
 
-            if (_cardDefinition == null) {
-                if (cardVisual != null) {
+            if (_cardDefinition == null)
+            {
+                if (cardVisual != null)
+                {
                     Destroy(cardVisual.gameObject);
                     cardVisual = null;
                 }
                 return;
             }
 
-            if (cardVisual == null) {
+            if (cardVisual == null)
+            {
                 CreateVisual();
             }
 
@@ -35,7 +36,8 @@ public class Card : MonoBehaviour
 
     public void AssignActionContainer(ActionContainer actionContainer)
     {
-        if (this.actionContainer.gameObject != null) {
+        if (this.actionContainer.gameObject != null)
+        {
             Destroy(this.actionContainer.gameObject);
             this.actionContainer = null;
         }
@@ -47,29 +49,22 @@ public class Card : MonoBehaviour
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
-        HideAction();
+        HideQTE();
+
+        // TODO: ugly code
+        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 
-    public void ShowAction()
-    {
-        foreach (var canvasGroup in actionContainer.GetComponentsInChildren<CanvasGroup>(true)) {
-            canvasGroup.alpha = 1;
-        }
 
-        foreach (var sr in actionContainer.GetComponentsInChildren<SpriteRenderer>(true)) {
-            sr.gameObject.SetActive(true);
-        }
+    public void ShowQTE()
+    {
+        actionContainer.ShowQTERenderer();
     }
 
-    public void HideAction()
+    public void HideQTE()
     {
-        foreach (var canvasGroup in actionContainer.GetComponentsInChildren<CanvasGroup>(true)) {
-            canvasGroup.alpha = 0;
-        }
-
-        foreach (var sr in actionContainer.GetComponentsInChildren<SpriteRenderer>(true)) {
-            sr.gameObject.SetActive(false);
-        }
+        actionContainer.HideQTERenderer();
     }
 
     private void SetColor(Color color)
@@ -78,7 +73,7 @@ public class Card : MonoBehaviour
             spriteRenderer.color = color;
     }
 
-#region Visual
+    #region Visual
     public CardVisual cardVisualPrefab;
     public CardVisual cardVisual;
     public CardSlot currentSlot;
@@ -87,7 +82,7 @@ public class Card : MonoBehaviour
     {
         cardVisual = Instantiate(cardVisualPrefab, transform.position, Quaternion.identity);
         cardVisual.transform.SetParent(GameObject.Find("CardVisuals").transform);
-        renderers = new List<SpriteRenderer>(){ cardVisual.cardSpriteRenderer }.ToArray();
+        renderers = new List<SpriteRenderer>() { cardVisual.cardSpriteRenderer }.ToArray();
     }
-#endregion
+    #endregion
 }

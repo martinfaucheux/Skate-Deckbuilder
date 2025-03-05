@@ -36,7 +36,7 @@ Transform:
   - {fileID: 4487446697789901106}
   - {fileID: 1439019243534658292}
   - {fileID: 8207765401757190395}
-  - {fileID: 2126715981172783618}
+  - {fileID: 4309618348921200461}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7104986119490513012
@@ -111,7 +111,9 @@ MonoBehaviour:
   qteConfig: {fileID: 11400000, guid: 1f7c4c4850797489cb7cb433b3a36e91, type: 2}
   challengeDisplay: {fileID: 9202203902745494334}
   cardType: 0
-  arrowSpriteRenderer: {fileID: 3444052702434583191}
+  arrowSpriteTransform: {fileID: 4309618348921200461}
+  QTERenderers:
+  - {fileID: 1056905888106947168}
 --- !u!331 &9119399601307535745
 SpriteMask:
   m_ObjectHideFlags: 0
@@ -358,6 +360,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4212921337611452860}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3539739335576407301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4309618348921200461}
+  m_Layer: 0
+  m_Name: ArrowSprites
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4309618348921200461
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539739335576407301}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3.67, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2126715981172783618}
+  m_Father: {fileID: 4212921337611452860}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3572090983658684444
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +631,7 @@ Transform:
   m_GameObject: {fileID: 7623842419623009106}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -657,7 +691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 55.74, y: 55.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3374263907560798418
@@ -704,7 +738,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4212921337611452860}
+    m_TransformParent: {fileID: 4309618348921200461}
     m_Modifications:
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalPosition.x
@@ -712,7 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.67
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -724,15 +758,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -758,10 +792,5 @@ PrefabInstance:
 --- !u!4 &2126715981172783618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
-  m_PrefabInstance: {fileID: 4091246821888429701}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &3444052702434583191 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1660910039819185170, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
   m_PrefabInstance: {fileID: 4091246821888429701}
   m_PrefabAsset: {fileID: 0}

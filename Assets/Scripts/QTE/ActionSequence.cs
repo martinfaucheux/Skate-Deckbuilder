@@ -10,14 +10,26 @@ public class ActionSequence
     public ActionSequenceState state = ActionSequenceState.Idle;
     public float speed = 3f;
     private Transform _characterTransform;
+    public int energyCost { get; private set; }
+    public int energyGain { get; private set; }
 
-    public ActionSequence(Vector3 start, Vector3 end, float speed, Transform characterTransform, ActionSequenceChallenge challenge = null)
+    public ActionSequence(
+        Vector3 start,
+        Vector3 end,
+        float speed,
+        Transform characterTransform,
+        int energyCost = 0,
+        int energyGain = 0,
+        ActionSequenceChallenge challenge = null
+    )
     {
         startPosition = start;
         endPosition = end;
         this.speed = speed;
         this.challenge = challenge;
         _characterTransform = characterTransform;
+        this.energyCost = energyCost;
+        this.energyGain = energyGain;
         state = ActionSequenceState.Idle;
     }
 
@@ -47,6 +59,8 @@ public class ActionSequence
         {
             challenge?.End();
             state = ActionSequenceState.Completed;
+            if (energyGain > 0)
+                EnergyPointManager.i.Add(energyGain);
         }
     }
 
