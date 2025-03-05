@@ -1,4 +1,5 @@
 using System.Linq;
+using CoduckStudio;
 using UnityEngine;
 
 public class CardSlot : MonoBehaviour
@@ -104,11 +105,13 @@ public class CardSlot : MonoBehaviour
 
     public void OnMouseOver()
     {
-        if (isEmpty) {
+        if (isEmpty || isHovering) {
             return;
         }
 
         isHovering = true;
+
+        GenericTooltip.Instance.Show(Tooltip.GetCardConfig(card.cardDefinition, card.actionContainer), card.gameObject);
 
         if (currentContainer.forceCardBigHeight)
             return;
@@ -123,6 +126,8 @@ public class CardSlot : MonoBehaviour
         }
 
         isHovering = false;
+
+        GenericTooltip.Instance.Hide();
 
         if (currentContainer.forceCardBigHeight)
             return;

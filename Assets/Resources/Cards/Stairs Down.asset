@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Stairs
+  m_Name: Stairs Down
   m_EditorClassIdentifier: 
   sprite: {fileID: -2660968328804394481, guid: afcdf85694d77ac48a4a14d02542ebd8, type: 3}
   groundStartY: -0.4
