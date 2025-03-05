@@ -23,7 +23,7 @@ public class CardGenerator : MonoBehaviour
             card.AssignActionContainer(actionContainer);
             cardGameObject.transform.localScale = cardSize * Vector3.one;
         }
-        HandManager.i.AddManyCards(cards);
+        // HandManager.i.AddManyCards(cards);
     }
 
     public ActionContainer InstantiateRandomActionContainer()

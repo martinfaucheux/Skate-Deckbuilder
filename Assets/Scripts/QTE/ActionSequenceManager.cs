@@ -7,6 +7,8 @@ public class SequenceManager : Singleton<SequenceManager>
 {
     public Transform characterTransform;
     private Queue<ActionSequence> _sequences = new Queue<ActionSequence>();
+    public UnityEvent OnSequenceStart;
+    public UnityEvent OnSequenceComplete;
     public float baseSpeed = 3f;
     public bool isPlaying { get; private set; } = false;
     private ActionSequence _currentSequence;
@@ -115,7 +117,9 @@ public class SequenceManager : Singleton<SequenceManager>
     public void Play()
     {
         _sequences = new Queue<ActionSequence>();
-        AddSequences(BoardManager.i.cards.Select(card => card.actionContainer).ToList());
+        AddSequences(BoardManager.i.cardSlots.Select(cardSlot => cardSlot.card.actionContainer).ToList());
         isPlaying = true;
+
+        OnSequenceStart?.Invoke();
     }
 }

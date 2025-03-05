@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using TMPro;
@@ -9,24 +10,43 @@ public class Card : MonoBehaviour
     public TextMeshProUGUI energyCostText;
     public TextMeshProUGUI energyRewardText;
 
-    // do stuff when clicked
-    void OnMouseDown()
+    public CardDefinition _cardDefinition;
+    public CardDefinition cardDefinition
     {
-        if (IsInHand())
+        get { return _cardDefinition; }
+        set
         {
-            HandManager.i.TryMoveCardToBoard(this);
-        }
-        else if (IsOnBoard())
-        {
-            HandManager.i.MoveCardToHand(this);
+            _cardDefinition = value;
+
+            if (_cardDefinition == null)
+            {
+                if (cardVisual != null)
+                {
+                    Destroy(cardVisual.gameObject);
+                    cardVisual = null;
+                }
+                return;
+            }
+
+            if (cardVisual == null)
+            {
+                CreateVisual();
+            }
+
+            cardVisual.Set(this);
+
+            AssignActionContainer(Instantiate(cardDefinition.actionContainerPrefab, transform));
         }
     }
 
-    public bool IsInHand() => HandManager.i.cards.Contains(this);
-    public bool IsOnBoard() => BoardManager.i.cards.Contains(this);
-
     public void AssignActionContainer(ActionContainer actionContainer)
     {
+        if (this.actionContainer.gameObject != null)
+        {
+            Destroy(this.actionContainer.gameObject);
+            this.actionContainer = null;
+        }
+
         this.actionContainer = actionContainer;
         actionContainer.transform.SetParent(transform);
         actionContainer.transform.localPosition = Vector3.zero;
@@ -48,6 +68,21 @@ public class Card : MonoBehaviour
                 energyRewardText.text = "";
         }
         energyRewardText.text = "";
+        HideQTE();
+
+        // TODO: ugly code
+        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
+    }
+
+    public void ShowQTE()
+    {
+        actionContainer.ShowQTERenderer();
+    }
+
+    public void HideQTE()
+    {
+        actionContainer.HideQTERenderer();
     }
 
     private void SetColor(Color color)
@@ -55,4 +90,17 @@ public class Card : MonoBehaviour
         foreach (SpriteRenderer spriteRenderer in renderers)
             spriteRenderer.color = color;
     }
+
+    #region Visual
+    public CardVisual cardVisualPrefab;
+    public CardVisual cardVisual;
+    public CardSlot currentSlot;
+
+    public void CreateVisual()
+    {
+        cardVisual = Instantiate(cardVisualPrefab, transform.position, Quaternion.identity);
+        cardVisual.transform.SetParent(GameObject.Find("CardVisuals").transform);
+        renderers = new List<SpriteRenderer>() { cardVisual.cardSpriteRenderer }.ToArray();
+    }
+    #endregion
 }
