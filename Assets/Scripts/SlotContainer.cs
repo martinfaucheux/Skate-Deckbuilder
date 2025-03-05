@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
 public class SlotContainer : MonoBehaviour
 {
@@ -194,7 +195,9 @@ public class SlotContainer : MonoBehaviour
             }
         }
 
-        UpdateSlots();
+        CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
+            UpdateSlots();
+        });
     }
 
     public void DeleteSlot(CardSlot slot)
