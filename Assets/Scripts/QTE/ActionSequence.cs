@@ -9,7 +9,7 @@ public class ActionSequence
     public Vector3 endPosition { get; private set; }
     public ActionSequenceChallenge challenge { get; private set; }
     public ActionSequenceState state = ActionSequenceState.Idle;
-    private Rigidbody2D _characterRigidbody;
+    private CharacterController _characterController;
     public int energyCost { get; private set; }
     public int energyGain { get; private set; }
     private Func<float, PathData> pathDataFunc;
@@ -20,7 +20,7 @@ public class ActionSequence
     public ActionSequence(
         Vector3 start,
         Vector3 end,
-        Rigidbody2D characterRigidbody,
+        CharacterController characterController,
         float sequenceDuration,
         int energyCost = 0,
         int energyGain = 0,
@@ -34,7 +34,7 @@ public class ActionSequence
         startPosition = start;
         endPosition = end;
         this.challenge = challenge;
-        _characterRigidbody = characterRigidbody;
+        _characterController = characterController;
         this.energyCost = energyCost;
         this.energyGain = energyGain;
         state = ActionSequenceState.Idle;
@@ -47,7 +47,7 @@ public class ActionSequence
         challenge?.Reset();
         challenge?.RegisterOnEvents(OnWinChallenge, OnFailChallenge);
         challenge?.Start();
-        _characterRigidbody.MovePosition(startPosition);
+        _characterController.Move(startPosition);
         _startTime = Time.time;
     }
 
@@ -58,10 +58,7 @@ public class ActionSequence
         // use the Func to update postion
         float t = sequenceDuration > 0 ? timeSinceStart / sequenceDuration : 0;
         PathData pathData = pathDataFunc(t);
-        _characterRigidbody.MovePosition(pathData.position);
-
-        Vector3 tangent = pathData.tangent;
-        _characterRigidbody.MoveRotation(Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg);
+        _characterController.Move(pathData);
 
         if (challenge != null && challenge.state == ActionSequenceChallengeState.Running)
         {

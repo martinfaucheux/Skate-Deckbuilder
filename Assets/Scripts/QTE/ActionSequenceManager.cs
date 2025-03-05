@@ -5,7 +5,7 @@ using System.Linq;
 
 public class SequenceManager : Singleton<SequenceManager>
 {
-    public Rigidbody2D characterRigidbody;
+    public CharacterController characterController;
     private Queue<ActionSequence> _sequences = new Queue<ActionSequence>();
     public UnityEvent OnSequenceStart;
     public UnityEvent OnSequenceComplete;
@@ -17,12 +17,6 @@ public class SequenceManager : Singleton<SequenceManager>
     [Tooltip("Event invoked when the player doesn't have enough energy to play the next sequence.")]
     public UnityEvent onInsufficientEnergy;
 
-    void Start()
-    {
-        Vector3 characterPosition = characterRigidbody.transform.position;
-        _characterZ = characterPosition.z;
-        characterRigidbody.MovePosition(characterPosition);
-    }
 
     void Update()
     {
@@ -94,7 +88,7 @@ public class SequenceManager : Singleton<SequenceManager>
             _sequences.Enqueue(new ActionSequence(
                 startPos,
                 endPos,
-                characterRigidbody,
+                characterController,
                 actionBaseDuration,
                 cardDef.energyCost,
                 cardDef.energyGain,
@@ -110,7 +104,7 @@ public class SequenceManager : Singleton<SequenceManager>
                 _sequences.Enqueue(new ActionSequence(
                     endPos,
                     nextStartPos,
-                    characterRigidbody,
+                    characterController,
                     0
                 ));
             }
