@@ -9,10 +9,10 @@ public class ActionSequence
     public Vector3 endPosition { get; private set; }
     public ActionSequenceChallenge challenge { get; private set; }
     public ActionSequenceState state = ActionSequenceState.Idle;
-    private Transform _characterTransform;
+    private Rigidbody2D _characterRigidbody;
     public int energyCost { get; private set; }
     public int energyGain { get; private set; }
-    private Func<float, Vector3> positionOverTime;
+    private Func<float, (Vector3, Vector3)> positionOverTime;
     private float _startTime;
     public float sequenceDuration { get; private set; }
     public float timeSinceStart => Time.time - _startTime;
@@ -20,21 +20,21 @@ public class ActionSequence
     public ActionSequence(
         Vector3 start,
         Vector3 end,
-        Transform characterTransform,
+        Rigidbody2D characterRigidbody,
         float sequenceDuration,
         int energyCost = 0,
         int energyGain = 0,
-        Func<float, Vector3> positionOverTime = null,
+        Func<float, (Vector3, Vector3)> positionOverTime = null,
         ActionSequenceChallenge challenge = null
     )
     {
         // if not defined use a linear interpolation
-        this.positionOverTime = positionOverTime ?? (t => Vector3.Lerp(start, end, t));
+        this.positionOverTime = positionOverTime ?? (t => (Vector3.Lerp(start, end, t), new Vector3(1, 0, 0)));
 
         startPosition = start;
         endPosition = end;
         this.challenge = challenge;
-        _characterTransform = characterTransform;
+        _characterRigidbody = characterRigidbody;
         this.energyCost = energyCost;
         this.energyGain = energyGain;
         state = ActionSequenceState.Idle;
@@ -47,7 +47,7 @@ public class ActionSequence
         challenge?.Reset();
         challenge?.RegisterOnEvents(OnWinChallenge, OnFailChallenge);
         challenge?.Start();
-        _characterTransform.position = startPosition;
+        _characterRigidbody.MovePosition(startPosition);
         _startTime = Time.time;
     }
 
@@ -57,7 +57,9 @@ public class ActionSequence
 
         // use the Func to update postion
         float t = sequenceDuration > 0 ? timeSinceStart / sequenceDuration : 0;
-        _characterTransform.position = positionOverTime(t);
+        (Vector3 position, Vector3 tangent) = positionOverTime(t);
+        _characterRigidbody.MovePosition(position);
+        _characterRigidbody.MoveRotation(Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg);
 
         if (challenge != null && challenge.state == ActionSequenceChallengeState.Running)
         {

@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
-using System;
 using System.Linq;
+
 public class SequenceManager : Singleton<SequenceManager>
 {
-    public Transform characterTransform;
+    public Rigidbody2D characterRigidbody;
     private Queue<ActionSequence> _sequences = new Queue<ActionSequence>();
     public UnityEvent OnSequenceStart;
     public UnityEvent OnSequenceComplete;
@@ -19,7 +19,9 @@ public class SequenceManager : Singleton<SequenceManager>
 
     void Start()
     {
-        _characterZ = characterTransform.position.z;
+        Vector3 characterPosition = characterRigidbody.transform.position;
+        _characterZ = characterPosition.z;
+        characterRigidbody.MovePosition(characterPosition);
     }
 
     void Update()
@@ -92,7 +94,7 @@ public class SequenceManager : Singleton<SequenceManager>
             _sequences.Enqueue(new ActionSequence(
                 startPos,
                 endPos,
-                characterTransform,
+                characterRigidbody,
                 actionBaseDuration,
                 cardDef.energyCost,
                 cardDef.energyGain,
@@ -108,7 +110,7 @@ public class SequenceManager : Singleton<SequenceManager>
                 _sequences.Enqueue(new ActionSequence(
                     endPos,
                     nextStartPos,
-                    characterTransform,
+                    characterRigidbody,
                     0
                 ));
             }

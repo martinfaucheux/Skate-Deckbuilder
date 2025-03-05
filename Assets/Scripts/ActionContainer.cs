@@ -115,7 +115,7 @@ public class ActionContainer : MonoBehaviour
         }
     }
 
-    public Vector3 GetPositionFunction(float t)
+    public (Vector3, Vector3) GetPositionFunction(float t)
     {
         t = Mathf.Clamp01(t);
         // use the spline to interpolate the position
@@ -125,6 +125,9 @@ public class ActionContainer : MonoBehaviour
         // if positiion is Nan, set to the last position of the spline
         Vector3 position = splinePosition + transform.position;
         position.z = transform.position.z;
-        return position;
+
+        Vector3 tangent = spline.EvaluateTangent(t);
+
+        return (position, tangent);
     }
 }
