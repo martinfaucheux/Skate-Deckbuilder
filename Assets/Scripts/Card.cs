@@ -1,29 +1,30 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.Diagnostics;
 
 public class Card : MonoBehaviour
 {
     public ActionContainer actionContainer;
     public SpriteRenderer[] renderers;
-
     public CardDefinition _cardDefinition;
-    public CardDefinition cardDefinition {
+    public CardDefinition cardDefinition
+    {
         get { return _cardDefinition; }
-        set {
+        set
+        {
             _cardDefinition = value;
 
-            if (_cardDefinition == null) {
-                if (cardVisual != null) {
+            if (_cardDefinition == null)
+            {
+                if (cardVisual != null)
+                {
                     Destroy(cardVisual.gameObject);
                     cardVisual = null;
                 }
                 return;
             }
 
-            if (cardVisual == null) {
+            if (cardVisual == null)
+            {
                 CreateVisual();
             }
 
@@ -35,7 +36,8 @@ public class Card : MonoBehaviour
 
     public void AssignActionContainer(ActionContainer actionContainer)
     {
-        if (this.actionContainer.gameObject != null) {
+        if (this.actionContainer.gameObject != null)
+        {
             Destroy(this.actionContainer.gameObject);
             this.actionContainer = null;
         }
@@ -54,6 +56,7 @@ public class Card : MonoBehaviour
         cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 
+
     public void ShowQTE()
     {
         actionContainer.ShowQTERenderer();
@@ -70,7 +73,7 @@ public class Card : MonoBehaviour
             spriteRenderer.color = color;
     }
 
-#region Visual
+    #region Visual
     public CardVisual cardVisualPrefab;
     public CardVisual cardVisual;
     public CardSlot currentSlot;
@@ -79,7 +82,7 @@ public class Card : MonoBehaviour
     {
         cardVisual = Instantiate(cardVisualPrefab, transform.position, Quaternion.identity);
         cardVisual.transform.SetParent(GameObject.Find("CardVisuals").transform);
-        renderers = new List<SpriteRenderer>(){ cardVisual.cardSpriteRenderer }.ToArray();
+        renderers = new List<SpriteRenderer>() { cardVisual.cardSpriteRenderer }.ToArray();
     }
-#endregion
+    #endregion
 }

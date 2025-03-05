@@ -262,7 +262,10 @@ MonoBehaviour:
   qteConfig: {fileID: 0}
   challengeDisplay: {fileID: 0}
   cardType: 0
-  arrowSpriteRenderer: {fileID: 0}
+  arrowSpriteTransform: {fileID: 0}
+  QTERenderers: []
+  energyCost: 0
+  energyGain: 0
 --- !u!1 &3848831321178783840
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,6 +640,8 @@ MonoBehaviour:
   - {fileID: 5892453471448910360}
   - {fileID: 6757216048655304587}
   - {fileID: 6798353071196550812}
+  energyCostText: {fileID: 0}
+  energyRewardText: {fileID: 0}
   _cardDefinition: {fileID: 0}
   cardVisualPrefab: {fileID: 4373647605534182272, guid: 4ff665edb1947144790340188f90b84c, type: 3}
   cardVisual: {fileID: 0}

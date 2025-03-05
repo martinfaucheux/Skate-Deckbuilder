@@ -61,11 +61,14 @@ public class ActionContainer : MonoBehaviour
 
     public void ShowQTERenderer()
     {
-        foreach (var go in QTERenderers) {
-            if (go.TryGetComponent(out SpriteRenderer sr)) {
+        foreach (var go in QTERenderers)
+        {
+            if (go.TryGetComponent(out SpriteRenderer sr))
+            {
                 sr.enabled = true;
             }
-            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup))
+            {
                 canvasGroup.alpha = 1;
             }
         }
@@ -73,11 +76,14 @@ public class ActionContainer : MonoBehaviour
 
     public void HideQTERenderer()
     {
-        foreach (var go in QTERenderers) {
-            if (go.TryGetComponent(out SpriteRenderer sr)) {
+        foreach (var go in QTERenderers)
+        {
+            if (go.TryGetComponent(out SpriteRenderer sr))
+            {
                 sr.enabled = false;
             }
-            else if (go.TryGetComponent(out CanvasGroup canvasGroup)) {
+            else if (go.TryGetComponent(out CanvasGroup canvasGroup))
+            {
                 canvasGroup.alpha = 0;
             }
         }

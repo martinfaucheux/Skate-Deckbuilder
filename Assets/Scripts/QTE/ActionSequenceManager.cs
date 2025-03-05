@@ -10,9 +10,11 @@ public class SequenceManager : Singleton<SequenceManager>
     public UnityEvent OnSequenceStart;
     public UnityEvent OnSequenceComplete;
     public float baseSpeed = 3f;
-    private bool _isPlaying = false;
+    public bool isPlaying { get; private set; } = false;
     private ActionSequence _currentSequence;
     private float _characterZ;
+    [Tooltip("Event invoked when the player doesn't have enough energy to play the next sequence.")]
+    public UnityEvent onInsufficientEnergy;
 
     void Start()
     {
@@ -21,7 +23,7 @@ public class SequenceManager : Singleton<SequenceManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_isPlaying)
+        if (Input.GetKeyDown(KeyCode.Space) && !isPlaying)
         {
             if (BoardManager.i.CanAddCard())
             {
@@ -33,7 +35,7 @@ public class SequenceManager : Singleton<SequenceManager>
             }
         }
 
-        if (_isPlaying)
+        if (isPlaying)
             UpdateSequence();
     }
 
@@ -44,13 +46,24 @@ public class SequenceManager : Singleton<SequenceManager>
             // try get and start the next sequence
             if (_sequences.Count > 0)
             {
-                _currentSequence = _sequences.Dequeue();
+                ActionSequence nextSequence = _sequences.Dequeue();
+                int energyPoints = EnergyPointManager.i.currentPoints;
+                if ((nextSequence.challenge != null && energyPoints == 0) || energyPoints < nextSequence.energyCost)
+                {
+                    isPlaying = false;
+                    Debug.Log("Energy has run out");
+                    onInsufficientEnergy?.Invoke();
+                    return;
+                }
+
+                EnergyPointManager.i.Add(-nextSequence.energyCost);
+                _currentSequence = nextSequence;
                 _currentSequence.Start();
             }
             else
             {
-                _isPlaying = false;
-                OnSequenceComplete?.Invoke();
+                // all sequences have been played
+                isPlaying = false;
             }
         }
 
@@ -60,12 +73,14 @@ public class SequenceManager : Singleton<SequenceManager>
         }
     }
 
-    public void AddSequences(List<ActionContainer> actionContainers)
+    public void AddSequences(List<Card> cards)
     {
-        int containerCount = actionContainers.Count();
-        for (int containerIdx = 0; containerIdx < containerCount; containerIdx++)
+        int cardCount = cards.Count();
+        for (int cardIdx = 0; cardIdx < cardCount; cardIdx++)
         {
-            ActionContainer actionContainer = actionContainers[containerIdx];
+            Card card = cards[cardIdx];
+            ActionContainer actionContainer = card.actionContainer;
+            CardDefinition cardDef = card.cardDefinition;
             Vector3 startPos = actionContainer.startTransform.position;
             startPos.z = _characterZ;
 
@@ -78,12 +93,14 @@ public class SequenceManager : Singleton<SequenceManager>
                 endPos,
                 baseSpeed,
                 characterTransform,
+                cardDef.energyCost,
+                cardDef.energyGain,
                 actionContainer.CreateChallenge()
             ));
 
-            if (containerIdx < containerCount - 1)
+            if (cardIdx < cardCount - 1)
             {
-                Vector3 nextStartPos = actionContainers[containerIdx + 1].startTransform.position;
+                Vector3 nextStartPos = cards[cardIdx + 1].actionContainer.startTransform.position;
                 nextStartPos.z = _characterZ;
 
                 _sequences.Enqueue(new ActionSequence(
@@ -91,6 +108,8 @@ public class SequenceManager : Singleton<SequenceManager>
                     nextStartPos,
                     baseSpeed,
                     characterTransform,
+                    0,
+                    0,
                     null
                 ));
             }
@@ -100,8 +119,8 @@ public class SequenceManager : Singleton<SequenceManager>
     public void Play()
     {
         _sequences = new Queue<ActionSequence>();
-        AddSequences(BoardManager.i.cardSlots.Select(cardSlot => cardSlot.card.actionContainer).ToList());
-        _isPlaying = true;
+        AddSequences(BoardManager.i.cardSlots.Select(cardSlot => cardSlot.card).ToList());
+        isPlaying = true;
 
         OnSequenceStart?.Invoke();
     }

@@ -9,8 +9,8 @@ public class PreciseClickQTEConfig : QTEConfig
     public override ActionSequenceChallenge GetChallenge(KeyCode keyCode)
     {
         return new PreciseClickSequenceChallenge(
-        keyCode, tolerance, SequenceManager.i.baseSpeed
-    );
+            keyCode, tolerance, SequenceManager.i.baseSpeed
+        );
     }
 }
 
