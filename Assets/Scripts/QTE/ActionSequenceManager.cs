@@ -23,18 +23,6 @@ public class SequenceManager : Singleton<SequenceManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPlaying)
-        {
-            if (BoardManager.i.CanAddCard())
-            {
-                Debug.LogWarning("cannot play if not all cards are placed");
-            }
-            else
-            {
-                Play();
-            }
-        }
-
         if (isPlaying)
             UpdateSequence();
     }
@@ -64,6 +52,7 @@ public class SequenceManager : Singleton<SequenceManager>
             {
                 // all sequences have been played
                 isPlaying = false;
+                OnSequenceComplete?.Invoke();
             }
         }
 

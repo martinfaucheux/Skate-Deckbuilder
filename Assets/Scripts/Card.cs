@@ -30,7 +30,9 @@ public class Card : MonoBehaviour
 
             cardVisual.Set(this);
 
-            AssignActionContainer(Instantiate(cardDefinition.actionContainerPrefab, transform));
+            if (cardDefinition.actionContainerPrefab != null) {
+                AssignActionContainer(Instantiate(cardDefinition.actionContainerPrefab, transform));
+            }
         }
     }
 
@@ -52,7 +54,7 @@ public class Card : MonoBehaviour
         HideQTE();
 
         // TODO: ugly code
-        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        this.actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
         cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 

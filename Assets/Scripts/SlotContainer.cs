@@ -24,7 +24,9 @@ public class SlotContainer : MonoBehaviour
     {
         cardSlots = GetComponentsInChildren<CardSlot>().ToList();
 
-        AddCards(startingCards);
+        if (startingCards.Count > 0) {
+            AddCards(startingCards);
+        }
 
         int i = 0;
         foreach (var cardSlot in cardSlots) {
@@ -55,7 +57,7 @@ public class SlotContainer : MonoBehaviour
 
     public List<CardSlot> AddCards(List<CardDefinition> modules)
     {
-        RemoveAllModules();
+        RemoveAllCards();
 
         List<CardSlot> slotsRet = new List<CardSlot>();
         foreach (var module in modules) {
@@ -65,12 +67,14 @@ public class SlotContainer : MonoBehaviour
             slotsRet.Add(slot);
         }
 
-        UpdateSlots();
+        CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
+            UpdateSlots();
+        });
 
         return slotsRet;
     }
 
-    public void RemoveAllModules()
+    public void RemoveAllCards()
     {
         foreach (CardSlot child in gameObject.GetComponentsInChildren<CardSlot>()) {
             Destroy(child.gameObject);

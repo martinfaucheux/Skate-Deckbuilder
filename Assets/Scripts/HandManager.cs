@@ -9,7 +9,6 @@ public class HandManager : Singleton<HandManager>
     {
         base.Awake();
         Hide(true);
-        Show();
     }
 
     public void Show(bool instant = false)
