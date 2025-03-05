@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5428324632256991344}
   - component: {fileID: 6320739235146498336}
+  - component: {fileID: 3434847994263838912}
   m_Layer: 0
   m_Name: RampUpSpline
   m_TagString: Untagged
@@ -152,3 +153,17 @@ MonoBehaviour:
       m_Data: []
   m_Knots:
     m_KnotsLink: []
+--- !u!114 &3434847994263838912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382167696011436439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6e7881c1f474fbb8e57b83cfb6552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splineContainer: {fileID: 6320739235146498336}
+  characterStates: 000000000000000000000000

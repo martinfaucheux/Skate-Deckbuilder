@@ -15,7 +15,7 @@ public class ActionContainer : MonoBehaviour
     public List<GameObject> QTERenderers;
     public Card card { get; private set; }
 
-    private SplineContainer _splineContainer;
+    public PathContainer pathContainer { get; private set; }
 
     void Awake()
     {
@@ -31,7 +31,7 @@ public class ActionContainer : MonoBehaviour
 
         // create and attach spline component
         GameObject splinePrefab = card.cardDefinition.splinePrefab;
-        if (_splineContainer == null && splinePrefab != null)
+        if (pathContainer == null && splinePrefab != null)
         {
             GameObject splineGameObject = Instantiate(
                 splinePrefab,
@@ -39,7 +39,7 @@ public class ActionContainer : MonoBehaviour
                 Quaternion.identity,
                 transform
             );
-            _splineContainer = splineGameObject.GetComponent<SplineContainer>();
+            pathContainer = splineGameObject.GetComponent<PathContainer>();
         }
     }
 
@@ -115,19 +115,4 @@ public class ActionContainer : MonoBehaviour
         }
     }
 
-    public (Vector3, Vector3) GetPositionFunction(float t)
-    {
-        t = Mathf.Clamp01(t);
-        // use the spline to interpolate the position
-        // with 0 <= t <= 1
-        Spline spline = _splineContainer.Spline;
-        Vector3 splinePosition = spline.EvaluatePosition(t);
-        // if positiion is Nan, set to the last position of the spline
-        Vector3 position = splinePosition + transform.position;
-        position.z = transform.position.z;
-
-        Vector3 tangent = spline.EvaluateTangent(t);
-
-        return (position, tangent);
-    }
 }

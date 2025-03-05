@@ -98,7 +98,7 @@ public class SequenceManager : Singleton<SequenceManager>
                 actionBaseDuration,
                 cardDef.energyCost,
                 cardDef.energyGain,
-                actionContainer.GetPositionFunction,
+                actionContainer.pathContainer.Evaluate,
                 actionContainer.CreateChallenge()
             ));
 

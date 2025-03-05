@@ -12,7 +12,7 @@ public class ActionSequence
     private Rigidbody2D _characterRigidbody;
     public int energyCost { get; private set; }
     public int energyGain { get; private set; }
-    private Func<float, (Vector3, Vector3)> positionOverTime;
+    private Func<float, PathData> pathDataFunc;
     private float _startTime;
     public float sequenceDuration { get; private set; }
     public float timeSinceStart => Time.time - _startTime;
@@ -24,12 +24,12 @@ public class ActionSequence
         float sequenceDuration,
         int energyCost = 0,
         int energyGain = 0,
-        Func<float, (Vector3, Vector3)> positionOverTime = null,
+        Func<float, PathData> pathDataFunc = null,
         ActionSequenceChallenge challenge = null
     )
     {
         // if not defined use a linear interpolation
-        this.positionOverTime = positionOverTime ?? (t => (Vector3.Lerp(start, end, t), new Vector3(1, 0, 0)));
+        this.pathDataFunc = (pathDataFunc != null) ? pathDataFunc : PathData.GetDefaultFunc(start, end);
 
         startPosition = start;
         endPosition = end;
@@ -57,8 +57,10 @@ public class ActionSequence
 
         // use the Func to update postion
         float t = sequenceDuration > 0 ? timeSinceStart / sequenceDuration : 0;
-        (Vector3 position, Vector3 tangent) = positionOverTime(t);
-        _characterRigidbody.MovePosition(position);
+        PathData pathData = pathDataFunc(t);
+        _characterRigidbody.MovePosition(pathData.position);
+
+        Vector3 tangent = pathData.tangent;
         _characterRigidbody.MoveRotation(Mathf.Atan2(tangent.y, tangent.x) * Mathf.Rad2Deg);
 
         if (challenge != null && challenge.state == ActionSequenceChallengeState.Running)
