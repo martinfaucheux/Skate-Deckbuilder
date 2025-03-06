@@ -72,8 +72,10 @@ public class CardSlot : MonoBehaviour
     }
 
 #region DragAndHover
+    public bool isLocked = false;
+
     public void OnMouseDown() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -82,7 +84,7 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseDrag() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -97,7 +99,7 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseUp() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -115,7 +117,7 @@ public class CardSlot : MonoBehaviour
 
         GenericTooltip.Instance.Show(Tooltip.GetCardConfig(card.cardDefinition, card.actionContainer), card.gameObject);
 
-        if (currentContainer.forceCardBigHeight)
+        if (currentContainer.forceCardBigHeight && card.cardVisual.height == CardVisual.Height.Big)
             return;
 
         card.cardVisual.SetHeight(CardVisual.Height.Big);

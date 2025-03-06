@@ -584,6 +584,7 @@ MonoBehaviour:
   sortingGroup: {fileID: 1772632922548562717}
   energyCostText: {fileID: 5338793391844695802}
   scoreCostText: {fileID: 2388650180959743007}
+  height: 1
 --- !u!210 &1772632922548562717
 SortingGroup:
   m_ObjectHideFlags: 0

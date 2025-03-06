@@ -25,7 +25,7 @@ public class CardVisual : MonoBehaviour
         Big
     }
 
-    private Height height = Height.Big;
+    public Height height = Height.Big;
     public void SetHeight(Height height, bool instant = false)
     {
         if (this.height == height)
@@ -151,22 +151,24 @@ public class CardVisual : MonoBehaviour
         // transform.eulerAngles = new Vector3(lerpX, lerpY, lerpZ);
     }
 
-    public void AddInfoTop(Transform transform)
+    public void AddInfoTop(Transform transform, bool keepExisting = false)
     {
-        foreach (Transform child in infoTop)
-        {
-            Destroy(child.gameObject);
+        if (!keepExisting) {
+            foreach (Transform child in infoTop) {
+                Destroy(child.gameObject);
+            }
         }
 
         transform.SetParent(infoTop, false);
         transform.localPosition = Vector2.zero;
     }
 
-    public void AddInfoBottom(Transform transform)
+    public void AddInfoBottom(Transform transform, bool keepExisting = false)
     {
-        foreach (Transform child in infoBottom)
-        {
-            Destroy(child.gameObject);
+        if (!keepExisting) {
+            foreach (Transform child in infoBottom) {
+                Destroy(child.gameObject);
+            }
         }
 
         transform.SetParent(infoBottom, false);

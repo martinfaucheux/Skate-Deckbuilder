@@ -55,7 +55,7 @@ public class SlotContainer : MonoBehaviour
         return slot;
     }
 
-    public List<CardSlot> AddCards(List<CardDefinition> modules)
+    public List<CardSlot> AddCards(List<CardDefinition> modules, bool locked = false)
     {
         RemoveAllCards();
 
@@ -64,6 +64,7 @@ public class SlotContainer : MonoBehaviour
             CardSlot slot = Instantiate(slotPrefab, transform);
             slot.card.cardDefinition = module;
             slot.card = slot._card;
+            slot.isLocked = locked;
             slotsRet.Add(slot);
         }
 
@@ -80,6 +81,11 @@ public class SlotContainer : MonoBehaviour
             Destroy(child.gameObject);
         }
         cardSlots = new();
+    }
+
+    public List<CardSlot> GetCards()
+    {
+        return cardSlots;
     }
 
     public void AddEmptySlotsIfNeeded()
