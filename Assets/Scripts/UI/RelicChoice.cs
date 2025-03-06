@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Diagnostics;
 
-public class RelicChoice : MonoBehaviour
+public class RelicChoice : CoduckStudio.Utils.Singleton<RelicChoice>
 {
     public CanvasGroup canvasGroup;
     public RectTransform rectTransform;
@@ -40,8 +40,6 @@ public class RelicChoice : MonoBehaviour
 
     public void Show(bool instant = false, Action callback = null)
     {
-        this.callback = callback;
-
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
@@ -54,7 +52,9 @@ public class RelicChoice : MonoBehaviour
         
         HandManager.i.Hide();
         BoardManager.i.Hide();
-        rectTransform.DOAnchorPos(targetPos, 1f).SetDelay(0.5f).SetEase(Ease.InOutQuad);
+        rectTransform.DOAnchorPos(targetPos, 0.5f).SetDelay(0.2f).SetEase(Ease.InOutQuad).OnComplete(() => {
+            this.callback = callback;
+        });
 
         AddRelics();
     }
@@ -71,7 +71,7 @@ public class RelicChoice : MonoBehaviour
             return;
         }
 
-        rectTransform.DOAnchorPos(targetPos, 1f).SetEase(Ease.InOutQuad);
+        rectTransform.DOAnchorPos(targetPos, 0.5f).SetEase(Ease.InOutQuad);
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
             callback?.Invoke();
             callback = null;

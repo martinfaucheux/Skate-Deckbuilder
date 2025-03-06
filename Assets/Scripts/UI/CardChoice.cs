@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Diagnostics;
 using UnityEngine.UI;
 
-public class CardChoice : MonoBehaviour
+public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
 {
     public SlotContainer slotContainer;
     public int cardCount = 5;
@@ -33,8 +33,6 @@ public class CardChoice : MonoBehaviour
 
     public void Show(bool instant = false, Action callback = null)
     {
-        this.callback = callback;
-
         Vector3 targetPos = new Vector3(0, transform.position.y, transform.position.z);
 
         if (instant) {
@@ -44,7 +42,9 @@ public class CardChoice : MonoBehaviour
         
         HandManager.i.Hide();
         BoardManager.i.Hide();
-        transform.DOMove(targetPos, 1f).SetDelay(0.5f).SetEase(Ease.InOutQuad);
+        transform.DOMove(targetPos, 0.5f).SetDelay(0.5f).SetEase(Ease.InOutQuad).OnComplete(() => {
+            this.callback = callback;
+        });
 
         AddCards();
     }
@@ -64,8 +64,9 @@ public class CardChoice : MonoBehaviour
             return;
         }
         
-        transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
+        transform.DOMove(targetPos, 0.5f).SetEase(Ease.InOutQuad);
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
+            Debug.Log($"Callback={callback != null}");
             callback?.Invoke();
             callback = null;
         });

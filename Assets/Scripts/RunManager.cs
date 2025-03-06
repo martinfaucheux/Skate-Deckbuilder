@@ -64,8 +64,18 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
         // TODO: display rewards before calling NextHand()
 
-        handsPlayedThisRound = -1;
-        NextHand();
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
+            RelicChoice.Instance.Show(false, () => {
+                CardChoice.Instance.Show(false, () => {
+                    CardChoice.Instance.Show(false, () => {
+                        CardChoice.Instance.Show(false, () => {
+                            handsPlayedThisRound = -1;
+                            NextHand();
+                        });
+                    });
+                });
+            });
+        });
     }
 
     public void NextHand()
