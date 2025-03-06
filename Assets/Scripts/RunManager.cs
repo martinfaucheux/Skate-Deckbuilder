@@ -115,8 +115,9 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
     private void EndRun()
     {
-        // TODO: check score and display game over if loose
         isRunOver = true;
+
+        FindFirstObjectByType<WinUI>().Show();
     }
 
     public void PlayHand()
