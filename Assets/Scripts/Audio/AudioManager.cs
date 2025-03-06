@@ -1,6 +1,5 @@
 
 using System.Collections.Generic;
-using UnityEngine.Audio;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -77,4 +76,14 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    public void StopMusic()
+    {
+        foreach (Sound sound in sounds)
+        {
+            if (sound.name.Contains("Music"))
+            {
+                Stop(sound.name);
+            }
+        }
+    }
 }

@@ -70,14 +70,14 @@ MonoBehaviour:
     playOnStart: 0
   - name: MainMenuMusic
     audioClip: {fileID: 8300000, guid: d16eccc8b6e9f4fb8b07cfff5f74cb7d, type: 3}
-    volume: 0.26
+    volume: 0.1
     pitch: 1
     randomizePitch: 0
     loop: 1
     playOnStart: 0
-  - name: MainLevelMusic
-    audioClip: {fileID: 8300000, guid: d16eccc8b6e9f4fb8b07cfff5f74cb7d, type: 3}
-    volume: 0.26
+  - name: LevelMusic
+    audioClip: {fileID: 8300000, guid: 07a0ceab90a1d4867af9ed4a4b527ed8, type: 3}
+    volume: 0.05
     pitch: 1
     randomizePitch: 0
     loop: 1
