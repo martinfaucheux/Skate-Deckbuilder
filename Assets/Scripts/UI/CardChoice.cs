@@ -82,11 +82,18 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
     private void AddCards()
     {
         List<CardDefinition> allCards = Resources.LoadAll<CardDefinition>("Cards").ToList();
-        
-        List<CardDefinition> cardsToAdd = new List<CardDefinition>();
-        for (int i = 0; i < cardCount; i++) {
-            cardsToAdd.Add(allCards[UnityEngine.Random.Range(0, allCards.Count)]);
+
+        List<CoduckStudio.Utils.WeightedRandom.Weight<CardDefinition>> weights = new();
+        foreach (var card in Resources.LoadAll<CardDefinition>("Cards")) {
+            int weight = 10;
+
+            weights.Add(new CoduckStudio.Utils.WeightedRandom.Weight<CardDefinition> {
+                weight = weight,
+                data = card
+            });
         }
+
+        List<CardDefinition> cardsToAdd = CoduckStudio.Utils.WeightedRandom.GetRandoms(weights, cardCount, new System.Random()).ToList();
 
         List<CardSlot> cardSlots = slotContainer.AddCards(cardsToAdd, true);
 

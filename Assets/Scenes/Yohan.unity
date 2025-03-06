@@ -3247,7 +3247,7 @@ MonoBehaviour:
   slotPrefab: {fileID: 975293479637823634, guid: 1d95c03850ca5d84eaf5521a5ea70d3d, type: 3}
   cardPrefab: {fileID: 9095532338824780067, guid: 88c030f7629ee49b2b6de14c1a04a57d, type: 3}
   startingCards: []
-  cardCountMax: 5
+  cardCountMax: 1
   forceCardBigHeight: 1
   allowCardSlotYOffset: 1
   selectedSlot: {fileID: 0}

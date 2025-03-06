@@ -74,11 +74,28 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
             CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
                 RelicChoice.Instance.Show(false, () => {
                     CardChoice.Instance.Show(false, () => {
-                        handsPlayedThisRound = -1;
-                        NextHand();
+                        ReloadBoard(() => {
+                            handsPlayedThisRound = -1;
+                            NextHand();
+                        });
                     }, 2);
                 });
             });
+        });
+    }
+
+    private void ReloadBoard(System.Action callback)
+    {
+        BoardManager.i.slotContainer.RemoveAllCards();
+        CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
+            BoardManager.i.slotContainer.cardCountMax = runDefinition.rounds[roundIndex].cardCountOnBoard;
+            if (HasRelic("Board Wheel")) {
+                BoardManager.i.slotContainer.cardCountMax++;
+            }
+
+            BoardManager.i.slotContainer.AddEmptySlotsIfNeeded();
+
+            callback?.Invoke();
         });
     }
 
@@ -171,8 +188,21 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
     private List<CardDefinition> GetRandomCardsFromInventory(int amount)
     {
-        List<CardDefinition> cardDefinitions = new();
-        for (int i = 0; i < amount; i++) {
+        List<CoduckStudio.Utils.WeightedRandom.Weight<CardDefinition>> weights = new();
+        foreach (var card in inventory) {
+            int weight = 10;
+
+            weights.Add(new CoduckStudio.Utils.WeightedRandom.Weight<CardDefinition> {
+                weight = weight,
+                data = card
+            });
+        }
+
+        // First add unique cards
+        List<CardDefinition> cardDefinitions = CoduckStudio.Utils.WeightedRandom.GetRandoms(weights, amount, new System.Random()).ToList();
+
+        // Then fill with random cards
+        while (cardDefinitions.Count < amount) {
             cardDefinitions.Add(inventory[Random.Range(0, inventory.Count)]);
         }
 

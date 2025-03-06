@@ -83,17 +83,33 @@ public class RelicChoice : CoduckStudio.Utils.Singleton<RelicChoice>
     {
         RemoveAllRelics();
 
-        List<RelicDefinition> relics = Resources.LoadAll<RelicDefinition>("Relics").ToList();
-        relicDefinition1 = AddRandomRelicToTransform(relics, relicChoiceTransform1);
-        relicDefinition2 = AddRandomRelicToTransform(relics, relicChoiceTransform2);
-        relicDefinition3 = AddRandomRelicToTransform(relics, relicChoiceTransform3);
-        relicDefinition4 = AddRandomRelicToTransform(relics, relicChoiceTransform4);
+        List<CoduckStudio.Utils.WeightedRandom.Weight<RelicDefinition>> weights = new();
+        foreach (var relic in Resources.LoadAll<RelicDefinition>("Relics")) {
+            int weight = 10;
+
+            // Less chances if he already has the relic
+            if (RunManager.Instance.HasRelic(relic.name)) {
+                weight /= 2;
+            }
+
+            weights.Add(new CoduckStudio.Utils.WeightedRandom.Weight<RelicDefinition> {
+                weight = weight,
+                data = relic
+            });
+        }
+
+        List<RelicDefinition> relics = CoduckStudio.Utils.WeightedRandom.GetRandoms(weights, 4, new System.Random()).ToList();
+
+        relicDefinition1 = AddRelicToTransform(relics[0], relicChoiceTransform1);
+        relicDefinition2 = AddRelicToTransform(relics[1], relicChoiceTransform2);
+        relicDefinition3 = AddRelicToTransform(relics[2], relicChoiceTransform3);
+        relicDefinition4 = AddRelicToTransform(relics[3], relicChoiceTransform4);
     }
 
-    private RelicDefinition AddRandomRelicToTransform(List<RelicDefinition> relics, Transform tr)
+    private RelicDefinition AddRelicToTransform(RelicDefinition relicDefinition, Transform tr)
     {
         RelicUI relic = Instantiate(RunManager.Instance.relicUIPrefab, tr);
-        relic.relicDefinition = relics[UnityEngine.Random.Range(0, relics.Count)];
+        relic.relicDefinition = relicDefinition;
         return relic.relicDefinition;
     }
 

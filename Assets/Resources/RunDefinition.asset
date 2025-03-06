@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rounds:
   - handsPerRound: 1
-    cardCountOnBoard: 5
+    cardCountOnBoard: 3
     scoreGoal: 10
   - handsPerRound: 3
     cardCountOnBoard: 5
-    scoreGoal: 100
+    scoreGoal: 150
   - handsPerRound: 3
     cardCountOnBoard: 6
-    scoreGoal: 200
+    scoreGoal: 300
   - handsPerRound: 3
     cardCountOnBoard: 7
-    scoreGoal: 300
+    scoreGoal: 750
