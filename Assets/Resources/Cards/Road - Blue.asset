@@ -18,4 +18,5 @@ MonoBehaviour:
   actionContainerPrefab: {fileID: 2642712769175286877, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
   energyCost: 1
   energyGain: 0
-  score: 15
+  score: 10
+  cardType: 0

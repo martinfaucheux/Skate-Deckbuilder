@@ -134,9 +134,6 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     {
         UpdateLayoutDisplay();
 
-        float duration = 0.3f;
-        float delay = 0;
-
         // Test color wheels
         for (int i = 0; i < 4; i++) {
             CardType cardType = (CardType)i;
@@ -145,65 +142,78 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
                 continue;
             }
 
-            delay += duration;
+            bool success = BoardManager.i.cardSlots.FindAll((v) => v.card.cardDefinition.cardType == cardType).Count >= ((float)BoardManager.i.cardSlots.Count / 2);
+            string text = "+0 <sprite=1>";
+            if (success) {
+                text = "+50 <sprite=1>";
+                totalScore += 50;
+            }
 
-            CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
-                bool success = BoardManager.i.cardSlots.FindAll((v) => v.card.cardDefinition.cardType == cardType).Count >= ((float)BoardManager.i.cardSlots.Count / 2);
-                string text = "+0 <sprite=1>";
-                if (success) {
-                    text = "+50 <sprite=1>";
-                    totalScore += 50;
-                }
-
-                GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
-                iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = relicFound.sprite;
-                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
-            });
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = relicFound.sprite;
+            iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
         }
 
-        delay += duration;
-        CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
-            AddMultipliers();
-        });
+        AddMultipliers();
     }
 
     private void AddMultipliers()
     {
         UpdateLayoutDisplay();
-
-        float duration = 0.3f;
-        float delay = 0;
         
+        // Rainbow Wheel
         RelicDefinition rainbowWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Rainbow Wheel");
         if (rainbowWheelFound != null) {
-            delay += duration;
-            CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
-                GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
-                iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = rainbowWheelFound.sprite;
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = rainbowWheelFound.sprite;
 
-                bool success = true;
-                List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
-                for (int i = 0; i < cardSlots.Count - 1; i++) {
-                    if (cardSlots[i].card.cardDefinition.cardType == cardSlots[i + 1].card.cardDefinition.cardType) {
-                        success = false;
-                        break;
-                    }
+            bool success = true;
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            for (int i = 0; i < cardSlots.Count - 1; i++) {
+                if (cardSlots[i].card.cardDefinition.cardType == cardSlots[i + 1].card.cardDefinition.cardType) {
+                    success = false;
+                    break;
                 }
+            }
 
-                if (success) {
-                    iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1.5";
-                    totalScore = (int)(totalScore * 1.5f);
-                }
-                else {
-                    iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
-                }
-            });
+            if (success) {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1.5";
+                totalScore = (int)(totalScore * 1.5f);
+            }
+            else {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
+            }
         }
 
-        delay += duration;
-        CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
-            AddTotal();
-        });
+        // Bicolor Wheel
+        RelicDefinition bicolorWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Bicolor Wheel");
+        if (bicolorWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = bicolorWheelFound.sprite;
+
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            List<CardType> cardTypesFound = new();
+            for (int i = 0; i < cardSlots.Count; i++) {
+                if (cardTypesFound.IndexOf(cardSlots[i].card.cardDefinition.cardType) == -1) {
+                    cardTypesFound.Add(cardSlots[i].card.cardDefinition.cardType);
+                }
+            }
+
+            bool success = false;
+            if (cardTypesFound.Count == 2) {
+                success = true;
+            }
+
+            if (success) {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1.5";
+                totalScore = (int)(totalScore * 1.5f);
+            }
+            else {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
+            }
+        }
+
+        AddTotal();
     }
 
     private void AddTotal()

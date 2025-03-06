@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Slope Up - Yellow
+  m_Name: Slope Up- Yellow
   m_EditorClassIdentifier: 
-  sprite: {fileID: 3169505403825592310, guid: 2eb5d67a6573f6c41afbe6c6cefb31e1, type: 3}
-  groundStartY: 0.9
-  groundEndY: -0.4
-  actionContainerPrefab: {fileID: 6506123392268107093, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
-  energyCost: 0
-  energyGain: 2
-  score: 10
+  sprite: {fileID: 6337518546395159049, guid: 3aa3c623eca7a3344baffa43b48c2f50, type: 3}
+  groundStartY: -0.4
+  groundEndY: 0.9
+  actionContainerPrefab: {fileID: 6506123392268107093, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
+  energyCost: 2
+  energyGain: 0
+  score: 30
   cardType: 2
