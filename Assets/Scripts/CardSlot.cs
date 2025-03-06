@@ -109,7 +109,7 @@ public class CardSlot : MonoBehaviour
 
     public void OnMouseOver()
     {
-        if (isEmpty || isHovering) {
+        if (isEmpty || isHovering || SequenceManager.i.isPlaying) {
             return;
         }
 

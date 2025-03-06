@@ -9,6 +9,12 @@ public class EnergyPointManager : Singleton<EnergyPointManager>
 
     void Start()
     {
+        ResetValue();
+    }
+
+    public void ResetValue()
+    {
+        // TODO: add relic bonus
         SetValue(initValue);
     }
 

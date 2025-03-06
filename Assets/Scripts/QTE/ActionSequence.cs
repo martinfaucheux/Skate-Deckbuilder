@@ -65,7 +65,7 @@ public class ActionSequence
             if (energyGain > 0)
                 EnergyPointManager.i.Add(energyGain);
             if (scoreGain > 0)
-                RunManager.Instance.score += scoreGain;
+                BoardScoreCalculator.Instance.AddScore(scoreGain);
         }
     }
 

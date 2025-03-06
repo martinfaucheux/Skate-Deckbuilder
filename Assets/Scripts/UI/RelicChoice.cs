@@ -52,6 +52,7 @@ public class RelicChoice : CoduckStudio.Utils.Singleton<RelicChoice>
         
         HandManager.i.Hide();
         BoardManager.i.Hide();
+        RideButton.Instance.Hide();
         rectTransform.DOAnchorPos(targetPos, 0.5f).SetDelay(0.2f).SetEase(Ease.InOutQuad).OnComplete(() => {
             this.callback = callback;
         });

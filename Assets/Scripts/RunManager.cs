@@ -40,6 +40,13 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
 #region Gameloop
     public bool isRunOver = false;
+    public enum State {
+        Building,
+        Playing,
+        CalculatingScore,
+        ReadyToBuild
+    }
+    public State state = State.Building;
 
     public void Awake()
     {
@@ -48,6 +55,7 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
     public void StartRun()
     {
+        state = State.Building;
         roundIndex = -1;
         NextRound();
     }
@@ -56,6 +64,7 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     {
         ScoreDisplay.Instance.Show(false, () => {
             roundIndex++;
+            score = 0;
 
             if (roundIndex > runDefinition.rounds.Count) {
                 EndRun();
@@ -83,6 +92,7 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
             return;
         }
 
+        EnergyPointManager.i.ResetValue();
         DrawHand();
     }
 
@@ -94,6 +104,8 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
     public void PlayHand()
     {
+        state = State.Playing;
+
         SlotContainerManager.i.ShowActionContainer(true);
         HandManager.i.Hide();
 
@@ -104,11 +116,25 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
         });
     }
 
+    public void SetStateCalculateScore()
+    {
+        state = State.CalculatingScore;
+        BoardScoreCalculator.Instance.ShowAndCalculateScore();
+    }
+
+    public void SetStateReadyToBuild()
+    {
+        state = State.ReadyToBuild;
+    }
+
     public void OnEndHand()
     {
+        state = State.Building;
+
         SlotContainerManager.i.EnableAllSortingGroup(true);
         SlotContainerManager.i.ShowActionContainer(false);
         CameraManager.Instance.SetLevelBuildingTarget();
+        BoardScoreCalculator.Instance.Hide();
 
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(1, () => {
             NextHand();
@@ -130,6 +156,8 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     public List<CardDefinition> inventory = new();
     public SlotContainer handSlotContainer;
     public void DrawHand() {
+        RideButton.Instance.Show();
+
         int cardAmountToDraw = runDefinition.rounds[roundIndex].cardCountOnBoard + 2;
         if (HasRelic("Hand Wheel")) {
             cardAmountToDraw++;

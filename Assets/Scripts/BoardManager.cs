@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 
 public class BoardManager : Singleton<BoardManager>
 {
@@ -98,6 +99,8 @@ public class BoardManager : Singleton<BoardManager>
 
     public void Hide(bool instant = false)
     {
+        BoardScoreCalculator.Instance.RemoveAllScores();
+
         Vector3 targetPos = new Vector3(transform.position.x, 50, transform.position.z);
 
         if (instant) {
