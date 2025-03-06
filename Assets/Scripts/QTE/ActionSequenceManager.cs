@@ -61,6 +61,7 @@ public class SequenceManager : Singleton<SequenceManager>
             {
                 // all sequences have been played
                 isPlaying = false;
+                characterController.SetState(CharacterState.Idle);
             }
         }
 

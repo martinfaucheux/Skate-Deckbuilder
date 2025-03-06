@@ -3,8 +3,9 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public Rigidbody2D _characterRigidbody;
-    private CharacterState currentState = CharacterState.Grounded;
+    private CharacterState currentState = CharacterState.Idle;
     public Animator animator;
+    private AudioManager audioManager => AudioManager.instance;
 
     public void Move(PathData pathData)
     {
@@ -20,10 +21,34 @@ public class CharacterController : MonoBehaviour
         _characterRigidbody.MovePosition(position);
     }
 
-    private void SetState(CharacterState state)
+    public void SetState(CharacterState state)
     {
+        CharacterState previousState = currentState;
         currentState = state;
         animator.SetBool("isSliding", currentState == CharacterState.Sliding);
         animator.SetBool("isAirborn", currentState == CharacterState.Airborn);
+
+        if (currentState == previousState)
+            return;
+
+        if (currentState == CharacterState.Sliding)
+        {
+            audioManager.Play("Slide");
+        }
+        else
+        {
+            audioManager.Stop("Slide");
+
+        }
+
+        if (currentState == CharacterState.Grounded)
+        {
+            audioManager.Play("Click");
+            audioManager.Play("Roll");
+        }
+        else
+        {
+            audioManager.Stop("Roll");
+        }
     }
 }
