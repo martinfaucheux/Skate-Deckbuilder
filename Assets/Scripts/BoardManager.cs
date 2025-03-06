@@ -99,8 +99,6 @@ public class BoardManager : Singleton<BoardManager>
 
     public void Hide(bool instant = false)
     {
-        BoardScoreCalculator.Instance.RemoveAllScores();
-
         Vector3 targetPos = new Vector3(transform.position.x, 50, transform.position.z);
 
         if (instant) {

@@ -197,5 +197,10 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     {
         return relics.Any((relic) => relic.name.ToLower().Trim() == name.ToLower().Trim());
     }
+
+    public List<RelicDefinition> GetRelics()
+    {
+        return relics;
+    }
 #endregion
 }

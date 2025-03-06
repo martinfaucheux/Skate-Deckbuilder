@@ -40,6 +40,7 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
 
 #region AfterPlay
     public GameObject descriptionAndAmountPrefab;
+    public GameObject iconAndAmountPrefab;
     public Transform descriptionsTransform;
     
     public void ShowAndCalculateScore()
@@ -66,7 +67,7 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             // score.text.transform.SetParent(null, true);
             score.text.transform.DOJump(Camera.main.ScreenToWorldPoint(descriptionAndAmount.transform.GetChild(1).position), 3, 1, 1f)
             .SetEase(Ease.InOutQuad)
-            .SetDelay((savedIndex + 1) * 0.2f)
+            .SetDelay((savedIndex + 1) * 0.3f)
             .OnComplete(() => {
                 totalScore += scores[savedIndex].value;
 
@@ -88,7 +89,36 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     {
         UpdateLayoutDisplay();
 
-        AddMultipliers();
+        float duration = 0.3f;
+        float delay = 0;
+
+        // Test color wheels
+        for (int i = 0; i < 4; i++) {
+            CardType cardType = (CardType)i;
+            RelicDefinition relicFound = RunManager.Instance.GetRelics().Find((v) => v.name == $"{cardType.ToString()} Wheel");
+            if (relicFound == null) {
+                continue;
+            }
+
+            delay += duration;
+
+            CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
+                bool success = BoardManager.i.cardSlots.FindAll((v) => v.card.cardDefinition.cardType == cardType).Count >= ((float)BoardManager.i.cardSlots.Count / 2);
+                string text = "+0 <sprite=1>";
+                if (success) {
+                    text = "+50 <sprite=1>";
+                    totalScore += 50;
+                }
+
+                GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+                iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = relicFound.sprite;
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
+            });
+        }
+
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
+            AddMultipliers();
+        });
     }
 
     private void AddMultipliers()
@@ -158,6 +188,8 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
                 Destroy(child.gameObject);
             }
             UpdateLayoutDisplay();
+
+            RemoveAllScores();
 
             callback?.Invoke();
         });

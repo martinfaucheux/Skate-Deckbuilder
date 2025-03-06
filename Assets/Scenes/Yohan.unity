@@ -435,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorePrefab: {fileID: 916052146760077543, guid: 5dc717fafb8e1574ab1a67d94948bb3e, type: 3}
   descriptionAndAmountPrefab: {fileID: 5326639055134729555, guid: 02db512c4b9201840bea9a0c8ed0f9fd, type: 3}
+  iconAndAmountPrefab: {fileID: 5326639055134729555, guid: 522c4ca46f9acbb499ed867361783f54, type: 3}
   descriptionsTransform: {fileID: 2034408018}
 --- !u!1 &131437451
 GameObject:
