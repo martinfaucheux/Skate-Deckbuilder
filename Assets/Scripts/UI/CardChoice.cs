@@ -12,6 +12,7 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
     public int cardCount = 5;
     public GameObject selectButtonCanvasPrefab;
     private Action callback;
+    private int count = 1;
 
     private void Awake()
     {
@@ -31,15 +32,17 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
     }
 #endif
 
-    public void Show(bool instant = false, Action callback = null)
+    public void Show(bool instant = false, Action callback = null, int count = 1)
     {
+        this.count = count;
+
         Vector3 targetPos = new Vector3(0, transform.position.y, transform.position.z);
 
         if (instant) {
             transform.position = targetPos;
             return;
         }
-        
+
         HandManager.i.Hide();
         BoardManager.i.Hide();
         transform.DOMove(targetPos, 0.5f).SetDelay(0.5f).SetEase(Ease.InOutQuad).OnComplete(() => {
@@ -51,11 +54,7 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
 
     public void Hide(bool instant = false)
     {
-        foreach (var cardSlot in slotContainer.GetCards()) {
-            if (!cardSlot.isEmpty && cardSlot?.card?.cardVisual) {
-                cardSlot.card.cardVisual.GetComponentInChildren<Button>().interactable = false;
-            }
-        }
+        DisableAll();
 
         Vector3 targetPos = new Vector3(-50, transform.position.y, transform.position.z);
 
@@ -66,10 +65,18 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
         
         transform.DOMove(targetPos, 0.5f).SetEase(Ease.InOutQuad);
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
-            Debug.Log($"Callback={callback != null}");
             callback?.Invoke();
             callback = null;
         });
+    }
+
+    private void DisableAll()
+    {
+        foreach (var cardSlot in slotContainer.GetCards()) {
+            if (!cardSlot.isEmpty && cardSlot?.card?.cardVisual) {
+                cardSlot.card.cardVisual.GetComponentInChildren<Button>().interactable = false;
+            }
+        }
     }
 
     private void AddCards()
@@ -91,7 +98,16 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
                 CardDefinition cardDefinition = cardSlot.card.cardDefinition;
                 selectButtonCanvas.GetComponentInChildren<Button>().onClick.AddListener(() => {
                     RunManager.Instance.inventory.Add(cardDefinition);
-                    Hide();
+
+                    DisableAll();
+                    count--;
+
+                    if (count > 0) {
+                        AddCards();
+                    }
+                    else {
+                        Hide();
+                    }
                 });
             }
         });

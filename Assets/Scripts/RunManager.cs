@@ -54,25 +54,20 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
 
     public void NextRound()
     {
-        roundIndex++;
+        ScoreDisplay.Instance.Show(false, () => {
+            roundIndex++;
 
-        // Round is over
-        if (roundIndex > runDefinition.rounds.Count) {
-            EndRun();
-            return;
-        }
+            if (roundIndex > runDefinition.rounds.Count) {
+                EndRun();
+                return;
+            }
 
-        // TODO: display rewards before calling NextHand()
-
-        CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
-            RelicChoice.Instance.Show(false, () => {
-                CardChoice.Instance.Show(false, () => {
+            CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
+                RelicChoice.Instance.Show(false, () => {
                     CardChoice.Instance.Show(false, () => {
-                        CardChoice.Instance.Show(false, () => {
-                            handsPlayedThisRound = -1;
-                            NextHand();
-                        });
-                    });
+                        handsPlayedThisRound = -1;
+                        NextHand();
+                    }, 2);
                 });
             });
         });

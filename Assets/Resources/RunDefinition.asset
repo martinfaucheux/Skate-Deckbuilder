@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: RunDefinition
   m_EditorClassIdentifier: 
   rounds:
+  - handsPerRound: 1
+    cardCountOnBoard: 5
+    scoreGoal: 10
   - handsPerRound: 3
     cardCountOnBoard: 5
     scoreGoal: 100

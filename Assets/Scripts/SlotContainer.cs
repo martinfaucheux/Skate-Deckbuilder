@@ -163,6 +163,11 @@ public class SlotContainer : MonoBehaviour
         int i = 0;
         foreach (var slot in cardSlots) {
             slot.SetSlotContext(i, cardSlots.Count);
+
+            if (!slot.isEmpty && forceCardBigHeight && slot.card.cardVisual.height != CardVisual.Height.Big) {
+                slot.card.cardVisual.SetHeight(CardVisual.Height.Big);
+            }
+
             i++;
         }
 

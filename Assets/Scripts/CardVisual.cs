@@ -119,9 +119,9 @@ public class CardVisual : MonoBehaviour
         // Rotation
         Vector3 movement = transform.position - target.transform.position;
         movementDelta = Vector3.Lerp(movementDelta, movement, 10 * Time.deltaTime);
-        Vector3 movementRotation = (target.currentSlot.isDragging ? movementDelta : movement) * 50;
-        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 30 * Time.deltaTime);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -60, 60));
+        Vector3 movementRotation = (target.currentSlot.isDragging ? movementDelta : movement) * 20;
+        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 10 * Time.deltaTime);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -30, 30));
 
         // Scale
         // bool shouldScaleUp = target.currentSlot.isDragging || (target.currentSlot.isHovering && target.currentSlot.currentContainer.selectedSlot == null);
