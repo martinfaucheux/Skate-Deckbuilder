@@ -65,7 +65,7 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "";
 
             // score.text.transform.SetParent(null, true);
-            score.text.transform.DOJump(Camera.main.ScreenToWorldPoint(descriptionAndAmount.transform.GetChild(1).position), 10, 1, 1f)
+            score.text.transform.DOJump(Camera.main.ScreenToWorldPoint(descriptionAndAmount.transform.GetChild(1).position), 5, 1, 1f)
             .SetEase(Ease.InOutQuad)
             .SetDelay((savedIndex + 1) * 0.3f)
             .OnComplete(() => {

@@ -106,10 +106,10 @@ public class ScoreDisplay : CoduckStudio.Utils.Singleton<ScoreDisplay>
                     if (hasWon) {
                         ColorUtility.TryParseHtmlString("#55C555", out Color winColor);
                         imagePanel.DOColor(winColor, 0.5f);
-                        winLoseText.text = "You win!";
+                        winLoseText.text = "You won!";
                     }
                     else {
-                        winLoseText.text = "You lose!";
+                        winLoseText.text = "You lost!";
                         ColorUtility.TryParseHtmlString("#E27F7F", out Color loseColor);
                         imagePanel.DOColor(loseColor, 0.5f);
                     }
