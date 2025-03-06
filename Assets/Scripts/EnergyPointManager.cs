@@ -14,8 +14,12 @@ public class EnergyPointManager : Singleton<EnergyPointManager>
 
     public void ResetValue()
     {
-        // TODO: add relic bonus
-        SetValue(initValue);
+        int addedValue = 0;
+        if (RunManager.Instance.HasRelic("Energy Wheel")) {
+            addedValue = 2;
+        }
+
+        SetValue(initValue + addedValue);
     }
 
     public void Add(int value)

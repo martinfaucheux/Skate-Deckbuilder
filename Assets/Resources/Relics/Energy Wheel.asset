@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a97709dadd764043a4dbf78b8a81089, type: 3}
+  m_Name: Energy Wheel
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -1089051219590418173, guid: a42d15f4a111112408315a5f4f30a318, type: 3}
+  description: Start each hand with +2 energy

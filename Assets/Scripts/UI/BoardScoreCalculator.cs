@@ -32,6 +32,10 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
         };
         score.text.transform.position = new Vector3(score.text.transform.position.x, score.text.transform.position.y + 1.5f, score.text.transform.position.z);
         
+        if ((isOutOfEnergy || isFail) && RunManager.Instance.HasRelic("Lifebelt Wheel")) {
+            score.value = 10;
+        }
+
         ColorUtility.TryParseHtmlString("#E27F7F", out Color loseColor);
         if (isFail) {
             score.text.text = "FAIL";
@@ -93,12 +97,22 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
 
                 ColorUtility.TryParseHtmlString("#E27F7F", out Color loseColor);
                 if (scores[savedIndex].isFail) {
-                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "FAIL";
-                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                    if (RunManager.Instance.HasRelic("Lifebelt Wheel")) {
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = $"<s><color=#E27F7F>FAIL</color></s> +{scores[savedIndex].value} <sprite=1>";
+                    }
+                    else {
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "FAIL";
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                    }
                 }
                 else if (scores[savedIndex].isOutOfEnergy) {
-                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "OUT OF ENERGY";
-                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                    if (RunManager.Instance.HasRelic("Lifebelt Wheel")) {
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = $"<s><color=#E27F7F>OUT OF ENERGY</color></s> +{scores[savedIndex].value} <sprite=1>";
+                    }
+                    else {
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "OUT OF ENERGY";
+                        descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                    }
                 }
                 else {
                     descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = $"+{scores[savedIndex].value} <sprite=1>";
@@ -147,6 +161,7 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             });
         }
 
+        delay += duration;
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
             AddMultipliers();
         });
@@ -156,7 +171,39 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     {
         UpdateLayoutDisplay();
 
-        AddTotal();
+        float duration = 0.3f;
+        float delay = 0;
+        
+        RelicDefinition rainbowWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Rainbow Wheel");
+        if (rainbowWheelFound != null) {
+            delay += duration;
+            CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
+                GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+                iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = rainbowWheelFound.sprite;
+
+                bool success = true;
+                List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+                for (int i = 0; i < cardSlots.Count - 1; i++) {
+                    if (cardSlots[i].card.cardDefinition.cardType == cardSlots[i + 1].card.cardDefinition.cardType) {
+                        success = false;
+                        break;
+                    }
+                }
+
+                if (success) {
+                    iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1.5";
+                    totalScore = (int)(totalScore * 1.5f);
+                }
+                else {
+                    iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
+                }
+            });
+        }
+
+        delay += duration;
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(delay, () => {
+            AddTotal();
+        });
     }
 
     private void AddTotal()
