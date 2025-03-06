@@ -1697,22 +1697,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio
       objectReference: {fileID: 0}
-    - target: {fileID: 4710016967323081175, guid: 2baaaf1a4ea144ccb89ceb484b8848ed, type: 3}
-      propertyPath: sounds.Array.data[2].volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710016967323081175, guid: 2baaaf1a4ea144ccb89ceb484b8848ed, type: 3}
-      propertyPath: sounds.Array.data[3].volume
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710016967323081175, guid: 2baaaf1a4ea144ccb89ceb484b8848ed, type: 3}
-      propertyPath: sounds.Array.data[4].volume
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4710016967323081175, guid: 2baaaf1a4ea144ccb89ceb484b8848ed, type: 3}
-      propertyPath: sounds.Array.data[4].audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 07a0ceab90a1d4867af9ed4a4b527ed8, type: 3}
     - target: {fileID: 7177417451612406857, guid: 2baaaf1a4ea144ccb89ceb484b8848ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
