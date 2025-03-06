@@ -133,6 +133,7 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
         handSlotContainer.AddCards(GetRandomCardsFromInventory(cardAmountToDraw));
         
         HandManager.i.Show();
+        BoardManager.i.Show();
     }
 
     private List<CardDefinition> GetRandomCardsFromInventory(int amount)

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Diagnostics;
 
 public class RelicChoice : MonoBehaviour
 {
@@ -37,14 +38,16 @@ public class RelicChoice : MonoBehaviour
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
-        Vector2 targetPos = new Vector2(rectTransform.anchoredPosition.x, 0);
+        Vector2 targetPos = new Vector2(0, rectTransform.anchoredPosition.y);
 
         if (instant) {
             rectTransform.anchoredPosition = targetPos;
             return;
         }
         
-        rectTransform.DOAnchorPos(targetPos, 1f);
+        HandManager.i.Hide();
+        BoardManager.i.Hide();
+        rectTransform.DOAnchorPos(targetPos, 1f).SetDelay(0.5f).SetEase(Ease.InOutQuad);
 
         AddRelics();
     }
@@ -54,14 +57,18 @@ public class RelicChoice : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        Vector2 targetPos = new Vector2(rectTransform.anchoredPosition.x, -2000);
+        Vector2 targetPos = new Vector2(4000, rectTransform.anchoredPosition.y);
 
         if (instant) {
             rectTransform.anchoredPosition = targetPos;
             return;
         }
-        
-        rectTransform.DOAnchorPos(targetPos, 1f);
+
+        rectTransform.DOAnchorPos(targetPos, 1f).SetEase(Ease.InOutQuad);
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
+            HandManager.i.Show();
+            BoardManager.i.Show();
+        });
     }
 
     private void AddRelics()

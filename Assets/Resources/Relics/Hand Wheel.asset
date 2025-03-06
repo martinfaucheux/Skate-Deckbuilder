@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a97709dadd764043a4dbf78b8a81089, type: 3}
   m_Name: Hand Wheel
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6479744082570966766, guid: 9c192d871f8b0584ea07b4ed5fd4540a, type: 3}
+  sprite: {fileID: 4669920940893992923, guid: cfd041f63467ed04a95ab2d8de95be0e, type: 3}
   description: +1 card drawn in hand

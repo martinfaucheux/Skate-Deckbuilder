@@ -103,6 +103,13 @@ namespace CoduckStudio
                 descriptionContent.GetComponent<VerticalLayoutGroup>().enabled = false;
                 Utils.Async.Instance.WaitForEndOfFrame(() => {
                     descriptionContent.GetComponent<VerticalLayoutGroup>().enabled = true;
+
+                    Utils.Async.Instance.WaitForEndOfFrame(() => {
+                        GetComponent<VerticalLayoutGroup>().enabled = false;
+                        Utils.Async.Instance.WaitForEndOfFrame(() => {
+                            GetComponent<VerticalLayoutGroup>().enabled = true;
+                        });
+                    });
                 });
             });
         }
