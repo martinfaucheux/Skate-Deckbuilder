@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Flat Road
+  m_Name: Stairs Down - Red
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6682738439518977790, guid: 8a1f73146f6f2244f8a046a0fd0ac3ac, type: 3}
+  sprite: {fileID: -2660968328804394481, guid: afcdf85694d77ac48a4a14d02542ebd8, type: 3}
   groundStartY: -0.4
-  groundEndY: -0.4
-  actionContainerPrefab: {fileID: 2642712769175286877, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
-  energyCost: 1
-  energyGain: 0
+  groundEndY: -1.3
+  actionContainerPrefab: {fileID: 2642712769175286877, guid: 73cce14422ce84571b6e6e2e66f84c5e, type: 3}
+  energyCost: 0
+  energyGain: 1
   score: 15
+  cardType: 1

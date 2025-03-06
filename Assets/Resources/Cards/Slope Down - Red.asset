@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Stairs Down
+  m_Name: Slope Down - Red
   m_EditorClassIdentifier: 
-  sprite: {fileID: -2660968328804394481, guid: afcdf85694d77ac48a4a14d02542ebd8, type: 3}
+  sprite: {fileID: 6337518546395159049, guid: 3aa3c623eca7a3344baffa43b48c2f50, type: 3}
   groundStartY: -0.4
-  groundEndY: -1.3
-  actionContainerPrefab: {fileID: 2642712769175286877, guid: 73cce14422ce84571b6e6e2e66f84c5e, type: 3}
-  energyCost: 0
-  energyGain: 1
-  score: 15
+  groundEndY: 0.9
+  actionContainerPrefab: {fileID: 6506123392268107093, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
+  energyCost: 2
+  energyGain: 0
+  score: 30
+  cardType: 1

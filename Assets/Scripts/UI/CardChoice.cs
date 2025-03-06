@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -10,6 +11,7 @@ public class CardChoice : MonoBehaviour
     public SlotContainer slotContainer;
     public int cardCount = 5;
     public GameObject selectButtonCanvasPrefab;
+    private Action callback;
 
     private void Awake()
     {
@@ -21,13 +23,18 @@ public class CardChoice : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C)) {
-            Show();
+            Show(false, () => {
+                HandManager.i.Show();
+                BoardManager.i.Show();
+            });
         }
     }
 #endif
 
-    public void Show(bool instant = false)
+    public void Show(bool instant = false, Action callback = null)
     {
+        this.callback = callback;
+
         Vector3 targetPos = new Vector3(0, transform.position.y, transform.position.z);
 
         if (instant) {
@@ -59,8 +66,8 @@ public class CardChoice : MonoBehaviour
         
         transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
-            HandManager.i.Show();
-            BoardManager.i.Show();
+            callback?.Invoke();
+            callback = null;
         });
     }
 
@@ -70,7 +77,7 @@ public class CardChoice : MonoBehaviour
         
         List<CardDefinition> cardsToAdd = new List<CardDefinition>();
         for (int i = 0; i < cardCount; i++) {
-            cardsToAdd.Add(allCards[Random.Range(0, allCards.Count)]);
+            cardsToAdd.Add(allCards[UnityEngine.Random.Range(0, allCards.Count)]);
         }
 
         List<CardSlot> cardSlots = slotContainer.AddCards(cardsToAdd, true);

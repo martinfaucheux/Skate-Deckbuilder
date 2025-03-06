@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -17,6 +18,7 @@ public class RelicChoice : MonoBehaviour
     private RelicDefinition relicDefinition3;
     public Transform relicChoiceTransform4;
     private RelicDefinition relicDefinition4;
+    private Action callback;
 
     private void Awake()
     {
@@ -28,13 +30,18 @@ public class RelicChoice : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S)) {
-            Show();
+            Show(false, () => {
+                HandManager.i.Show();
+                BoardManager.i.Show();
+            });
         }
     }
 #endif
 
-    public void Show(bool instant = false)
+    public void Show(bool instant = false, Action callback = null)
     {
+        this.callback = callback;
+
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
@@ -66,8 +73,8 @@ public class RelicChoice : MonoBehaviour
 
         rectTransform.DOAnchorPos(targetPos, 1f).SetEase(Ease.InOutQuad);
         CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
-            HandManager.i.Show();
-            BoardManager.i.Show();
+            callback?.Invoke();
+            callback = null;
         });
     }
 
@@ -85,7 +92,7 @@ public class RelicChoice : MonoBehaviour
     private RelicDefinition AddRandomRelicToTransform(List<RelicDefinition> relics, Transform tr)
     {
         RelicUI relic = Instantiate(RunManager.Instance.relicUIPrefab, tr);
-        relic.relicDefinition = relics[Random.Range(0, relics.Count)];
+        relic.relicDefinition = relics[UnityEngine.Random.Range(0, relics.Count)];
         return relic.relicDefinition;
     }
 
