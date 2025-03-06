@@ -10,6 +10,8 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     {
         public int value;
         public TMP_Text text;
+        public bool isFail = false;
+        public bool isOutOfEnergy = false;
     }
     public List<Score> scores = new List<Score>();
     public TMP_Text scorePrefab;
@@ -20,14 +22,28 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     }
 
     #region DuringPlay
-    public void AddScore(int scoreToAdd)
+    public void AddScore(int scoreToAdd, bool isFail, bool isOutOfEnergy)
     {
         Score score = new Score() {
             value = scoreToAdd,
-            text = Instantiate(scorePrefab, BoardManager.i.slotContainer.GetCards()[scores.Count].card.cardVisual.infoTop.transform)
+            text = Instantiate(scorePrefab, BoardManager.i.slotContainer.GetCards()[scores.Count].card.cardVisual.infoTop.transform),
+            isFail = isFail,
+            isOutOfEnergy = isOutOfEnergy
         };
         score.text.transform.position = new Vector3(score.text.transform.position.x, score.text.transform.position.y + 1.5f, score.text.transform.position.z);
-        score.text.text = $"+{scoreToAdd.ToString()} <sprite=1>";
+        
+        ColorUtility.TryParseHtmlString("#E27F7F", out Color loseColor);
+        if (isFail) {
+            score.text.text = "FAIL";
+            score.text.color = loseColor;
+        }
+        else if (isOutOfEnergy) {
+            score.text.text = "OUT OF ENERGY";
+            score.text.color = loseColor;
+        }
+        else {
+            score.text.text = $"+{scoreToAdd.ToString()} <sprite=1>";
+        }
 
         scores.Add(score);
     }
@@ -54,6 +70,10 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
 
     public void CalculateScore()
     {
+        while (scores.Count < BoardManager.i.slotContainer.GetCards().Count) {
+            AddScore(0, false, true);
+        }
+
         totalScore = 0;
 
         int i = 0;
@@ -71,7 +91,18 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             .OnComplete(() => {
                 totalScore += scores[savedIndex].value;
 
-                descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = $"+{scores[savedIndex].value} <sprite=1>";
+                ColorUtility.TryParseHtmlString("#E27F7F", out Color loseColor);
+                if (scores[savedIndex].isFail) {
+                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "FAIL";
+                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                }
+                else if (scores[savedIndex].isOutOfEnergy) {
+                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "OUT OF ENERGY";
+                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().color = loseColor;
+                }
+                else {
+                    descriptionAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = $"+{scores[savedIndex].value} <sprite=1>";
+                }
                 Destroy(score.text.gameObject);
 
                 if (savedIndex >= scores.Count - 1) {

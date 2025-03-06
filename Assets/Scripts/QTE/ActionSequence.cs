@@ -62,10 +62,6 @@ public class ActionSequence
         {
             challenge?.End();
             state = ActionSequenceState.Completed;
-            if (energyGain > 0)
-                EnergyPointManager.i.Add(energyGain);
-            if (scoreGain > 0)
-                BoardScoreCalculator.Instance.AddScore(scoreGain);
         }
     }
 
@@ -73,6 +69,11 @@ public class ActionSequence
     {
         // TODO: use this hook to display some feedback
         Debug.Log("Challenge succeeded");
+
+        if (energyGain > 0)
+            EnergyPointManager.i.Add(energyGain);
+        if (scoreGain > 0)
+            BoardScoreCalculator.Instance.AddScore(scoreGain, false, false);
     }
 
 
@@ -80,6 +81,8 @@ public class ActionSequence
     {
         // TODO: use this hook to display some feedback
         Debug.Log("Challenge failed");
+
+        BoardScoreCalculator.Instance.AddScore(0, true, false);
     }
 
     public void Interrupt()
