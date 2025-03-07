@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Splines;
+using UnityEngine.UIElements;
 
 public class ActionContainer : MonoBehaviour
 {
@@ -10,6 +13,27 @@ public class ActionContainer : MonoBehaviour
     public CardType cardType;
     public Transform arrowSpriteTransform;
     public List<GameObject> QTERenderers;
+    public Card card { get; private set; }
+
+    public PathContainer pathContainer { get; private set; }
+
+    public void SetCard(Card card)
+    {
+        this.card = card;
+
+        // create and attach spline component
+        GameObject splinePrefab = card.cardDefinition.splinePrefab;
+        if (pathContainer == null && splinePrefab != null)
+        {
+            GameObject splineGameObject = Instantiate(
+                splinePrefab,
+                transform.position,
+                Quaternion.identity,
+                transform
+            );
+            pathContainer = splineGameObject.GetComponent<PathContainer>();
+        }
+    }
 
     public ActionSequenceChallenge CreateChallenge()
     {
@@ -82,4 +106,5 @@ public class ActionContainer : MonoBehaviour
             }
         }
     }
+
 }

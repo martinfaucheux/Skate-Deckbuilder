@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3589099492179642313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7177417451612406857}
+  - component: {fileID: 4710016967323081175}
+  - component: {fileID: 2738575046649260475}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7177417451612406857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589099492179642313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4710016967323081175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589099492179642313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899546f72ad24c96b60198538a911f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keepThroughScenes: 1
+  sounds:
+  - name: Roll
+    audioClip: {fileID: 8300000, guid: a2360ff8dea2c47a0a9f13027b24ffb7, type: 3}
+    volume: 0.5
+    pitch: 1
+    randomizePitch: 0.1
+    loop: 1
+    playOnStart: 0
+  - name: Click
+    audioClip: {fileID: 8300000, guid: 0af5f47ca852448a19c65dff29082660, type: 3}
+    volume: 0.5
+    pitch: 1
+    randomizePitch: 0.1
+    loop: 0
+    playOnStart: 0
+  - name: Slide
+    audioClip: {fileID: 8300000, guid: d3dbd150e7dd1425fa944a89f3c240f1, type: 3}
+    volume: 0.5
+    pitch: 1
+    randomizePitch: 0.1
+    loop: 0
+    playOnStart: 0
+  - name: MainMenuMusic
+    audioClip: {fileID: 8300000, guid: d16eccc8b6e9f4fb8b07cfff5f74cb7d, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomizePitch: 0
+    loop: 1
+    playOnStart: 0
+  - name: LevelMusic
+    audioClip: {fileID: 8300000, guid: 07a0ceab90a1d4867af9ed4a4b527ed8, type: 3}
+    volume: 0.05
+    pitch: 1
+    randomizePitch: 0
+    loop: 1
+    playOnStart: 0
+--- !u!81 &2738575046649260475
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3589099492179642313}
+  m_Enabled: 1

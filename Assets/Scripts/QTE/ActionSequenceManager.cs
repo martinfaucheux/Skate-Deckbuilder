@@ -1,25 +1,22 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
-using System;
 using System.Linq;
+
 public class SequenceManager : Singleton<SequenceManager>
 {
-    public Transform characterTransform;
+    public CharacterController characterController;
     private Queue<ActionSequence> _sequences = new Queue<ActionSequence>();
     public UnityEvent OnSequenceStart;
     public UnityEvent OnSequenceComplete;
     public float baseSpeed = 3f;
+    public float actionBaseDuration = 2f;
     public bool isPlaying { get; private set; } = false;
     private ActionSequence _currentSequence;
     private float _characterZ;
     [Tooltip("Event invoked when the player doesn't have enough energy to play the next sequence.")]
     public UnityEvent onInsufficientEnergy;
 
-    void Start()
-    {
-        _characterZ = characterTransform.position.z;
-    }
 
     void Update()
     {
@@ -53,12 +50,13 @@ public class SequenceManager : Singleton<SequenceManager>
                 // all sequences have been played
                 isPlaying = false;
                 OnSequenceComplete?.Invoke();
+                characterController.SetState(CharacterState.Idle);
             }
         }
 
         if (_currentSequence != null && _currentSequence.state == ActionSequenceState.Running)
         {
-            _currentSequence.Update(Time.deltaTime);
+            _currentSequence.Update();
         }
     }
 
@@ -80,11 +78,12 @@ public class SequenceManager : Singleton<SequenceManager>
             _sequences.Enqueue(new ActionSequence(
                 startPos,
                 endPos,
-                baseSpeed,
-                characterTransform,
+                characterController,
+                actionBaseDuration,
                 cardDef.energyCost,
                 cardDef.energyGain,
                 cardDef.score,
+                actionContainer.pathContainer.Evaluate,
                 actionContainer.CreateChallenge()
             ));
 
@@ -96,12 +95,8 @@ public class SequenceManager : Singleton<SequenceManager>
                 _sequences.Enqueue(new ActionSequence(
                     endPos,
                     nextStartPos,
-                    baseSpeed,
-                    characterTransform,
-                    0,
-                    0,
-                    0,
-                    null
+                    characterController,
+                    0
                 ));
             }
         }
