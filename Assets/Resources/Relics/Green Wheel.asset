@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Green Wheel
   m_EditorClassIdentifier: 
   sprite: {fileID: -6380503185155409017, guid: ec051493a2319dc4ebaa0ce70de17a71, type: 3}
-  description: "At the end of play, give 50 score if at least half of board\u2019s
-    cards have green color"
+  description: "Give 50 points if at least half of board\u2019s cards have green
+    color"

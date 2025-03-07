@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Red Wheel
   m_EditorClassIdentifier: 
   sprite: {fileID: -7342853181994912507, guid: 541ce9bd331814445bc6d276a534e4ae, type: 3}
-  description: "At the end of play, give 50 score if at least half of board\u2019s
-    cards have red color"
+  description: "Give 50 points if at least half of board\u2019s cards have red color"

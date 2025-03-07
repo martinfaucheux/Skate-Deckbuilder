@@ -10,8 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a97709dadd764043a4dbf78b8a81089, type: 3}
-  m_Name: Yellow Wheel
+  m_Name: Supercharged Wheel
   m_EditorClassIdentifier: 
-  sprite: {fileID: 5380955395174158761, guid: 208a6eda06b044841a4302a80c00d3b1, type: 3}
-  description: "Give 50 points if at least half of board\u2019s cards have yellow
-    color"
+  sprite: {fileID: -4395460468568793582, guid: cee5da4fb3ab8bf46915b42c74f08065, type: 3}
+  description: Give 100 points if you finish with at least 5 energy

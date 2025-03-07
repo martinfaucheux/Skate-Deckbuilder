@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ef4b49dd80817e54d9386d61f585fea7
+guid: ff23a91119e6ffa42b987b7c7784820c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8376404616114278326
-    second: RelicRainbowWheel_0
+      213: 4582016992495094704
+    second: RelicStarWheel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RelicRainbowWheel_0
+      name: RelicStarWheel_0
       rect:
         serializedVersion: 2
         x: 12
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a40f099b16801cb80800000000000000
-      internalID: -8376404616114278326
+      spriteID: 0bb49789d28969f30800000000000000
+      internalID: 4582016992495094704
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      RelicRainbowWheel_0: -8376404616114278326
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: Rainbow Wheel
   m_EditorClassIdentifier: 
   sprite: {fileID: -8376404616114278326, guid: ef4b49dd80817e54d9386d61f585fea7, type: 3}
-  description: At the end of play, give x1.5 score multiplier if no adjacent cards
-    has the same color
+  description: "Give 100 points if there\u2019s all 4 colors on the board"

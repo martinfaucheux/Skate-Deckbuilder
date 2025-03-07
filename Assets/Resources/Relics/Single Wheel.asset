@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a97709dadd764043a4dbf78b8a81089, type: 3}
-  m_Name: Yellow Wheel
+  m_Name: Single Wheel
   m_EditorClassIdentifier: 
-  sprite: {fileID: 5380955395174158761, guid: 208a6eda06b044841a4302a80c00d3b1, type: 3}
-  description: "Give 50 points if at least half of board\u2019s cards have yellow
-    color"
+  sprite: {fileID: -2268949043227575673, guid: 4b1bb22b20f8836468ddc38f8658d0b5, type: 3}
+  description: Give x2 multiplier if you used only 1 type of card (can be different
+    color)

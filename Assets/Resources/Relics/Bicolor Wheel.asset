@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bicolor Wheel
   m_EditorClassIdentifier: 
   sprite: {fileID: 3073908388781224993, guid: 0ffa0a4135f7abe4b9fbff2fcd1a241c, type: 3}
-  description: "At the end of play, give x1.5 score multiplier if there\u2019s only
-    2 colors on the board"
+  description: "Give x1.5 score multiplier if there\u2019s exactly 2 colors on the
+    board"

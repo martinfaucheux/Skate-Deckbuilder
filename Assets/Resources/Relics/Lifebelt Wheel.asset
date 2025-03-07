@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lifebelt Wheel
   m_EditorClassIdentifier: 
   sprite: {fileID: -5512629320253991564, guid: 928effd07c5a1d84b83c67cc1add98e5, type: 3}
-  description: "Every \u201CFAIL\u201D and \u201COUT OF ENERGY\u201D give 10 score"
+  description: "Every \u201CFAIL\u201D and \u201COUT OF ENERGY\u201D give 10 points"

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -154,6 +155,94 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
         }
 
+        // Rainbow Wheel
+        RelicDefinition rainbowWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Rainbow Wheel");
+        if (rainbowWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = rainbowWheelFound.sprite;
+
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            List<CardType> cardTypesFound = new();
+            for (int i = 0; i < cardSlots.Count; i++) {
+                if (cardTypesFound.IndexOf(cardSlots[i].card.cardDefinition.cardType) == -1) {
+                    cardTypesFound.Add(cardSlots[i].card.cardDefinition.cardType);
+                }
+            }
+
+            bool success = false;
+            if (cardTypesFound.Count >= 4) {
+                success = true;
+            }
+
+            string text = "+0 <sprite=1>";
+            if (success) {
+                text = "+100 <sprite=1>";
+                totalScore += 100;
+            }
+            iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
+        }
+
+        // Star Wheel
+        RelicDefinition startWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Star Wheel");
+        if (startWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = startWheelFound.sprite;
+
+            bool success = true;
+            foreach (var score in scores) {
+                if (score.isFail || score.isOutOfEnergy) {
+                    success = false;
+                    break;
+                }
+            }
+
+            string text = "+0 <sprite=1>";
+            if (success) {
+                text = "+50 <sprite=1>";
+                totalScore += 50;
+            }
+            iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
+        }
+
+        // Supercharged Wheel
+        RelicDefinition superchargedWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Supercharged Wheel");
+        if (superchargedWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = superchargedWheelFound.sprite;
+
+            bool success = EnergyPointManager.i.currentPoints >= 5;
+
+            string text = "+0 <sprite=1>";
+            if (success) {
+                text = "+100 <sprite=1>";
+                totalScore += 100;
+            }
+            iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
+        }
+
+        // Down Wheel
+        RelicDefinition downWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Down Wheel");
+        if (downWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = downWheelFound.sprite;
+
+            bool success = true;
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            foreach (var cardSlot in cardSlots) {
+                if (cardSlot.card.cardDefinition.groundStartY <= cardSlot.card.cardDefinition.groundEndY) {
+                    success = false;
+                    break;
+                }
+            }
+
+            string text = "+0 <sprite=1>";
+            if (success) {
+                text = "+100 <sprite=1>";
+                totalScore += 100;
+            }
+            iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = text;
+        }
+
         AddMultipliers();
     }
 
@@ -161,11 +250,11 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
     {
         UpdateLayoutDisplay();
         
-        // Rainbow Wheel
-        RelicDefinition rainbowWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Rainbow Wheel");
-        if (rainbowWheelFound != null) {
+        // Colorblind Wheel
+        RelicDefinition colorblindWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Colorblind Wheel");
+        if (colorblindWheelFound != null) {
             GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
-            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = rainbowWheelFound.sprite;
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = colorblindWheelFound.sprite;
 
             bool success = true;
             List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
@@ -207,6 +296,49 @@ public class BoardScoreCalculator : CoduckStudio.Utils.Singleton<BoardScoreCalcu
             if (success) {
                 iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1.5";
                 totalScore = (int)(totalScore * 1.5f);
+            }
+            else {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
+            }
+        }
+
+        // Single Wheel
+        RelicDefinition singleWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Single Wheel");
+        if (singleWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = singleWheelFound.sprite;
+
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            List<string> names = cardSlots.Select((v) => v.card.cardDefinition.name).Select((v) => v.Substring(0, v.IndexOf("-") - 1)).ToList();
+            bool success = names.All(x => x == names.First());
+
+            if (success) {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x2";
+                totalScore = (int)(totalScore * 2f);
+            }
+            else {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
+            }
+        }
+
+        // Up Wheel
+        RelicDefinition upWheelFound = RunManager.Instance.GetRelics().Find((v) => v.name == "Up Wheel");
+        if (upWheelFound != null) {
+            GameObject iconAndAmount = Instantiate(iconAndAmountPrefab, descriptionsTransform);
+            iconAndAmount.transform.GetChild(0).GetComponentInChildren<Image>().sprite = upWheelFound.sprite;
+
+            bool success = true;
+            List<CardSlot> cardSlots = BoardManager.i.slotContainer.GetCards();
+            foreach (var cardSlot in cardSlots) {
+                if (cardSlot.card.cardDefinition.groundStartY >= cardSlot.card.cardDefinition.groundEndY) {
+                    success = false;
+                    break;
+                }
+            }
+
+            if (success) {
+                iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x2";
+                totalScore = (int)(totalScore * 2f);
             }
             else {
                 iconAndAmount.transform.GetChild(1).GetComponent<TMP_Text>().text = "x1";
