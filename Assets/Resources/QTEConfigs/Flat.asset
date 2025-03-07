@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1751a632e9792402f94c367706bc4fd3, type: 3}
   m_Name: Flat
   m_EditorClassIdentifier: 
+  description: Press the keys 3 times (at any time)
   clickCount: 3

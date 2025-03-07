@@ -34,6 +34,7 @@ Transform:
   - {fileID: 7151467692879856029}
   - {fileID: 4487446697789901106}
   - {fileID: 1439019243534658292}
+  - {fileID: 7652690517044435553}
   - {fileID: 6209989087966084728}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -106,10 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startTransform: {fileID: 4487446697789901106}
   endTransform: {fileID: 1439019243534658292}
-  qteConfig: {fileID: 0}
-  challengeDisplay: {fileID: 0}
+  qteConfig: {fileID: 11400000, guid: 810117e2bbd4bd04281b7e4155285582, type: 2}
+  challengeDisplay: {fileID: 7233007423690002852}
   cardType: 0
   arrowSpriteTransform: {fileID: 6209989087966084728}
+  QTERenderers: []
 --- !u!1 &1935447307189963951
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,4 +386,77 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2685442407048688775, guid: 4d811b33b5acb454ab858c7656e0ea20, type: 3}
   m_PrefabInstance: {fileID: 1864011109777265096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7940471520161080660
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4212921337611452860}
+    m_Modifications:
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2029833502646873244, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+      propertyPath: m_Name
+      value: ChallengeIndicator
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+--- !u!114 &7233007423690002852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 743926444752696560, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+  m_PrefabInstance: {fileID: 7940471520161080660}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fba3413e422a4bcc895911947593032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7652690517044435553 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 288768845599063861, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+  m_PrefabInstance: {fileID: 7940471520161080660}
   m_PrefabAsset: {fileID: 0}

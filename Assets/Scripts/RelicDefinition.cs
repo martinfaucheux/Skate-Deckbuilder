@@ -4,5 +4,5 @@ using UnityEngine;
 public class RelicDefinition : ScriptableObject
 {
     public Sprite sprite;
-    public string description;
+    [TextArea] public string description;
 }

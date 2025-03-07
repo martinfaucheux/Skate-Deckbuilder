@@ -138,6 +138,9 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     {
         state = State.CalculatingScore;
         BoardScoreCalculator.Instance.ShowAndCalculateScore();
+        
+        // Make sure to stop sound when player run out of energy
+        SequenceManager.i.characterController.SetState(CharacterState.Idle);
     }
 
     public void SetStateReadyToBuild()

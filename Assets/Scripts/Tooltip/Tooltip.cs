@@ -16,6 +16,16 @@ namespace CoduckStudio
             GenericTooltip.Config config = new GenericTooltip.Config(cardDefinition.name, Color.black, CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
             config.descriptions.Add(new GenericTooltip.ConfigDescription($"Energy cost:", Color.black, $"-{cardDefinition.energyCost} <sprite=0>"));
+            
+            // Space
+            config.descriptions.Add(new GenericTooltip.ConfigDescription($"", Color.black));
+
+            config.descriptions.Add(new GenericTooltip.ConfigDescription($"QTE: {actionContainer.qteConfig.description}", Color.black));
+
+            // Space
+            config.descriptions.Add(new GenericTooltip.ConfigDescription($"", Color.black));
+
+            config.descriptions.Add(new GenericTooltip.ConfigDescription($"On QTE success:", Color.black));
             config.descriptions.Add(new GenericTooltip.ConfigDescription($"Score gain:", Color.black, $"+{cardDefinition.score} <sprite=1>"));
             config.descriptions.Add(new GenericTooltip.ConfigDescription($"Energy gain:", Color.black, $"+{cardDefinition.energyGain} <sprite=0>"));
 
