@@ -16,6 +16,7 @@ public class PopupWindow : MonoBehaviour
 
     public void Show(bool instant = false, Action callback = null)
     {
+        canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
@@ -41,6 +42,7 @@ public class PopupWindow : MonoBehaviour
 
         if (instant) {
             rectTransform.localScale = targetScale;
+            canvasGroup.alpha = 0;
             return;
         }
 
@@ -48,6 +50,7 @@ public class PopupWindow : MonoBehaviour
             callback?.Invoke();
             callback = null;
             isOpen = false;
+            canvasGroup.alpha = 0;
         });
     }
 

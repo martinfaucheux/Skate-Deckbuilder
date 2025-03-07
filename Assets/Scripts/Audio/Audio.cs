@@ -43,6 +43,7 @@ public class Sound
         if (randomizePitch > 0)
         {
             source.pitch = pitch + randomizePitch * Random.Range(-1f, 1f);
+            source.volume = PlayerPrefs.GetFloat("SettingsVolume", SettingsManager.Instance.defaultVolume);
         }
         source.Play();
     }
