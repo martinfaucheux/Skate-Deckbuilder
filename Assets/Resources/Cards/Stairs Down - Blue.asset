@@ -20,3 +20,4 @@ MonoBehaviour:
   energyCost: 0
   energyGain: 1
   score: 15
+  cardType: 0

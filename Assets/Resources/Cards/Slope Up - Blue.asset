@@ -15,6 +15,7 @@ MonoBehaviour:
   sprite: {fileID: 6337518546395159049, guid: 3aa3c623eca7a3344baffa43b48c2f50, type: 3}
   groundStartY: -0.4
   groundEndY: 0.9
+  splinePrefab: {fileID: 5382167696011436439, guid: bd101b51519504453a2ef46082fef429, type: 3}
   actionContainerPrefab: {fileID: 6506123392268107093, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
   energyCost: 2
   energyGain: 0
