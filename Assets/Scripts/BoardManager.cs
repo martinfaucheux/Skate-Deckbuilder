@@ -2,6 +2,8 @@ using System.Linq;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 
 public class BoardManager : Singleton<BoardManager>
 {
@@ -11,6 +13,8 @@ public class BoardManager : Singleton<BoardManager>
     protected override void Awake()
     {
         base.Awake();
+
+        Hide(true);
     }
 
     void Start()
@@ -79,5 +83,29 @@ public class BoardManager : Singleton<BoardManager>
 
         Vector3 previousPosition = previousCard.actionContainer.endTransform.position;
         return (previousPosition - localOffset).y;
+    }
+
+    public void Show(bool instant = false)
+    {
+        Vector3 targetPos = new Vector3(transform.position.x, 3, transform.position.z);
+
+        if (instant) {
+            transform.position = targetPos;
+            return;
+        }
+        
+        transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
+    }
+
+    public void Hide(bool instant = false)
+    {
+        Vector3 targetPos = new Vector3(transform.position.x, 50, transform.position.z);
+
+        if (instant) {
+            transform.position = targetPos;
+            return;
+        }
+        
+        transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
     }
 }

@@ -30,7 +30,9 @@ public class Card : MonoBehaviour
 
             cardVisual.Set(this);
 
-            AssignActionContainer(Instantiate(cardDefinition.actionContainerPrefab, transform));
+            if (cardDefinition.actionContainerPrefab != null) {
+                AssignActionContainer(Instantiate(cardDefinition.actionContainerPrefab, transform));
+            }
         }
     }
 
@@ -46,13 +48,15 @@ public class Card : MonoBehaviour
         actionContainer.transform.SetParent(transform);
         actionContainer.transform.localPosition = Vector3.zero;
 
+        actionContainer.cardType = cardDefinition.cardType;
+
         if (CardTypeConfiguration.i != null)
             SetColor(CardTypeConfiguration.i.TypeToColor(actionContainer.cardType));
 
         HideQTE();
 
         // TODO: ugly code
-        actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
+        this.actionContainer.SetArrowSprite(CardTypeConfiguration.i.TypeToKey(this.actionContainer.cardType));
         cardVisual.AddInfoBottom(actionContainer.arrowSpriteTransform);
     }
 

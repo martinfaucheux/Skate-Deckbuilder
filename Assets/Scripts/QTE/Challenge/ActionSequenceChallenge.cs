@@ -31,6 +31,10 @@ public abstract class ActionSequenceChallenge
     {
         // can be used to trigger the Success hook
         // if challenge can only succeed at the end of the sequence
+
+        if (state == ActionSequenceChallengeState.Running) {
+            MarkAsFailed();
+        }
     }
 
     public void Reset()

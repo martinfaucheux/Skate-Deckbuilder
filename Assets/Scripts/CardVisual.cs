@@ -12,6 +12,7 @@ public class CardVisual : MonoBehaviour
     public Transform infoBottom;
     public SortingGroup sortingGroup;
     public TextMeshPro energyCostText;
+    public TextMeshPro scoreCostText;
 
     private void Awake()
     {
@@ -24,7 +25,7 @@ public class CardVisual : MonoBehaviour
         Big
     }
 
-    private Height height = Height.Big;
+    public Height height = Height.Big;
     public void SetHeight(Height height, bool instant = false)
     {
         if (this.height == height)
@@ -62,28 +63,33 @@ public class CardVisual : MonoBehaviour
             transform.SetParent(GameObject.Find("CardVisuals").transform, false);
             backgroundSpriteRenderer.sprite = card.cardDefinition.sprite;
         }
-        SetCostText();
 
+        SetCostText();
+        SetScoreText();
     }
 
     private void SetCostText()
     {
         int cost = target.cardDefinition.energyCost;
-        int gain = target.cardDefinition.energyGain;
-        if (cost > 0)
-        {
-            energyCostText.text = $"-{cost}";
+        if (cost > 0) {
+            energyCostText.text = $"-{cost} <sprite=0>";
         }
-        else
-        {
-            if (gain > 0)
-            {
-                energyCostText.text = $"+{gain}";
-            }
-            else
-            {
-                energyCostText.text = "";
-            }
+        else {
+            energyCostText.text = $"0 <sprite=0>";
+        }
+    }
+
+    private void SetScoreText()
+    {
+        int gain = target.cardDefinition.energyGain;
+
+        scoreCostText.text = "";
+        if (target.cardDefinition.score > 0) {
+            scoreCostText.text = $"+{target.cardDefinition.score} <sprite=1>";
+        }
+        if (gain > 0) {
+            string space = target.cardDefinition.score > 0 ? " " : "";
+            scoreCostText.text += $"{space}+{gain} <sprite=0>";
         }
     }
 
@@ -113,9 +119,9 @@ public class CardVisual : MonoBehaviour
         // Rotation
         Vector3 movement = transform.position - target.transform.position;
         movementDelta = Vector3.Lerp(movementDelta, movement, 10 * Time.deltaTime);
-        Vector3 movementRotation = (target.currentSlot.isDragging ? movementDelta : movement) * 50;
-        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 30 * Time.deltaTime);
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -60, 60));
+        Vector3 movementRotation = (target.currentSlot.isDragging ? movementDelta : movement) * 20;
+        rotationDelta = Vector3.Lerp(rotationDelta, movementRotation, 10 * Time.deltaTime);
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, Mathf.Clamp(rotationDelta.x, -30, 30));
 
         // Scale
         // bool shouldScaleUp = target.currentSlot.isDragging || (target.currentSlot.isHovering && target.currentSlot.currentContainer.selectedSlot == null);
@@ -145,22 +151,24 @@ public class CardVisual : MonoBehaviour
         // transform.eulerAngles = new Vector3(lerpX, lerpY, lerpZ);
     }
 
-    public void AddInfoTop(Transform transform)
+    public void AddInfoTop(Transform transform, bool keepExisting = false)
     {
-        foreach (Transform child in infoTop)
-        {
-            Destroy(child.gameObject);
+        if (!keepExisting) {
+            foreach (Transform child in infoTop) {
+                Destroy(child.gameObject);
+            }
         }
 
         transform.SetParent(infoTop, false);
         transform.localPosition = Vector2.zero;
     }
 
-    public void AddInfoBottom(Transform transform)
+    public void AddInfoBottom(Transform transform, bool keepExisting = false)
     {
-        foreach (Transform child in infoBottom)
-        {
-            Destroy(child.gameObject);
+        if (!keepExisting) {
+            foreach (Transform child in infoBottom) {
+                Destroy(child.gameObject);
+            }
         }
 
         transform.SetParent(infoBottom, false);

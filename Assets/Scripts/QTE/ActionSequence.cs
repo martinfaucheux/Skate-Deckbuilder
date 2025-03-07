@@ -12,6 +12,7 @@ public class ActionSequence
     private Transform _characterTransform;
     public int energyCost { get; private set; }
     public int energyGain { get; private set; }
+    public int scoreGain { get; private set; }
 
     public ActionSequence(
         Vector3 start,
@@ -20,6 +21,7 @@ public class ActionSequence
         Transform characterTransform,
         int energyCost = 0,
         int energyGain = 0,
+        int scoreGain = 0,
         ActionSequenceChallenge challenge = null
     )
     {
@@ -30,6 +32,7 @@ public class ActionSequence
         _characterTransform = characterTransform;
         this.energyCost = energyCost;
         this.energyGain = energyGain;
+        this.scoreGain = scoreGain;
         state = ActionSequenceState.Idle;
     }
 
@@ -59,8 +62,6 @@ public class ActionSequence
         {
             challenge?.End();
             state = ActionSequenceState.Completed;
-            if (energyGain > 0)
-                EnergyPointManager.i.Add(energyGain);
         }
     }
 
@@ -68,6 +69,11 @@ public class ActionSequence
     {
         // TODO: use this hook to display some feedback
         Debug.Log("Challenge succeeded");
+
+        if (energyGain > 0)
+            EnergyPointManager.i.Add(energyGain);
+        if (scoreGain > 0)
+            BoardScoreCalculator.Instance.AddScore(scoreGain, false, false);
     }
 
 
@@ -75,6 +81,8 @@ public class ActionSequence
     {
         // TODO: use this hook to display some feedback
         Debug.Log("Challenge failed");
+
+        BoardScoreCalculator.Instance.AddScore(0, true, false);
     }
 
     public void Interrupt()

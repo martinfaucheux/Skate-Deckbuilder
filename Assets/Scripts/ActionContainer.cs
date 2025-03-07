@@ -11,12 +11,6 @@ public class ActionContainer : MonoBehaviour
     public Transform arrowSpriteTransform;
     public List<GameObject> QTERenderers;
 
-    void Awake()
-    {
-        // here so we are sure it is always defined
-        cardType = CardTypeConfiguration.GetRandomType();
-    }
-
     public ActionSequenceChallenge CreateChallenge()
     {
         ActionSequenceChallenge challenge = (

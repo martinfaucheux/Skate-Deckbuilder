@@ -6,6 +6,9 @@ public class CameraManager : CoduckStudio.Utils.Singleton<CameraManager>
     public CinemachineCamera cinemachineCamera;
     public CinemachineFollow cinemachineCameraFollow;
     public Camera mainCamera;
+    public CameraTarget cameraTarget;
+    public Transform playerTransform;
+    public Transform levelCenterTransform;
 
     void Awake()
     {
@@ -14,12 +17,11 @@ public class CameraManager : CoduckStudio.Utils.Singleton<CameraManager>
 
     public void SetLevelBuildingTarget()
     {
-        cinemachineCameraFollow.enabled = false;
-        cinemachineCamera.transform.position = new Vector3(0, 0, -10);
+        cameraTarget.target = levelCenterTransform;
     }
     
     public void SetPlayerTarget()
     {
-        cinemachineCameraFollow.enabled = true;
+        cameraTarget.target = playerTransform;
     }
 }

@@ -9,7 +9,17 @@ public class EnergyPointManager : Singleton<EnergyPointManager>
 
     void Start()
     {
-        SetValue(initValue);
+        ResetValue();
+    }
+
+    public void ResetValue()
+    {
+        int addedValue = 0;
+        if (RunManager.Instance.HasRelic("Energy Wheel")) {
+            addedValue = 2;
+        }
+
+        SetValue(initValue + addedValue);
     }
 
     public void Add(int value)

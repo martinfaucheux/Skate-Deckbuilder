@@ -12,4 +12,6 @@ public class CardDefinition : ScriptableObject
     public int energyCost = 0;
     [Tooltip("If the player completes the sequence, they will gain this much energy.")]
     public int energyGain = 0;
+    public int score = 0;
+    public CardType cardType;
 }

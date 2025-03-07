@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
+  m_Name: Road - Green
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 6682738439518977790, guid: 8a1f73146f6f2244f8a046a0fd0ac3ac, type: 3}
+  groundStartY: -0.4
+  groundEndY: -0.4
+  actionContainerPrefab: {fileID: 2642712769175286877, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
+  energyCost: 1
+  energyGain: 0
+  score: 10
+  cardType: 3

@@ -1,4 +1,5 @@
 using System.Linq;
+using CoduckStudio;
 using UnityEngine;
 
 public class CardSlot : MonoBehaviour
@@ -63,9 +64,18 @@ public class CardSlot : MonoBehaviour
         }
     }
 
-    #region DragAndHover
+    private void OnDestroy()
+    {
+        if (card?.cardVisual?.gameObject) {
+            Destroy(card.cardVisual.gameObject);
+        }
+    }
+
+#region DragAndHover
+    public bool isLocked = false;
+
     public void OnMouseDown() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -74,7 +84,7 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseDrag() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -84,10 +94,12 @@ public class CardSlot : MonoBehaviour
         if (hoveredSlotContainer != null && hoveredSlotContainer.name != currentContainer.name) {
             currentContainer.SwapSlotContainer(hoveredSlotContainer);
         }
+
+        GenericTooltip.Instance.Hide();
     }
 
     public void OnMouseUp() {
-        if (isEmpty) {
+        if (isEmpty || isLocked) {
             return;
         }
 
@@ -97,13 +109,15 @@ public class CardSlot : MonoBehaviour
 
     public void OnMouseOver()
     {
-        if (isEmpty) {
+        if (isEmpty || isHovering || SequenceManager.i.isPlaying) {
             return;
         }
 
         isHovering = true;
 
-        if (currentContainer.forceCardBigHeight)
+        GenericTooltip.Instance.Show(Tooltip.GetCardConfig(card.cardDefinition, card.actionContainer), card.gameObject);
+
+        if (currentContainer.forceCardBigHeight && card.cardVisual.height == CardVisual.Height.Big)
             return;
 
         card.cardVisual.SetHeight(CardVisual.Height.Big);
@@ -116,6 +130,8 @@ public class CardSlot : MonoBehaviour
         }
 
         isHovering = false;
+
+        GenericTooltip.Instance.Hide();
 
         if (currentContainer.forceCardBigHeight)
             return;

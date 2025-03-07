@@ -9,7 +9,6 @@ public class HandManager : Singleton<HandManager>
     {
         base.Awake();
         Hide(true);
-        Show();
     }
 
     public void Show(bool instant = false)
@@ -21,7 +20,7 @@ public class HandManager : Singleton<HandManager>
             return;
         }
         
-        transform.DOMove(targetPos, 1f);
+        transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
     }
 
     public void Hide(bool instant = false)
@@ -33,6 +32,6 @@ public class HandManager : Singleton<HandManager>
             return;
         }
         
-        transform.DOMove(targetPos, 1f);
+        transform.DOMove(targetPos, 1f).SetEase(Ease.InOutQuad);
     }
 }
