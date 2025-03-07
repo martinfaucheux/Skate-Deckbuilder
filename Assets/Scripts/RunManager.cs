@@ -48,9 +48,15 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     }
     public State state = State.Building;
 
+    public PopupWindow tutorialPopupWindow;
+
     public void Awake()
     {
-        StartRun();
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.1f, () => {
+            tutorialPopupWindow.Show(false, () => {
+                StartRun();
+            });
+        });
     }
 
     public void StartRun()

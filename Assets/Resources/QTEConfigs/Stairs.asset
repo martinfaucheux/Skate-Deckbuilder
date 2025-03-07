@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670fb2d17737c4f20817849936e67e9d, type: 3}
   m_Name: Stairs
   m_EditorClassIdentifier: Assembly-CSharp::BarQTEConfig
-  description: Press the key to keep the white bar inside the grey area
+  description: Hold the key to keep the white bar inside the grey area
   onClickMove: 0
   clickedVelocity: 0.7
   noClickedVelocity: 0.5
