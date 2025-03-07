@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RelicYellowWheel_0: 5380955395174158761
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RelicSingleWheel_0: -2268949043227575673
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

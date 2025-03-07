@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RelicLifebelt_0: -5512629320253991564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
