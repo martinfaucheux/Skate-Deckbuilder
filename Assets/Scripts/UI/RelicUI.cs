@@ -57,7 +57,7 @@ public class RelicUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         goRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
         CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
-            goRectTransform.DOJumpAnchorPos(rectTransform.anchoredPosition, 200, 1, 1f).SetEase(Ease.OutQuad).OnComplete(() => {
+            goRectTransform.DOJumpAnchorPos(rectTransform.anchoredPosition, 200, 1, 0.5f).SetEase(Ease.OutQuad).OnComplete(() => {
                 image.color = Color.white;
                 Destroy(go);
             });
