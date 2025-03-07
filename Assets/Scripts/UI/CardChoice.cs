@@ -43,13 +43,16 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
             return;
         }
 
+        slotContainer.cardCountMax = cardCount;
+        slotContainer.RemoveAllCards();
+
         HandManager.i.Hide();
         BoardManager.i.Hide();
         transform.DOMove(targetPos, 0.5f).SetDelay(0.5f).SetEase(Ease.InOutQuad).OnComplete(() => {
             this.callback = callback;
+            AddCards();
         });
 
-        AddCards();
     }
 
     public void Hide(bool instant = false)
@@ -106,17 +109,40 @@ public class CardChoice : CoduckStudio.Utils.Singleton<CardChoice>
                 selectButtonCanvas.GetComponentInChildren<Button>().onClick.AddListener(() => {
                     RunManager.Instance.inventory.Add(cardDefinition);
 
-                    DisableAll();
-                    count--;
-
-                    if (count > 0) {
-                        AddCards();
-                    }
-                    else {
-                        Hide();
-                    }
+                    CardChosenAnimation(() => {
+                        if (count > 0) {
+                            AddCards();
+                        }
+                        else {
+                            Hide();
+                        }
+                    });
                 });
             }
+        });
+    }
+
+    public void CardChosenAnimation(Action callback)
+    {
+        DisableAll();
+        count--;
+
+        // Reduce all cards size
+        slotContainer.forceCardBigHeight = false;
+        foreach (var cardSlot in slotContainer.GetCards()) {
+            if (!cardSlot.isEmpty && cardSlot?.card?.cardVisual) {
+                cardSlot.card.cardVisual.SetHeight(CardVisual.Height.Small);
+            }
+        }
+
+        CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.3f, () => {
+            slotContainer.RemoveAllCards();
+
+            CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.3f, () => {
+                slotContainer.forceCardBigHeight = true;
+                
+                callback?.Invoke();
+            });
         });
     }
 }

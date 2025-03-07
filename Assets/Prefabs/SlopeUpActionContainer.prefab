@@ -111,7 +111,8 @@ MonoBehaviour:
   challengeDisplay: {fileID: 7233007423690002852}
   cardType: 0
   arrowSpriteTransform: {fileID: 6209989087966084728}
-  QTERenderers: []
+  QTERenderers:
+  - {fileID: 1548926085720682746}
 --- !u!1 &1935447307189963951
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,6 +445,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+--- !u!1 &1548926085720682746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8884718982867260846, guid: 7509c988779289146a27df084ef86dd1, type: 3}
+  m_PrefabInstance: {fileID: 7940471520161080660}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7233007423690002852 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 743926444752696560, guid: 7509c988779289146a27df084ef86dd1, type: 3}

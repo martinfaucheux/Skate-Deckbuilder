@@ -71,7 +71,7 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
                 return;
             }
 
-            CoduckStudio.Utils.Async.Instance.WaitForSeconds(0.5f, () => {
+            CoduckStudio.Utils.Async.Instance.WaitForEndOfFrame(() => {
                 RelicChoice.Instance.Show(false, () => {
                     CardChoice.Instance.Show(false, () => {
                         ReloadBoard(() => {
@@ -219,12 +219,16 @@ public class RunManager : CoduckStudio.Utils.Singleton<RunManager>
     public RelicUI relicUIPrefab;
     private List<RelicDefinition> relics = new List<RelicDefinition>();
 
-    public void AddRelic(RelicDefinition relicDefinition)
+    public void AddRelic(RelicDefinition relicDefinition, Transform from = null)
     {
         relics.Add(relicDefinition);
 
         RelicUI relicUI = Instantiate(relicUIPrefab, relicUIList);
         relicUI.relicDefinition = relicDefinition;
+
+        if (from != null) {
+            relicUI.AppearsFromPos(from.position);
+        }
     }
 
     public bool HasRelic(string name)

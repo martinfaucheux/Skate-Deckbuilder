@@ -135,14 +135,20 @@ public class RelicChoice : CoduckStudio.Utils.Singleton<RelicChoice>
     public void OnClick_Relic(int index)
     {
         if (index == 1) {
-            RunManager.Instance.AddRelic(relicDefinition1);
+            RunManager.Instance.AddRelic(relicDefinition1, relicChoiceTransform1);
+            Destroy(relicChoiceTransform1.GetChild(0).gameObject);
         } else if (index == 2) {
-            RunManager.Instance.AddRelic(relicDefinition2);
+            RunManager.Instance.AddRelic(relicDefinition2, relicChoiceTransform2);
+            Destroy(relicChoiceTransform2.GetChild(0).gameObject);
         } else if (index == 3) {
-            RunManager.Instance.AddRelic(relicDefinition3);
+            RunManager.Instance.AddRelic(relicDefinition3, relicChoiceTransform3);
+            Destroy(relicChoiceTransform3.GetChild(0).gameObject);
         } else if (index == 4) {
-            RunManager.Instance.AddRelic(relicDefinition4);
+            RunManager.Instance.AddRelic(relicDefinition4, relicChoiceTransform4);
+            Destroy(relicChoiceTransform4.GetChild(0).gameObject);
         }
+
+        CoduckStudio.GenericTooltip.Instance.Hide();
 
         Hide();
     }

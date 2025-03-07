@@ -132,7 +132,9 @@ public class ScoreDisplay : CoduckStudio.Utils.Singleton<ScoreDisplay>
 
     public void OnClick_ExitButton()
     {
-        // TODO: go back to menu
+        FindFirstObjectByType<CoduckStudio.Fade>().HideGame(false, () => {
+            SceneManager.LoadScene("MenuScene");
+        });
     }
 
     public void OnClick_RestartButton()

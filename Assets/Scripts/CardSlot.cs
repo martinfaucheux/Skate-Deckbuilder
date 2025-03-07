@@ -75,7 +75,7 @@ public class CardSlot : MonoBehaviour
     public bool isLocked = false;
 
     public void OnMouseDown() {
-        if (isEmpty || isLocked) {
+        if (isEmpty || isLocked || RunManager.Instance.state != RunManager.State.Building) {
             return;
         }
 
@@ -84,7 +84,7 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseDrag() {
-        if (isEmpty || isLocked) {
+        if (isEmpty || isLocked || RunManager.Instance.state != RunManager.State.Building) {
             return;
         }
 
@@ -99,7 +99,7 @@ public class CardSlot : MonoBehaviour
     }
 
     public void OnMouseUp() {
-        if (isEmpty || isLocked) {
+        if (isEmpty || isLocked || RunManager.Instance.state != RunManager.State.Building) {
             return;
         }
 
