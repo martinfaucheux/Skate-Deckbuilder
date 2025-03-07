@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Slope Down - Blue
+  m_Name: Small Slope - Yellow
   m_EditorClassIdentifier: 
-  sprite: {fileID: 3169505403825592310, guid: 2eb5d67a6573f6c41afbe6c6cefb31e1, type: 3}
-  groundStartY: 0.9
+  sprite: {fileID: -3837307361366807934, guid: 62b95a6f1d92f634a86b466433764840, type: 3}
+  groundStartY: 0.4
   groundEndY: -0.4
-  splinePrefab: {fileID: 4601731338768967973, guid: 877fa178c3b0948129a9eed74f9919f0, type: 3}
-  actionContainerPrefab: {fileID: 6506123392268107093, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
+  splinePrefab: {fileID: 3166416206473936729, guid: df4b90de37298f24394905f62feb8ced, type: 3}
+  actionContainerPrefab: {fileID: 2642712769175286877, guid: 5b474c4bef76d4822a8689c10d36f56e, type: 3}
   energyCost: 0
-  energyGain: 2
-  score: 10
-  cardType: 0
+  energyGain: 1
+  score: 5
+  cardType: 2

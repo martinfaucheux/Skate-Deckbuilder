@@ -16,7 +16,7 @@ MonoBehaviour:
   groundStartY: -0.4
   groundEndY: 0.9
   splinePrefab: {fileID: 5382167696011436439, guid: bd101b51519504453a2ef46082fef429, type: 3}
-  actionContainerPrefab: {fileID: 6506123392268107093, guid: 4d4a3c98e610b44fd90b1d7173a782b3, type: 3}
+  actionContainerPrefab: {fileID: 6506123392268107093, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
   energyCost: 2
   energyGain: 0
   score: 30

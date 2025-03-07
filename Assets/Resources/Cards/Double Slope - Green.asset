@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 596a4a7117146154ababab9e9473ead3, type: 3}
-  m_Name: Slope Up - Red
+  m_Name: Double Slope - Green
   m_EditorClassIdentifier: 
-  sprite: {fileID: 6337518546395159049, guid: 3aa3c623eca7a3344baffa43b48c2f50, type: 3}
-  groundStartY: -0.4
-  groundEndY: 0.9
-  splinePrefab: {fileID: 5382167696011436439, guid: bd101b51519504453a2ef46082fef429, type: 3}
+  sprite: {fileID: 6831263496676890516, guid: 68b52e63a3080d040809c63919b99d71, type: 3}
+  groundStartY: -0.5
+  groundEndY: -0.5
+  splinePrefab: {fileID: 5382167696011436439, guid: d73eae0fb32b4e24a8df653c7eb93bdf, type: 3}
   actionContainerPrefab: {fileID: 6506123392268107093, guid: 69593264ce8184f358c58c52bd3c149b, type: 3}
-  energyCost: 2
-  energyGain: 0
-  score: 30
-  cardType: 1
+  energyCost: 3
+  energyGain: 2
+  score: 50
+  cardType: 3
